@@ -5,10 +5,12 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using ZeleniumFramework.Enums;
 using ZeleniumFramework.Utils;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {
-    public abstract class AbstractElement : IElement
+    //TODO: write test
+    public abstract class AbstractElement : IElementContainer
     {
         protected readonly IWebDriver webDriver;
         protected AbstractElement(IWebDriver webDriver, By locator = null)

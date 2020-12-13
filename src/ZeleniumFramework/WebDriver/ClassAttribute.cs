@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ZeleniumFramework.Config;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {

@@ -3,10 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {
-    public class ElementList<T> : IEnumerable<T> where T : IElement
+    public class ElementList<T> : IEnumerable<T> where T : IElementContainer
     {
         private readonly IWebDriver webDriver;
         private readonly IElementFinder finder;

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Drawing;
 using OpenQA.Selenium;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {
-    public class Element : AbstractElement
+    public class Element : AbstractElement, IElement
     {
         public Element(IWebDriver webDriver, By by = null) : base(webDriver, by)
         {
         }
 
-        public Color Color => this.GetColor();
         public string Text => this.Finder.WebElement().Text;
+        public Color Color => this.GetColor();
 
         public void WaitForText(string expectedText, TimeSpan? timeout = null, string errorMessage = null)
         {

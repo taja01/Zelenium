@@ -1,11 +1,11 @@
-﻿using OpenQA.Selenium;
-using ZeleniumFramework.Enums;
-using System;
+﻿using System;
 using System.Drawing;
+using OpenQA.Selenium;
+using ZeleniumFramework.Enums;
 
-namespace ZeleniumFramework.WebDriver
+namespace ZeleniumFramework.WebDriver.Interfaces
 {
-    public interface IElement
+    public interface IElementContainer
     {
         IElementFinder Finder { get; set; }
         IWebElement WebElement { get; }
@@ -17,8 +17,9 @@ namespace ZeleniumFramework.WebDriver
         Color BackgroundColor { get; }
         ClassAttribute Class { get; }
         Attributes Attributes { get; }
-        public string Path { get; }
+        string Path { get; }
 
+        bool IsDisappeared(TimeSpan? timeout = null);
         void Click(ClickMethod clickMethod);
         void WaitUntilDisappear(string errorMessage, TimeSpan? timeout = null);
         void WaitUntilDisplay(string errorMessage, TimeSpan? timeout = null);

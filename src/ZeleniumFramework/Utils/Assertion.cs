@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using NUnit.Framework;
 using ZeleniumFramework.Model;
 using ZeleniumFramework.WebDriver;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.Utils
 {
-    //TODO: write tests
     public class Assertion
     {
-        public static ElementValidatorBuilder On(Element element, string message)
+        public static ElementValidatorBuilder On(IElement element, string message)
         {
             return new ElementValidatorBuilder(element, message);
         }
 
-        public static ElementValidatorBuilder On(ElementList<Element> elements, string message)
+        public static ElementValidatorBuilder On(ElementList<IElement> elements, string message)
         {
             foreach (var element in elements)
             {
@@ -24,17 +25,17 @@ namespace ZeleniumFramework.Utils
             return null;
         }
 
-        public static void IsDisappeared(Element element, string message, TimeSpan? timeout = null)
+        public static void IsDisappeared(IElementContainer element, string elementName, TimeSpan? timeout = null)
         {
-            Assert.IsTrue(element.IsDisappeared(timeout), message);
+            Assert.IsTrue(element.IsDisappeared(timeout), $"'{elementName}' still present");
         }
 
-        public static void IsTextValid(Element element, string message)
+        public static void IsTextValid(IElement element, string message)
         {
             IsTrue(TestTextValidity(element, message));
         }
 
-        public static void IsReadable(Element element, string message, double readabilityLevel)
+        public static void IsReadable(IElement element, string message, double readabilityLevel)
         {
             IsTrue(TestReadability(element.Color, element.BackgroundColor, message, readabilityLevel));
         }
@@ -49,7 +50,7 @@ namespace ZeleniumFramework.Utils
             Assert.IsTrue(validationResult.Passed, $"{message}: {validationResult.Message}");
         }
 
-        private static ValidationResult TestTextValidity(Element element, string message)
+        private static ValidationResult TestTextValidity(IElement element, string message)
         {
             var path = element.Path;
             var displayed = element.Displayed;
@@ -57,28 +58,35 @@ namespace ZeleniumFramework.Utils
             {
                 return Fail($"{message} | {path} is not displayed");
             }
+            var erros = new List<string>();
             var text = element.Text;
 
             // not only whitespace
             if (string.IsNullOrWhiteSpace(text))
             {
-                return Fail($"{message} | Text of {path} is empty or whitespace only");
+                erros.Add($"Text is empty or whitespace only");
             }
 
             // not contain interpolation: {{var}}
             if (text.HasInterpolation())
             {
-                return Fail($"{message} | Text of {path} has interpolation: {text}");
+                erros.Add("Text has interpolation");
             }
 
             if (text.IsCrsKeyLike())
             {
-                return Fail($"{message} | Text of {path} is like a CRS key: {text}");
+                erros.Add("Text is like a CRS key");
             }
 
             if (text.HasHtmlTag())
             {
-                return Fail($"{message} | Text of {path} has Html tag: {text}");
+                erros.Add("Text has Html tag");
+            }
+
+            if (erros.Count > 0)
+            {
+                return Fail($"{message} | Path: {path} has following errors: {string.Join(Environment.NewLine, erros)} | {Environment.NewLine}"
+                    + $"Original text: '{text}'");
             }
 
             return Pass();
@@ -88,7 +96,7 @@ namespace ZeleniumFramework.Utils
         {
             if (readabilityLevel < 1)
             {
-                return new ValidationResult { Message = "Not applicable", Passed = true };
+                return new ValidationResult { Message = "Not applicable", Passed = false };
             }
 
             if (!ColorUtil.IsReadable(color, backgroundColor, readabilityLevel))
@@ -96,8 +104,8 @@ namespace ZeleniumFramework.Utils
 
                 return Fail($"{message} | {Environment.NewLine}"
                             + $"Contrast ratio ({ColorUtil.GetReadability(color, backgroundColor)}) of the given color pair is below the limit ({readabilityLevel}) | {Environment.NewLine}"
-                            + $"Color: {ColorUtil.ToRgbString(color)},{ColorUtil.ToHexString(color)} | {Environment.NewLine}"
-                            + $"Background color: {ColorUtil.ToRgbString(backgroundColor)},{ColorUtil.ToHexString(backgroundColor)}");
+                            + $"Color: {ColorUtil.ToRgbString(color)}, {ColorUtil.ToHexString(color)} | {Environment.NewLine}"
+                            + $"Background color: {ColorUtil.ToRgbString(backgroundColor)}, {ColorUtil.ToHexString(backgroundColor)}");
             }
             return Pass();
         }
@@ -107,3 +115,4 @@ namespace ZeleniumFramework.Utils
         private static ValidationResult Pass() => new ValidationResult { Message = "OK", Passed = true };
     }
 }
+

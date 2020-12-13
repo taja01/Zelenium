@@ -1,16 +1,16 @@
 ﻿using System.Drawing;
 using NUnit.Framework;
 using ZeleniumFramework.Config;
-using ZeleniumFramework.WebDriver;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.Utils
 {
     public class ElementValidatorBuilder
     {
-        private readonly Element element;
+        private readonly IElement element;
         private readonly string message;
 
-        public ElementValidatorBuilder(Element element, string message)
+        public ElementValidatorBuilder(IElement element, string message)
         {
             this.element = element;
             this.message = message;

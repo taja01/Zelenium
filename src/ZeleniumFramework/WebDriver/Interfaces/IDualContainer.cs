@@ -1,4 +1,4 @@
-﻿namespace ZeleniumFramework.WebDriver
+﻿namespace ZeleniumFramework.WebDriver.Interfaces
 {
     interface IDualContainer<out T1, out T2>
         where T1 : AbstractContainer

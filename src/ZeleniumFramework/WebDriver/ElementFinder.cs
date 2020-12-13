@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using ZeleniumFramework.Exceptions;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {

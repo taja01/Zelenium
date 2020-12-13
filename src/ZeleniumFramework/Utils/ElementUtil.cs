@@ -4,12 +4,13 @@ using OpenQA.Selenium;
 using ZeleniumFramework.Config;
 using ZeleniumFramework.Enums;
 using ZeleniumFramework.WebDriver;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.Utils
 {
     public class ElementUtil
     {
-        public static Shown ShownElement(IElement first, IElement second, IElement third = null, IElement fourth = null, TimeSpan? timeout = null)
+        public static Shown ShownElement(IElementContainer first, IElementContainer second, IElementContainer third = null, IElementContainer fourth = null, TimeSpan? timeout = null)
         {
             try
             {
@@ -21,7 +22,7 @@ namespace ZeleniumFramework.Utils
             }
         }
 
-        public static Shown ShownElementOrError(IElement first, IElement second, IElement third = null, IElement fourth = null, TimeSpan? timeout = null)
+        public static Shown ShownElementOrError(IElementContainer first, IElementContainer second, IElementContainer third = null, IElementContainer fourth = null, TimeSpan? timeout = null)
         {
             var shownElement = Shown.None;
 
@@ -68,7 +69,7 @@ namespace ZeleniumFramework.Utils
         /// <typeparam name="T"></typeparam>
         /// <param name="elementPairs"></param>
         /// <returns></returns>
-        public static T GetShowChild<T>((IElement, T)[] elementPairs)
+        public static T GetShowChild<T>((IElementContainer, T)[] elementPairs)
         {
             var paths = elementPairs.Select(ep => ep.Item1).Select(e => e.Finder.Path).Aggregate((i, j) => $"{i},  {j}");
             var index = -1;
