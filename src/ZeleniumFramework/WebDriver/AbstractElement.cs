@@ -3,13 +3,13 @@ using System.Drawing;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using ZeleniumFramework.Config;
 using ZeleniumFramework.Enums;
 using ZeleniumFramework.Utils;
 using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {
-    //TODO: write test
     public abstract class AbstractElement : IElementContainer
     {
         protected readonly IWebDriver webDriver;
@@ -42,14 +42,13 @@ namespace ZeleniumFramework.WebDriver
                 case ClickMethod.Javascript: this.ExecuteScript("arguments[0].click();"); break;
                 case ClickMethod.NewTab: this.ExecuteScript("window.open(arguments[0], '_blank')"); break;
             }
-
         }
 
         public void WaitUntilDisappear(string errorMessage, TimeSpan? timeout = null)
         {
             Wait.Initialize()
                 .Message(errorMessage)
-                .Timeout(timeout ?? TimeSpan.FromSeconds(5))
+                .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Until(() => !this.DisplayedNow);
         }
 
@@ -57,7 +56,7 @@ namespace ZeleniumFramework.WebDriver
         {
             return Wait.Initialize()
                 .IgnoreExceptionTypes(typeof(WebDriverTimeoutException))
-                .Timeout(timeout ?? TimeSpan.FromSeconds(5))
+                .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Success(() => !this.DisplayedNow);
         }
 
@@ -71,7 +70,7 @@ namespace ZeleniumFramework.WebDriver
         {
             Wait.Initialize()
                 .Message(errorMessage)
-                .Timeout(timeout ?? TimeSpan.FromSeconds(5))
+                .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Until(() => this.DisplayedNow);
         }
 
@@ -161,7 +160,9 @@ namespace ZeleniumFramework.WebDriver
 
         public string GetComputedStyle(string style, string pseudo = null)
         {
-            var pseudoText = pseudo != null ? $", '{pseudo}'" : string.Empty;
+            var pseudoText = pseudo != null
+                ? $", '{pseudo}'"
+                : string.Empty;
             var script = $"return window.getComputedStyle(arguments[0] {pseudoText}).getPropertyValue('{style}')";
             return this.Do(() =>
                 ((IJavaScriptExecutor)this.webDriver).ExecuteScript(script, this.Finder.WebElement()).ToString());
