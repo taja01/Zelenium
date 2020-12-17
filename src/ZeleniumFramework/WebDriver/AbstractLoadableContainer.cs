@@ -1,13 +1,17 @@
 ﻿using System;
 using OpenQA.Selenium;
-using ZeleniumFramework.Config;
-using ZeleniumFramework.Model;
+using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {
     public abstract class AbstractLoadableContainer : AbstractContainer
     {
         private readonly string url;
+
+        protected AbstractLoadableContainer(IWebDriver webDriver, By locator, IRouteBuilder routeBuilder, Enum page) : base(webDriver, locator)
+        {
+            this.url = routeBuilder.GetUrl(page);
+        }
 
         protected AbstractLoadableContainer(IWebDriver webDriver, By locator, string url) : base(webDriver, locator)
         {
@@ -18,15 +22,5 @@ namespace ZeleniumFramework.WebDriver
         {
             this.webDriver.Url = this.url;
         }
-
-        public void WaitForLoad(TimeSpan? timeout = null)
-        {
-            Wait.Initialize()
-                .Message("Cannot load page")
-                .Timeout(timeout ?? TimeConfig.LongTimeout)
-                .Until(this.IsLoaded, t => t.Passed, t => t.Message);
-        }
-
-        public abstract ValidationResult IsLoaded();
     }
 }

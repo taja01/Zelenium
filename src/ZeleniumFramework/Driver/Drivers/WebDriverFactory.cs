@@ -1,6 +1,8 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
 using ZeleniumFramework.Driver.Options;
 using ZeleniumFramework.Enums;
 
@@ -10,7 +12,7 @@ namespace ZeleniumFramework.Driver.Drivers
     {
         private IWebDriver driver;
 
-        public IWebDriver GetWebDriver()
+        public IWebDriver GetWebDriver(Browser browser, bool debug = true, string path = null)
         {
             if (this.driver != null)
             {
@@ -19,8 +21,14 @@ namespace ZeleniumFramework.Driver.Drivers
 
             try
             {
-                this.driver = this.CreateChromeDriver(Device.Desktop);
-                return this.driver;
+                return browser switch
+                {
+                    Browser.Chrome => this.CreateChromeDriver(Device.Desktop, debug),
+                    Browser.Firefox => this.CreateFirefoxDriver(Device.Desktop, debug),
+                    Browser.Edge => this.CreateEdgeDriver(Device.Desktop, debug, path),
+                    _ => throw new NotImplementedException()
+                };
+
             }
             catch (Exception exception)
             {
@@ -28,15 +36,44 @@ namespace ZeleniumFramework.Driver.Drivers
             }
         }
 
-        private IWebDriver CreateChromeDriver(Device device)
+        private IWebDriver CreateChromeDriver(Device device, bool debug = true)
         {
 
-            var options = ChromeOptionsDirector.NewChromeOptionsDirector.
-                SetCommon().
-                SetDevice(device).
-                Build();
+            var options = ChromeOptionsDirector
+                .NewChromeOptionsDirector
+                .SetCommon()
+                .SetDevice(device)
+                .SetHeadless(debug)
+                .Build();
 
             return new ChromeDriver(options);
+        }
+
+        private IWebDriver CreateFirefoxDriver(Device device, bool debug = true)
+        {
+            var geckoService = FirefoxDriverService.CreateDefaultService();
+            geckoService.Host = "::1";
+
+            var options = FireFoxOptionsDirector
+                .NewFirefoxOptionsDirector
+                .SetCommon()
+                .SetDevice(device)
+                .SetHeadless(debug)
+                .Build();
+
+            return new FirefoxDriver(geckoService, options);
+        }
+
+        private IWebDriver CreateEdgeDriver(Device device, bool debug = true, string path = null)
+        {
+            var options = EdgeOptionsDirector
+                .NewEdgeOptionsDirector
+                .SetCommon()
+                .SetDevice(device)
+                .SetHeadless(debug)
+                .Build();
+
+            return new EdgeDriver(path, options);
         }
     }
 }

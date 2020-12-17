@@ -38,7 +38,19 @@ namespace ZeleniumFramework.WebDriver
         {
             switch (clickMethod)
             {
-                case ClickMethod.Default: this.WebElement.Click(); break;
+                case ClickMethod.Default:
+                    {
+                        if (this.Displayed)
+                        {
+                            this.Scroll();
+                            this.WebElement.Click();
+                        }
+                        else
+                        {
+                            throw new ElementNotVisibleException($"ELement not visible - not possible to click. Path: {this.Path}");
+                        }
+                        break;
+                    }
                 case ClickMethod.Javascript: this.ExecuteScript("arguments[0].click();"); break;
                 case ClickMethod.NewTab: this.ExecuteScript("window.open(arguments[0], '_blank')"); break;
             }
@@ -155,7 +167,16 @@ namespace ZeleniumFramework.WebDriver
 
         public void Scroll()
         {
-            new Actions(this.webDriver).MoveToElement(this.Finder.WebElement()).Perform();
+            try
+            {
+                new Actions(this.webDriver)
+                     .MoveToElement(this.Finder.WebElement())
+                     .Perform();
+            }
+            catch (MoveTargetOutOfBoundsException)
+            {
+                this.ExecuteScript("arguments[0].scrollIntoView(true);");
+            }
         }
 
         public string GetComputedStyle(string style, string pseudo = null)

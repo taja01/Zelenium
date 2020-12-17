@@ -25,6 +25,11 @@ namespace ZeleniumFramework.Utils
             return null;
         }
 
+        public static void IsDisplayed(IElement element, string message)
+        {
+            Assert.IsTrue(element.Displayed, message);
+        }
+
         public static void IsDisappeared(IElementContainer element, string elementName, TimeSpan? timeout = null)
         {
             Assert.IsTrue(element.IsDisappeared(timeout), $"'{elementName}' still present");

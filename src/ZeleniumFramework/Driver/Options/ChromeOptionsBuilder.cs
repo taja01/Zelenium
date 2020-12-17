@@ -22,13 +22,13 @@ namespace ZeleniumFramework.Driver.Options
         {
             this.chromeOptions.AddArgument("--no-sandbox");
             this.chromeOptions.AddArgument("--allow-running-insecure-content");
-            this.chromeOptions.AddArgument("--ignore-gpu-blacklist");
+            this.chromeOptions.AddArgument("--ignore-gpu-blocklis");
             this.chromeOptions.AcceptInsecureCertificates = true;
 
             // Disable automation info-bar message
             this.chromeOptions.AddExcludedArgument("enable-automation");
             // Disable pop up 'Disable developer mode extensions'
-            this.chromeOptions.AddAdditionalCapability("useAutomationExtension", false);
+            this.chromeOptions.AddAdditionalOption("useAutomationExtension", false);
 
             // Disable chrome save your password pop up
             this.chromeOptions.AddUserProfilePreference("credentials_enable_service", false);
@@ -48,7 +48,7 @@ namespace ZeleniumFramework.Driver.Options
             }
             else
             {
-                var chromeMobile = new ChromeMobileEmulationDeviceSettings
+                var chromeMobile = new OpenQA.Selenium.Chromium.ChromiumMobileEmulationDeviceSettings
                 {
                     //UserAgent = UserAgentProvider.Get(),
                     PixelRatio = 3.0,
@@ -66,9 +66,9 @@ namespace ZeleniumFramework.Driver.Options
 
     internal class ChromeHeadlessSettingsBuilder<T> : ChromeDeviceSettingsBuilder<ChromeHeadlessSettingsBuilder<T>> where T : ChromeHeadlessSettingsBuilder<T>
     {
-        public T SetHeadless(bool isHeadless)
+        public T SetHeadless(bool debug)
         {
-            if (isHeadless)
+            if (!debug)
             {
                 this.chromeOptions.AddArgument("--headless");
             }

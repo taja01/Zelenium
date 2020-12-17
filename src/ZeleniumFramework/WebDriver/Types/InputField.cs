@@ -3,7 +3,7 @@ using ZeleniumFramework.Config;
 
 namespace ZeleniumFramework.WebDriver.Types
 {
-    public class InputField : AbstractElement
+    public class InputField : Element
     {
         public InputField(IWebDriver webDriver, By locator = null) : base(webDriver, locator)
         {
@@ -12,7 +12,7 @@ namespace ZeleniumFramework.WebDriver.Types
         public string Value => this.Attributes.Get("value");
         public string Placeholder => this.Attributes.Get("placeholder");
 
-        public void Clear()
+        public virtual void Clear()
         {
             this.Finder.WebElement().Clear();
             //Wait.Initialize()
@@ -28,7 +28,7 @@ namespace ZeleniumFramework.WebDriver.Types
             //    });
         }
 
-        public void SendKeys(string text)
+        public virtual void SendKeys(string text)
         {
             Wait.Initialize()
                 .Timeout(TimeConfig.LongTimeout)
@@ -42,7 +42,7 @@ namespace ZeleniumFramework.WebDriver.Types
                 });
         }
 
-        public void SendKeysSpecial(string text)
+        public virtual void SendKeysSpecial(string text)
         {
             this.Do(() => this.Finder.WebElement().SendKeys(text));
         }

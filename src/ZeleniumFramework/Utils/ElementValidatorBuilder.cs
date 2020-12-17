@@ -16,6 +16,12 @@ namespace ZeleniumFramework.Utils
             this.message = message;
         }
 
+        public ElementValidatorBuilder IsDisplayed()
+        {
+            Assertion.IsDisplayed(this.element, this.message);
+            return this;
+        }
+
         public ElementValidatorBuilder IsTextValid()
         {
             Assertion.IsTextValid(this.element, this.message);

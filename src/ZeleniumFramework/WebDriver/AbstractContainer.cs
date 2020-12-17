@@ -1,5 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
+using ZeleniumFramework.Config;
+using ZeleniumFramework.Model;
 using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
@@ -22,5 +24,15 @@ namespace ZeleniumFramework.WebDriver
         {
             return new ElementList<T>(this.webDriver, this.Finder, locator, timeout);
         }
+
+        public void WaitForLoad(TimeSpan? timeout = null)
+        {
+            Wait.Initialize()
+                .Message("Cannot load page")
+                .Timeout(timeout ?? TimeConfig.LongTimeout)
+                .Until(this.IsLoaded, t => t.Passed, t => t.Message);
+        }
+
+        public abstract ValidationResult IsLoaded();
     }
 }

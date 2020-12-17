@@ -47,5 +47,14 @@ namespace MaterialAngular.PageObjects
         public Element Disabled { get; private set; }
         public Element Link { get; private set; }
 
+        public override ValidationResult IsLoaded()
+        {
+            if (!this.Displayed)
+            {
+                return new ValidationResult { Passed = false, Message = $"Container not loaded: Path{this.Path}" };
+            }
+
+            return new ValidationResult { Passed = true, Message = "Ok" };
+        }
     }
 }

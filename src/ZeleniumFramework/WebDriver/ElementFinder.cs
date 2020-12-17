@@ -67,7 +67,10 @@ namespace ZeleniumFramework.WebDriver
             return Wait.Initialize()
                .Timeout(timeout ?? this.timeOut)
                .IgnoreExceptionTypes(typeof(NoSuchElementException))
-               .Success(() => this.TryFindElement(out _));
+               .Success(() =>
+               {
+                   return this.TryFindElement(out var element) && element.Displayed;
+               });
         }
 
         private bool TryFindElement(out IWebElement webElement)
