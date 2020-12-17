@@ -6,7 +6,7 @@ using OpenQA.Selenium.Firefox;
 using ZeleniumFramework.Driver.Options;
 using ZeleniumFramework.Enums;
 
-namespace ZeleniumFramework.Driver.Drivers
+namespace ZeleniumFramework.Driver
 {
     public class WebDriverFactory
     {

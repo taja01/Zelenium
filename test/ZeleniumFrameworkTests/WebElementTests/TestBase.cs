@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using ZeleniumFramework.Driver;
+using ZeleniumFramework.Enums;
 
 namespace ZeleniumFrameworkTest.WebElementTests
 {
@@ -12,10 +13,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
         [OneTimeSetUp]
         public void OneTimeBaseSetup()
         {
-            var options = new ChromeOptions();
-            options.AddArgument("--headless");
-            this.driver = new ChromeDriver(options);
-
+            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, false);
             this.driver.Manage().Window.Maximize();
         }
 
