@@ -28,7 +28,7 @@ namespace ZeleniumFramework.WebDriver.Types
             }
         }
 
-        public void SelectByIndex(string text)
+        public void SelectByText(string text)
         {
             this.selectElement.SelectByText(text);
         }
