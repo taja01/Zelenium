@@ -18,7 +18,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
         }
 
         [OneTimeTearDown]
-        public void TearDowb()
+        public void TearDown()
         {
             this.driver.Quit();
             this.driver.Dispose();

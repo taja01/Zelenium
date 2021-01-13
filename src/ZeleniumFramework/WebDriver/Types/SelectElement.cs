@@ -55,6 +55,24 @@ namespace ZeleniumFramework.WebDriver.Types
             return list;
         }
 
+        public int CurrentIndex()
+        {
+            var index = 0;
+            using var all = this.selectElement.Options.GetEnumerator();
+
+            while (all.MoveNext())
+            {
+                if (all.Current.Selected)
+                {
+                    return index;
+                }
+
+                index++;
+            }
+
+            return -1;
+        }
+
         public int Count => this.selectElement.Options.Count;
     }
 }
