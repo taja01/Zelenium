@@ -25,7 +25,7 @@ namespace ZeleniumFramework.WebDriver
             return new ElementList<T>(this.webDriver, this.Finder, locator, timeout);
         }
 
-        public void WaitForLoad(TimeSpan? timeout = null)
+        public virtual void WaitForLoad(TimeSpan? timeout = null)
         {
             Wait.Initialize()
                 .Message("Cannot load page")

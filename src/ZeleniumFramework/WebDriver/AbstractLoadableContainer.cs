@@ -3,7 +3,7 @@ using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
 {
-    public abstract class AbstractLoadableContainer : AbstractContainer
+    public abstract class AbstractLoadableContainer : AbstractContainer, ILoadableContainer
     {
         private readonly string url;
 
@@ -18,7 +18,7 @@ namespace ZeleniumFramework.WebDriver
         }
     }
 
-    public abstract class AbstractLoadableContainer<TEnum> : AbstractContainer
+    public abstract class AbstractLoadableContainer<TEnum> : AbstractContainer, ILoadableContainer
     {
         private readonly string url;
 
