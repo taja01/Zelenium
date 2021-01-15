@@ -2,8 +2,10 @@
 using System.Drawing;
 using Moq;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using ZeleniumFramework.Model;
 using ZeleniumFramework.Utils;
+using ZeleniumFramework.WebDriver;
 using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFrameworkTests.CoreTests
@@ -227,13 +229,142 @@ namespace ZeleniumFrameworkTests.CoreTests
         public void IsDisappearedFalseTest()
         {
             var mockElement = new Mock<IElementContainer>();
-            mockElement.CallBase = true;
+
             mockElement.Setup(x => x.IsDisappeared(It.IsAny<TimeSpan>())).Returns(false);
 
 
             Assert.That(() => Assertion.IsDisappeared(mockElement.Object, "mock element"),
                 Throws.TypeOf<AssertionException>()
                 .With.Message.Contains("'mock element' still present"));
+        }
+
+        [Test]
+        public void WaitForCollectionNumberAreEqualsTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assertion.WaitColllectionCountAreEqual(5, mockList.Object, "mock list");
+        }
+
+        [Test]
+        public void WaitForCollectionNumberAreEqualsNegativeTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(1);
+
+            Assert.That(() => Assertion.WaitColllectionCountAreEqual(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+                Throws.TypeOf<WebDriverTimeoutException>()
+                .With.Message.Contains("mock list"));
+        }
+
+        [Test]
+        public void WaitForCollectionNumberAreNotEqualsTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assertion.WaitColllectionCountAreNotEqual(1, mockList.Object, "mock list");
+        }
+
+        [Test]
+        public void WaitForCollectionNumberAreNotEqualsNegativeTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(1);
+
+            Assert.That(() => Assertion.WaitColllectionCountAreNotEqual(1, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+                Throws.TypeOf<WebDriverTimeoutException>()
+                .With.Message.Contains("mock list"));
+        }
+
+        [Test]
+        public void WaitColllectionCountAreGreaterTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assertion.WaitColllectionCountAreGreater(4, mockList.Object, "mock list");
+        }
+
+        [Test]
+        public void WaitColllectionCountAreGreaterNegativeTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assert.That(() => Assertion.WaitColllectionCountAreGreater(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+                Throws.TypeOf<WebDriverTimeoutException>()
+                .With.Message.Contains("mock list"));
+
+            Assert.That(() => Assertion.WaitColllectionCountAreGreater(6, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+                Throws.TypeOf<WebDriverTimeoutException>()
+                .With.Message.Contains("mock list"));
+        }
+
+        [Test]
+        public void WaitColllectionCountAreLessTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assertion.WaitColllectionCountAreLess(6, mockList.Object, "mock list");
+        }
+
+        [Test]
+        public void WaitColllectionCountAreLessNegativeTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assert.That(() => Assertion.WaitColllectionCountAreLess(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+                Throws.TypeOf<WebDriverTimeoutException>()
+                .With.Message.Contains("mock list"));
+            Assert.That(() => Assertion.WaitColllectionCountAreLess(4, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+               Throws.TypeOf<WebDriverTimeoutException>()
+               .With.Message.Contains("mock list"));
+        }
+
+        [Test]
+        public void WaitColllectionCountAreLessOrEqualTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assertion.WaitColllectionCountAreLessOrEqual(5, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreLessOrEqual(6, mockList.Object, "mock list");
+        }
+
+        [Test]
+        public void WaitColllectionCountAreLessOrEqualNegativeTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assert.That(() => Assertion.WaitColllectionCountAreLess(4, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+                Throws.TypeOf<WebDriverTimeoutException>()
+                .With.Message.Contains("mock list"));
+        }
+
+        [Test]
+        public void WaitColllectionCountAreGreaterOrEqualTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assertion.WaitColllectionCountAreGreaterOrEqual(4, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreGreaterOrEqual(5, mockList.Object, "mock list");
+        }
+
+        [Test]
+        public void WaitColllectionCountAreGreaterOrEqualNegativeTest()
+        {
+            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null);
+            mockList.Setup(x => x.Count).Returns(5);
+
+            Assert.That(() => Assertion.WaitColllectionCountAreGreaterOrEqual(6, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+                Throws.TypeOf<WebDriverTimeoutException>()
+                .With.Message.Contains("mock list"));
         }
     }
 }

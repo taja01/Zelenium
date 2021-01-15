@@ -1,8 +1,8 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using OpenQA.Selenium;
 using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
@@ -23,7 +23,7 @@ namespace ZeleniumFramework.WebDriver
         }
 
         public string Path => $"{this.finder.Path} {this.locator}";
-        public int Count => this.Elements.Count();
+        public virtual int Count => this.Elements.Count();
         public T this[int index] => this.GetElement(index);
 
         public List<T> Elements
