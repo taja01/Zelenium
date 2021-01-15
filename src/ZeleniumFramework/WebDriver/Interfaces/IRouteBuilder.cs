@@ -1,7 +1,7 @@
 ﻿namespace ZeleniumFramework.WebDriver.Interfaces
 {
-    public interface IRouteBuilder
+    public interface IRouteBuilder<T>
     {
-        public string GetUrl(System.Enum page);
+        string GetUrl(T page);
     }
 }
