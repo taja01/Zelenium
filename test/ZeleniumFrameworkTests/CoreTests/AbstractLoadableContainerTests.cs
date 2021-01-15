@@ -43,10 +43,12 @@ namespace ZeleniumFrameworkTest.CoreTests
         [Test]
         public void LoadTest()
         {
+            //wut?
             var driver = new Mock<IWebDriver>();
             driver.Setup(x => x.Url).Returns("https://google.com");
             var mock = new Mock<AbstractLoadableContainer>(driver.Object, By.CssSelector(".class"), "https://google.com")
             {
+                CallBase = true
             };
 
             var mockLoadableContainer = mock.Object;
