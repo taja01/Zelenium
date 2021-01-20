@@ -5,8 +5,8 @@ namespace ZeleniumFramework.WebDriver.Interfaces
 {
     public interface ILoadableContainer
     {
-        abstract void Load();
+        void Load();
         void WaitForLoad(TimeSpan? timeout = null);
-        abstract ValidationResult IsLoaded();
+        ValidationResult IsLoaded();
     }
 }
