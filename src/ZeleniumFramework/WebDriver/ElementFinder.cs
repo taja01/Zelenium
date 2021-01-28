@@ -76,36 +76,41 @@ namespace ZeleniumFramework.WebDriver
         private bool TryFindElement(out IWebElement webElement)
         {
             webElement = null;
-            try
+
+            IWebElement FindSingleElement()
             {
-                IWebElement FindSingleElement()
+                return this.cachedWebElement = this.finder == null
+                    ? this.searchContext.FindElement(this.locator)
+                    : this.finder.WebElement().FindElement(this.locator);
+            }
+
+            IWebElement FindMultiSingleElement()
+            {
+                var list = this.finder == null
+                    ? this.searchContext.FindElements(this.locator)
+                    : this.finder.WebElement().FindElements(this.locator);
+
+                if (this.index >= list.Count)
                 {
-                    return this.cachedWebElement = this.finder == null
-                        ? this.searchContext.FindElement(this.locator)
-                        : this.finder.WebElement().FindElement(this.locator);
+                    throw new NoSuchElementException("What is this?");
                 }
 
-                IWebElement FindMultiSingleElement()
-                {
-                    var list = this.finder == null
-                        ? this.searchContext.FindElements(this.locator)
-                        : this.finder.WebElement().FindElements(this.locator);
-
-                    if (this.index >= list.Count)
-                    {
-                        throw new NoSuchElementException("What is this?");
-                    }
-
-                    return this.cachedWebElement = list[this.index];
-                }
-
-                webElement = this.index >= 0 ? FindMultiSingleElement() : FindSingleElement();
-                return true;
+                return this.cachedWebElement = list[this.index];
             }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
+
+            webElement = Wait.Initialize()
+                 .IgnoreExceptionTypes(typeof(NoSuchElementException))
+                 .Timeout(this.timeOut)
+                 .Until(() =>
+                 {
+                     var element = this.index >= 0
+                       ? FindMultiSingleElement()
+                       : FindSingleElement();
+
+                     return element;
+                 });
+
+            return webElement != null;
         }
 
         private bool IsCashValid()

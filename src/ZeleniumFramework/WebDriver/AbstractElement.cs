@@ -88,7 +88,14 @@ namespace ZeleniumFramework.WebDriver
 
         public void ExecuteScript(string script)
         {
-            ((IJavaScriptExecutor)this.webDriver).ExecuteScript(script, this.Finder.WebElement());
+            try
+            {
+                ((IJavaScriptExecutor)this.webDriver).ExecuteScript(script, this.Finder.WebElement());
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
 
