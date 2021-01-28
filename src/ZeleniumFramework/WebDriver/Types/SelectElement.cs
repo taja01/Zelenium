@@ -55,13 +55,25 @@ namespace ZeleniumFramework.WebDriver.Types
             return list;
         }
 
-        public IList<string> GetSelectedOptions()
+        public IList<string> GetSelectedOptionsTexts()
         {
             var list = new List<string>();
             using var all = this.selectElement.AllSelectedOptions.GetEnumerator();
             while (all.MoveNext())
             {
                 list.Add(all.Current.Text);
+            }
+
+            return list;
+        }
+
+        public IList<string> GetSelectedOptionsValues(string attributeName = "value")
+        {
+            var list = new List<string>();
+            using var all = this.selectElement.AllSelectedOptions.GetEnumerator();
+            while (all.MoveNext())
+            {
+                list.Add(all.Current.GetAttribute(attributeName));
             }
 
             return list;
