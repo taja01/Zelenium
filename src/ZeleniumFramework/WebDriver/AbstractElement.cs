@@ -19,6 +19,7 @@ namespace ZeleniumFramework.WebDriver
             if (locator != null)
             {
                 this.Finder = new ElementFinder(this.webDriver, null, locator);
+                this.JavaScriptExecutor = new JavaScriptExecutor(this.webDriver);
             }
         }
 
@@ -33,6 +34,8 @@ namespace ZeleniumFramework.WebDriver
         public ClassAttribute Class => new ClassAttribute(this.Finder);
         public Attributes Attributes => new Attributes(this.Finder);
         public string Path => this.Finder.Path;
+
+        public JavaScriptExecutor JavaScriptExecutor { get; private set; }
 
         public void Click(ClickMethod clickMethod = ClickMethod.Default)
         {
@@ -88,16 +91,13 @@ namespace ZeleniumFramework.WebDriver
 
         public void ExecuteScript(string script)
         {
-            try
-            {
-                ((IJavaScriptExecutor)this.webDriver).ExecuteScript(script, this.Finder.WebElement());
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            JavaScriptExecutor.Execute(script, this);
         }
 
+        public void ExecuteScript(string script, out object result)
+        {
+            result = JavaScriptExecutor.Execute(script, this);
+        }
 
         protected Color GetColor()
         {

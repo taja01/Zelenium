@@ -2,6 +2,7 @@
 using System.Drawing;
 using OpenQA.Selenium;
 using ZeleniumFramework.Enums;
+using ZeleniumFramework.Utils;
 
 namespace ZeleniumFramework.WebDriver.Interfaces
 {
@@ -18,6 +19,7 @@ namespace ZeleniumFramework.WebDriver.Interfaces
         ClassAttribute Class { get; }
         Attributes Attributes { get; }
         string Path { get; }
+        JavaScriptExecutor JavaScriptExecutor { get; }
 
         bool IsDisappeared(TimeSpan? timeout = null);
         void Click(ClickMethod clickMethod);

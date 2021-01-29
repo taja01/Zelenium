@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using ZeleniumFramework.Exceptions;
 using ZeleniumFramework.Helper;
 using ZeleniumFramework.WebDriver;
+using ZeleniumFramework.WebDriver.Interfaces;
 using Wait = ZeleniumFramework.WebDriver.Wait;
 
 namespace ZeleniumFramework.Utils
@@ -84,7 +85,7 @@ namespace ZeleniumFramework.Utils
             }
         }
 
-        public object Execute(string script, AbstractContainer obj)
+        public object Execute(string script, IElementContainer obj)
         {
             try
             {

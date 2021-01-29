@@ -25,6 +25,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
         public void HasClassTest()
         {
             Assert.IsTrue(this.tabsPage.Tab1.Class.Has(ACTIVE_CLASS));
+            this.tabsPage.Tab1.ExecuteScript
         }
 
         [Test]
