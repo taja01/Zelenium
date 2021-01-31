@@ -6,7 +6,7 @@ using OpenQA.Selenium;
 namespace ZeleniumFrameworkTest.WebElementTests
 {
     [TestFixture]
-    public class ClassTests : TestBase
+    public class ClassTests : BaseTest
     {
         TabsPage tabsPage;
         const string ACTIVE_CLASS = "mat-tab-label-active";

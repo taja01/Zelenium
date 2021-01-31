@@ -7,7 +7,7 @@ using OpenQA.Selenium.Chrome;
 namespace ZeleniumFrameworkTest.WebElementTests
 {
     [TestFixture]
-    public class ElemetWaitUntilTests : TestBase
+    public class ElemetWaitUntilTests : BaseTest
     {
         SnackBarPage snackBarPage;
 

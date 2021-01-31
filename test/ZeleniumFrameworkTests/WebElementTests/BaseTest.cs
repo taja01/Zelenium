@@ -6,7 +6,7 @@ using ZeleniumFramework.Enums;
 namespace ZeleniumFrameworkTest.WebElementTests
 {
     [TestFixture]
-    public abstract class TestBase
+    public abstract class BaseTest
     {
         protected IWebDriver driver;
 

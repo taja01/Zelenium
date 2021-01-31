@@ -6,7 +6,7 @@ using ZeleniumFrameworkTest.WebElementTests;
 namespace ZeleniumFrameworkTests.WebElementTests
 {
     [TestFixture]
-    class JavaScriptTests : TestBase
+    class JavaScriptTests : BaseTest
     {
         private ButtonPage buttonPage;
 

@@ -44,6 +44,7 @@ namespace MaterialAngular.PageObjects
             this.Warn = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(4) > span:first-of-type"));
             this.Disabled = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(5) > span:first-of-type"));
             this.Link = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(6) > span:first-of-type"));
+            this.NotExist = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(16) > span:first-of-type"));
         }
 
         public Element Basic { get; private set; }
@@ -52,6 +53,8 @@ namespace MaterialAngular.PageObjects
         public Element Warn { get; private set; }
         public Element Disabled { get; private set; }
         public Element Link { get; private set; }
+        public Element NotExist { get; private set; }
+
 
         public override ValidationResult IsLoaded()
         {

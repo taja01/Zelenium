@@ -40,18 +40,12 @@ namespace ZeleniumFramework.WebDriver
 
         public IWebElement WebElement()
         {
-            if (this.IsCashValid())
+            if (this.IsCashValid() || this.Displayed())
             {
                 return this.cachedWebElement;
             }
 
-            if (this.TryFindElement(out var element))
-            {
-                return element;
-            }
-
             throw new MissingElementException($"Element not found {this.Path}");
-
         }
 
         public bool Present(TimeSpan? timeout = null)

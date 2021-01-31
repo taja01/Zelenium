@@ -5,7 +5,7 @@ using ZeleniumFramework.Utils;
 namespace ZeleniumFrameworkTest.WebElementTests
 {
     [TestFixture]
-    public class ButtonColorTest : TestBase
+    public class ButtonColorTest : BaseTest
     {
         private ButtonPage buttonPage;
 

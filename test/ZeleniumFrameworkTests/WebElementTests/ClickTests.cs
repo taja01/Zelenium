@@ -6,7 +6,7 @@ using ZeleniumFrameworkTest.WebElementTests;
 namespace ZeleniumFrameworkTests.WebElementTests
 {
     [TestFixture]
-    public class ClickTests : TestBase
+    public class ClickTests : BaseTest
     {
         private ButtonPage buttonPage;
 
