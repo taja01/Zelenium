@@ -10,8 +10,11 @@ namespace MaterialAngular.PageObjects
         {
             this.ShowSnackBarButton = this.Find<Element>(By.CssSelector("snack-bar-overview-example > button"));
             this.SnackBar = this.Find<Element>(By.CssSelector(".mat-simple-snackbar-action"));
+            this.Header = this.Find<Header>(By.CssSelector(".docs-navbar-header"));
+
         }
 
+        public Header Header { get; private set; }
         public Element ShowSnackBarButton { get; private set; }
         public Element SnackBar { get; private set; }
 

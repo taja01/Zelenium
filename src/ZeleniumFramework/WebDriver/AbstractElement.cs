@@ -40,29 +40,28 @@ namespace ZeleniumFramework.WebDriver
 
         public void Click(ClickMethod clickMethod = ClickMethod.Default)
         {
+            if (!this.Displayed)
+            {
+                throw new ElementNotVisibleException($"ELement not visible - not possible to click. Path: {this.Path}");
+            }
+
             switch (clickMethod)
             {
                 case ClickMethod.Default:
                     {
-                        if (this.Displayed)
+                        try
                         {
-                            try
-                            {
-                                this.Scroll();
-                                this.WebElement.Click();
-                            }
-                            catch (ElementClickInterceptedException e)
-                            {
-                                Console.WriteLine($"Failed to 'xlick' emelent: {this.Path}");
-                                Console.WriteLine("Trying to click using javascript!");
-                                Console.WriteLine(e.Message);
-                                this.ExecuteScript(BaseQueries.JavaScriptClick);
-                            }
+                            this.Scroll();
+                            this.WebElement.Click();
                         }
-                        else
+                        catch (ElementClickInterceptedException e)
                         {
-                            throw new ElementNotVisibleException($"ELement not visible - not possible to click. Path: {this.Path}");
+                            Console.WriteLine($"Failed to 'xlick' emelent: {this.Path}");
+                            Console.WriteLine("Trying to click using javascript!");
+                            Console.WriteLine(e.Message);
+                            this.ExecuteScript(BaseQueries.JavaScriptClick);
                         }
+
                         break;
                     }
                 case ClickMethod.Javascript: this.ExecuteScript(BaseQueries.JavaScriptClick); break;

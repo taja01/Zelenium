@@ -14,7 +14,7 @@ namespace ZeleniumFramework.WebDriver
         public string Text => this.Finder.WebElement().Text;
         public Color Color => this.GetColor();
 
-        public void WaitForText(string expectedText, TimeSpan? timeout = null, string errorMessage = null)
+        public void WaitForText(string expectedText, bool caseSensitive = true, TimeSpan? timeout = null, string errorMessage = null)
         {
             var messagePrefix = errorMessage == null ? string.Empty : "[" + errorMessage + "] ";
 
@@ -23,15 +23,17 @@ namespace ZeleniumFramework.WebDriver
             .Until(() =>
             {
                 var actualText = this.Text;
-                return expectedText.Equals(actualText);
+                return caseSensitive
+                             ? expectedText.Equals(actualText)
+                             : expectedText.ToLower().Normalize() == actualText.ToLower().Normalize();
             });
         }
 
-        public bool HasTextWithin(string expectedText, TimeSpan? timeout = null)
+        public bool HasTextWithin(string expectedText, bool caseSensitive = true, TimeSpan? timeout = null)
         {
             try
             {
-                this.WaitForText(expectedText, timeout);
+                this.WaitForText(expectedText, caseSensitive, timeout);
                 return true;
             }
             catch (WebDriverTimeoutException)

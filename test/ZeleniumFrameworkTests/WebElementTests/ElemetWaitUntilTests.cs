@@ -2,7 +2,6 @@
 using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 
 namespace ZeleniumFrameworkTest.WebElementTests
 {
@@ -17,7 +16,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
             this.snackBarPage = new SnackBarPage(this.driver);
             this.snackBarPage.Load();
             Assert.IsTrue(this.snackBarPage.IsLoaded().Passed);
-        }       
+        }
 
         [Test]
         [Order(1)]
@@ -48,5 +47,28 @@ namespace ZeleniumFrameworkTest.WebElementTests
         {
             this.snackBarPage.SnackBar.WaitUntilDisappear("snackbar");
         }
+
+        [Test]
+        [Order(5)]
+        public void WaitForTextTest()
+        {
+            this.snackBarPage.Header.CdkButton.WaitForText("cdk", caseSensitive: false);
+        }
+
+        [Test]
+        [Order(6)]
+        public void WaitForTextNotPresentTest()
+        {
+            Assert.That(() => this.snackBarPage.Header.CdkButton.WaitForText("cdk", caseSensitive: true),
+                Throws.InstanceOf<WebDriverTimeoutException>());
+        }
+
+        [Test]
+        [Order(7)]
+        public void WaitForHasWithinTextTest()
+        {
+            Assert.IsFalse(this.snackBarPage.Header.CdkButton.HasTextWithin("cdk", caseSensitive: true));
+        }
+
     }
 }
