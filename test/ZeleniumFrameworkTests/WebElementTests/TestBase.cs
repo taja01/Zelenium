@@ -10,14 +10,14 @@ namespace ZeleniumFrameworkTest.WebElementTests
     {
         protected IWebDriver driver;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void OneTimeBaseSetup()
         {
             this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, false);
             this.driver.Manage().Window.Maximize();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             this.driver.Quit();

@@ -4,7 +4,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using ZeleniumFramework.Exceptions;
 using ZeleniumFramework.Helper;
-using ZeleniumFramework.WebDriver;
+using ZeleniumFramework.WebDriver.Interfaces;
 using Wait = ZeleniumFramework.WebDriver.Wait;
 
 namespace ZeleniumFramework.Utils
@@ -63,32 +63,22 @@ namespace ZeleniumFramework.Utils
             return JsonHelper.RetrieveJsonObjectList<T>(JsonHelper.SerializeObject(this.GetObject(jsQuery)));
         }
 
-        public T Get<T>(JsQuery jsQuery, params Newtonsoft.Json.JsonConverter[] converters)
+        public T Get<T>(JsQuery jsQuery, IElementContainer obj = null, params Newtonsoft.Json.JsonConverter[] converters)
         {
             if (converters == null)
             {
-                return JsonHelper.RetrieveJsonObject<T>(JsonHelper.SerializeObject(this.GetObject(jsQuery)));
+                return JsonHelper.RetrieveJsonObject<T>(JsonHelper.SerializeObject(this.GetObject(jsQuery, obj)));
             }
-            return JsonHelper.RetrieveJsonObject<T>(JsonHelper.SerializeObject(this.GetObject(jsQuery)), converters);
+            return JsonHelper.RetrieveJsonObject<T>(JsonHelper.SerializeObject(this.GetObject(jsQuery, obj)), converters);
         }
 
-        public object Execute(string script)
+        public object Execute(string script, IElementContainer obj = null)
         {
             try
             {
-                return this.executor.ExecuteScript(script);
-            }
-            catch (Exception e) when (e.GetType() != typeof(MissingElementException))
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public object Execute(string script, AbstractContainer obj)
-        {
-            try
-            {
-                return this.executor.ExecuteScript(script, obj.Finder.WebElement());
+                return obj == null
+                    ? this.executor.ExecuteScript(script)
+                    : this.executor.ExecuteScript(script, obj.Finder.WebElement());
             }
             catch (Exception e) when (e.GetType() != typeof(MissingElementException))
             {
@@ -98,14 +88,14 @@ namespace ZeleniumFramework.Utils
 
         private string GetStringValue(JsQuery data) => this.Execute(data.Script)?.ToString() ?? string.Empty;
 
-        private object GetObject(JsQuery jsQuery)
+        private object GetObject(JsQuery jsQuery, IElementContainer obj = null)
         {
             return Wait.Initialize()
                 .Timeout(jsQuery.Timeout)
                 .Message($"Value {jsQuery.Name} is null")
                 .Throw<IgnoreException>()
                 .IgnoreExceptionTypes(typeof(IgnoreException))
-                .Until(() => this.Execute(jsQuery.Script));
+                .Until(() => this.Execute(jsQuery.Script, obj));
         }
     }
 }

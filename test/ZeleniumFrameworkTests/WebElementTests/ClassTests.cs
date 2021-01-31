@@ -12,7 +12,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
         const string ACTIVE_CLASS = "mat-tab-label-active";
         const string FAKE_CLASS = "blabla";
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             this.driver.Url = "https://material.angular.io/components/tabs/overview";

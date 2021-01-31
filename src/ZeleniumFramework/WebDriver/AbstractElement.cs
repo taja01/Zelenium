@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using ZeleniumFramework.Config;
 using ZeleniumFramework.Enums;
+using ZeleniumFramework.Helper;
 using ZeleniumFramework.Utils;
 using ZeleniumFramework.WebDriver.Interfaces;
 
@@ -19,6 +20,7 @@ namespace ZeleniumFramework.WebDriver
             if (locator != null)
             {
                 this.Finder = new ElementFinder(this.webDriver, null, locator);
+                this.JavaScriptExecutor = new JavaScriptExecutor(this.webDriver);
             }
         }
 
@@ -33,6 +35,8 @@ namespace ZeleniumFramework.WebDriver
         public ClassAttribute Class => new ClassAttribute(this.Finder);
         public Attributes Attributes => new Attributes(this.Finder);
         public string Path => this.Finder.Path;
+
+        public JavaScriptExecutor JavaScriptExecutor { get; private set; }
 
         public void Click(ClickMethod clickMethod = ClickMethod.Default)
         {
@@ -52,7 +56,7 @@ namespace ZeleniumFramework.WebDriver
                                 Console.WriteLine($"Failed to 'xlick' emelent: {this.Path}");
                                 Console.WriteLine("Trying to click using javascript!");
                                 Console.WriteLine(e.Message);
-                                this.ExecuteScript("arguments[0].click();");
+                                this.ExecuteScript(BaseQueries.JavaScriptClick);
                             }
                         }
                         else
@@ -61,8 +65,8 @@ namespace ZeleniumFramework.WebDriver
                         }
                         break;
                     }
-                case ClickMethod.Javascript: this.ExecuteScript("arguments[0].click();"); break;
-                case ClickMethod.NewTab: this.ExecuteScript("window.open(arguments[0], '_blank')"); break;
+                case ClickMethod.Javascript: this.ExecuteScript(BaseQueries.JavaScriptClick); break;
+                case ClickMethod.NewTab: this.ExecuteScript(BaseQueries.OpenLinkInNewTab); break;
             }
         }
 
@@ -96,18 +100,20 @@ namespace ZeleniumFramework.WebDriver
                 .Until(() => this.DisplayedNow);
         }
 
-        public void ExecuteScript(string script)
+        public void ExecuteScript(JsQuery script)
         {
-            try
-            {
-                ((IJavaScriptExecutor)this.webDriver).ExecuteScript(script, this.Finder.WebElement());
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            JavaScriptExecutor.Execute(script.Script, this);
         }
 
+        public void ExecuteScript(JsQuery script, out object result)
+        {
+            result = JavaScriptExecutor.Execute(script.Script, this);
+        }
+
+        public void ExecuteScript<T>(JsQuery script, out T result)
+        {
+            result = JavaScriptExecutor.Get<T>(script, this);
+        }
 
         protected Color GetColor()
         {
@@ -192,18 +198,13 @@ namespace ZeleniumFramework.WebDriver
             }
             catch (MoveTargetOutOfBoundsException)
             {
-                this.ExecuteScript("arguments[0].scrollIntoView(true);");
+                this.ExecuteScript(BaseQueries.ScrollToView);
             }
         }
 
         public string GetComputedStyle(string style, string pseudo = null)
         {
-            var pseudoText = pseudo != null
-                ? $", '{pseudo}'"
-                : string.Empty;
-            var script = $"return window.getComputedStyle(arguments[0] {pseudoText}).getPropertyValue('{style}')";
-            return this.Do(() =>
-                ((IJavaScriptExecutor)this.webDriver).ExecuteScript(script, this.Finder.WebElement()).ToString());
+            return this.Do(() => this.JavaScriptExecutor.Get<string>(BaseQueries.GetComputedStyle(style, pseudo), this).ToString());
         }
 
         public string GetCssValue(string propertyName)

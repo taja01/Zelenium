@@ -11,7 +11,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
     {
         SnackBarPage snackBarPage;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             this.snackBarPage = new SnackBarPage(this.driver);

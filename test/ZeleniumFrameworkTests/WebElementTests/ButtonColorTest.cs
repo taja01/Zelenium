@@ -9,7 +9,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
     {
         private ButtonPage buttonPage;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             this.buttonPage = new ButtonPage(this.driver);
