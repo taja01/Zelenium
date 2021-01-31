@@ -46,8 +46,18 @@ namespace ZeleniumFramework.WebDriver
                     {
                         if (this.Displayed)
                         {
-                            this.Scroll();
-                            this.WebElement.Click();
+                            try
+                            {
+                                this.Scroll();
+                                this.WebElement.Click();
+                            }
+                            catch (ElementClickInterceptedException e)
+                            {
+                                Console.WriteLine($"Failed to 'xlick' emelent: {this.Path}");
+                                Console.WriteLine("Trying to click using javascript!");
+                                Console.WriteLine(e.Message);
+                                this.ExecuteScript(BaseQueries.JavaScriptClick);
+                            }
                         }
                         else
                         {
