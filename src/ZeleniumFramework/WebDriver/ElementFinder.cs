@@ -14,7 +14,6 @@ namespace ZeleniumFramework.WebDriver
         private readonly IElementFinder finder;
         private readonly int index;
 
-
         public ElementFinder(ISearchContext searchContext, IElementFinder finder, By locator, TimeSpan? timeOut = null)
         {
             this.searchContext = searchContext;
