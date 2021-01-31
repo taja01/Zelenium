@@ -9,7 +9,7 @@ namespace ZeleniumFramework.Config
             Name = "JavaScriptClick",
             Script = "arguments[0].click();"
         };
-        
+
         public static JsQuery GetInnerHtml => new JsQuery
         {
             Name = "GetInnerHtml",
@@ -34,7 +34,7 @@ namespace ZeleniumFramework.Config
             Script = $"return window.getComputedStyle(arguments[0] {SetPseudoText(pseudo)}).getPropertyValue('{style}')"
         };
 
-        static object SetPseudoText(string pseudo)
+        static string SetPseudoText(string pseudo)
         {
             return pseudo != null ? $", '{pseudo}'" : string.Empty;
         }
