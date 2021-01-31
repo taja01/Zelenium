@@ -2,6 +2,7 @@
 using System.Drawing;
 using OpenQA.Selenium;
 using ZeleniumFramework.Enums;
+using ZeleniumFramework.Helper;
 using ZeleniumFramework.Utils;
 
 namespace ZeleniumFramework.WebDriver.Interfaces
@@ -25,7 +26,9 @@ namespace ZeleniumFramework.WebDriver.Interfaces
         void Click(ClickMethod clickMethod);
         void WaitUntilDisappear(string errorMessage, TimeSpan? timeout = null);
         void WaitUntilDisplay(string errorMessage, TimeSpan? timeout = null);
-        void ExecuteScript(string script);
+        void ExecuteScript(JsQuery script);
+        public void ExecuteScript(JsQuery script, out object result);
+        public void ExecuteScript<T>(JsQuery script, out T result);
         void DragAndDrop(int xAxis, int yAxis);
         void Swipe(int xAxis);
         void Scroll();

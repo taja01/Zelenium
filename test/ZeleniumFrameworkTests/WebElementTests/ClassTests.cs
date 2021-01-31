@@ -12,7 +12,7 @@ namespace ZeleniumFrameworkTest.WebElementTests
         const string ACTIVE_CLASS = "mat-tab-label-active";
         const string FAKE_CLASS = "blabla";
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             this.driver.Url = "https://material.angular.io/components/tabs/overview";
@@ -25,7 +25,6 @@ namespace ZeleniumFrameworkTest.WebElementTests
         public void HasClassTest()
         {
             Assert.IsTrue(this.tabsPage.Tab1.Class.Has(ACTIVE_CLASS));
-            this.tabsPage.Tab1.ExecuteScript
         }
 
         [Test]

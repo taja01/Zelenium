@@ -12,10 +12,8 @@ namespace ZeleniumFrameworkTest.CoreTests
         public void PassedTest()
         {
             var driver = new Mock<IWebDriver>();
-            var mock = new Mock<AbstractLoadableContainer>(driver.Object, By.Id("id"), "url")
-            {
-                CallBase = true
-            };
+            driver.As<IJavaScriptExecutor>();
+            var mock = new Mock<AbstractLoadableContainer>(driver.Object, By.Id("id"), "url") { };
             mock.Setup(d => d.IsLoaded()).Returns(new ZeleniumFramework.Model.ValidationResult { Passed = true });
 
             var mockLoadableContainer = mock.Object;
@@ -27,10 +25,8 @@ namespace ZeleniumFrameworkTest.CoreTests
         public void IsLoadedTest()
         {
             var driver = new Mock<IWebDriver>();
-            var mock = new Mock<AbstractLoadableContainer>(driver.Object, By.CssSelector(".class"), "url")
-            {
-                CallBase = true
-            };
+            driver.As<IJavaScriptExecutor>();
+            var mock = new Mock<AbstractLoadableContainer>(driver.Object, By.CssSelector(".class"), "url") { };
 
             mock.Setup(d => d.IsLoaded()).Returns(new ZeleniumFramework.Model.ValidationResult { Passed = false, Message = "Title not found" });
 
@@ -46,10 +42,8 @@ namespace ZeleniumFrameworkTest.CoreTests
             //wut?
             var driver = new Mock<IWebDriver>();
             driver.Setup(x => x.Url).Returns("https://google.com");
-            var mock = new Mock<AbstractLoadableContainer>(driver.Object, By.CssSelector(".class"), "https://google.com")
-            {
-                CallBase = true
-            };
+            driver.As<IJavaScriptExecutor>();
+            var mock = new Mock<AbstractLoadableContainer>(driver.Object, By.CssSelector(".class"), "https://google.com") { };
 
             var mockLoadableContainer = mock.Object;
             mockLoadableContainer.Load();
