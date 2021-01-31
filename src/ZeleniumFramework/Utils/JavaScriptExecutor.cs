@@ -79,9 +79,9 @@ namespace ZeleniumFramework.Utils
                     ? this.executor.ExecuteScript(script)
                     : this.executor.ExecuteScript(script, obj.Finder.WebElement());
             }
-            catch (Exception e) when (e.GetType() != typeof(NoSuchElementException))
+            catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw e;
             }
         }
 
