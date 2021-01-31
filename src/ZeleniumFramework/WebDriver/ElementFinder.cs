@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenQA.Selenium;
-using ZeleniumFramework.Exceptions;
 using ZeleniumFramework.WebDriver.Interfaces;
 
 namespace ZeleniumFramework.WebDriver
@@ -44,7 +43,7 @@ namespace ZeleniumFramework.WebDriver
                 return this.cachedWebElement;
             }
 
-            throw new MissingElementException($"Element not found {this.Path}");
+            throw new NoSuchElementException($"Element not found {this.Path}");
         }
 
         public bool Present(TimeSpan? timeout = null)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using ZeleniumFramework.Exceptions;
 using ZeleniumFramework.Helper;
 using ZeleniumFramework.WebDriver.Interfaces;
 using Wait = ZeleniumFramework.WebDriver.Wait;
@@ -80,9 +79,9 @@ namespace ZeleniumFramework.Utils
                     ? this.executor.ExecuteScript(script)
                     : this.executor.ExecuteScript(script, obj.Finder.WebElement());
             }
-            catch (Exception e) when (e.GetType() != typeof(MissingElementException))
+            catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw e;
             }
         }
 

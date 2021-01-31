@@ -3,7 +3,6 @@ using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using ZeleniumFramework.Config;
-using ZeleniumFramework.Exceptions;
 using ZeleniumFrameworkTest.WebElementTests;
 
 namespace ZeleniumFrameworkTests.WebElementTests
@@ -38,7 +37,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Scroll(),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -50,7 +49,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Color,
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -62,7 +61,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Attributes.Get("test-id"),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -74,7 +73,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Class.Has(".warning"),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -86,7 +85,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.BackgroundColor,
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -134,10 +133,10 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var s = string.Empty;
             var sw = new Stopwatch();
             sw.Start();
-            var exception = Assert.Throws<MissingElementException>(() => _ = this.buttonPage.ButtonOverview.NotExist.Text);
+            var exception = Assert.Throws<NoSuchElementException>(() => _ = this.buttonPage.ButtonOverview.NotExist.Text);
             sw.Stop();
 
-            Assert.AreEqual(exception.GetType(), typeof(MissingElementException));
+            Assert.AreEqual(exception.GetType(), typeof(NoSuchElementException));
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
         }
@@ -148,7 +147,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript(BaseQueries.GetInnerHtml),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -160,7 +159,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript<bool>(BaseQueries.GetInnerHtml, out _),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -172,7 +171,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript(BaseQueries.GetInnerHtml, out _),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -184,7 +183,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.DragAndDrop(100, 100),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -196,7 +195,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Swipe(100),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -208,7 +207,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.WaitForText("text"),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -220,7 +219,7 @@ namespace ZeleniumFrameworkTests.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.HasTextWithin("text"),
-                Throws.InstanceOf<MissingElementException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
