@@ -9,6 +9,7 @@ namespace ZeleniumFramework.Config
             Name = "JavaScriptClick",
             Script = "arguments[0].click();"
         };
+        
         public static JsQuery GetInnerHtml => new JsQuery
         {
             Name = "GetInnerHtml",
