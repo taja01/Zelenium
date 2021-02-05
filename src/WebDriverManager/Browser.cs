@@ -1,4 +1,4 @@
-﻿namespace ZeleniumFramework.Enums
+﻿namespace WebDriverManager
 {
     public enum Browser
     {

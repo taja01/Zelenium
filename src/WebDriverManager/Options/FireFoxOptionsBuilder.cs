@@ -1,8 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium.Firefox;
-using ZeleniumFramework.Enums;
 
-namespace ZeleniumFramework.Driver.Options
+namespace WebDriverManager.Options
 {
     internal abstract class FireFoxOptionsBuilder
     {

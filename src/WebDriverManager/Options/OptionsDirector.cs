@@ -1,4 +1,4 @@
-﻿namespace ZeleniumFramework.Driver.Options
+﻿namespace WebDriverManager.Options
 {
     internal class ChromeOptionsDirector : ChromeExtensionSettingsBuilder<ChromeOptionsDirector>
     {

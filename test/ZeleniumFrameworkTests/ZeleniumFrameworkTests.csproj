@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\WebDriverManager\WebDriverManager.csproj" />
     <ProjectReference Include="..\..\src\ZeleniumFramework\ZeleniumFramework.csproj" />
     <ProjectReference Include="..\..\sut\MaterialAngular\MaterialAngular.csproj" />
   </ItemGroup>
