@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using ZeleniumFramework.Driver;
-using ZeleniumFramework.Enums;
+using WebDriverManager;
 
 namespace ZeleniumFrameworkTest.WebElementTests
 {

@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E5F0C2B3-BBD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7D9F3145-76F9-4208-B791-FFD27E7A79F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeleniumFramework", "src\ZeleniumFramework\ZeleniumFramework.csproj", "{0FEBFBDC-47C7-42E0-BEE0-BED713A3B988}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeleniumFramework", "src\ZeleniumFramework\ZeleniumFramework.csproj", "{0FEBFBDC-47C7-42E0-BEE0-BED713A3B988}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeleniumFrameworkTests", "test\ZeleniumFrameworkTests\ZeleniumFrameworkTests.csproj", "{A850069B-73C3-42B5-935A-7D96798C108C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeleniumFrameworkTests", "test\ZeleniumFrameworkTests\ZeleniumFrameworkTests.csproj", "{A850069B-73C3-42B5-935A-7D96798C108C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1780964-6C59-42F5-BF3E-A8038A70953D}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,7 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sut", "sut", "{C9BDB0ED-5474-465D-AB6A-ADD31027E59B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialAngular", "sut\MaterialAngular\MaterialAngular.csproj", "{69BF4913-ED78-4539-A689-18C75E2F65E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialAngular", "sut\MaterialAngular\MaterialAngular.csproj", "{69BF4913-ED78-4539-A689-18C75E2F65E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDriverManager", "src\WebDriverManager\WebDriverManager.csproj", "{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{69BF4913-ED78-4539-A689-18C75E2F65E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69BF4913-ED78-4539-A689-18C75E2F65E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69BF4913-ED78-4539-A689-18C75E2F65E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{0FEBFBDC-47C7-42E0-BEE0-BED713A3B988} = {E5F0C2B3-BBD1-4636-8EF6-3A75ACC44249}
 		{A850069B-73C3-42B5-935A-7D96798C108C} = {7D9F3145-76F9-4208-B791-FFD27E7A79F7}
 		{69BF4913-ED78-4539-A689-18C75E2F65E7} = {C9BDB0ED-5474-465D-AB6A-ADD31027E59B}
+		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F} = {E5F0C2B3-BBD1-4636-8EF6-3A75ACC44249}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FCC6C77-E70F-4478-87CE-8858AA588EBA}

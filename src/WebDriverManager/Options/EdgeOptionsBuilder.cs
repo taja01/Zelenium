@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using OpenQA.Selenium.Edge;
-using ZeleniumFramework.Enums;
 
-namespace ZeleniumFramework.Driver.Options
+namespace WebDriverManager.Options
 {
     internal class EdgeOptionsBuilder
     {

@@ -3,10 +3,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using ZeleniumFramework.Driver.Options;
-using ZeleniumFramework.Enums;
+using WebDriverManager.Options;
 
-namespace ZeleniumFramework.Driver
+namespace WebDriverManager
 {
     public class WebDriverFactory
     {

@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using OpenQA.Selenium.Chrome;
-using ZeleniumFramework.Enums;
 
-namespace ZeleniumFramework.Driver.Options
+namespace WebDriverManager.Options
 {
     internal abstract class ChromeOptionsBuilder
     {
