@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 
-namespace Zelenium.Core.WebDriver
+namespace Zelenium.Core.WebDriver.Types
 {
     public abstract class AbstractLoadableContainer : AbstractContainer, ILoadableContainer
     {

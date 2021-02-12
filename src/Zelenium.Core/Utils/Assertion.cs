@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using NUnit.Framework;
+using Zelenium.Core.Interfaces;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.WebDriver.Types;
 
 namespace Zelenium.Core.Utils
 {

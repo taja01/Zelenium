@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace Zelenium.Core.WebDriver.Interfaces
+namespace Zelenium.Core.Interfaces
 {
     public interface IElementFinder
     {

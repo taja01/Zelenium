@@ -4,8 +4,9 @@ using OpenQA.Selenium;
 using Zelenium.Core.Enums;
 using Zelenium.Core.Helper;
 using Zelenium.Core.Utils;
+using Zelenium.Core.WebDriver;
 
-namespace Zelenium.Core.WebDriver.Interfaces
+namespace Zelenium.Core.Interfaces
 {
     public interface IElementContainer
     {

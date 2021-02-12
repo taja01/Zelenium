@@ -3,10 +3,10 @@ using System.Drawing;
 using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using Zelenium.Core.Interfaces;
 using Zelenium.Core.Model;
 using Zelenium.Core.Utils;
-using Zelenium.Core.WebDriver;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.WebDriver.Types;
 
 namespace Zelenium.UnitTestss.CoreTests
 {

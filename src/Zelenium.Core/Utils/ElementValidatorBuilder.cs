@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using NUnit.Framework;
 using Zelenium.Core.Config;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.Utils
 {
