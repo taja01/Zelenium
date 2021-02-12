@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="4.0.0-alpha07" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zelenium.Shared\Zelenium.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
