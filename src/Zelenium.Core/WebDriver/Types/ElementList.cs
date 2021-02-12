@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 
-namespace Zelenium.Core.WebDriver
+namespace Zelenium.Core.WebDriver.Types
 {
     public class ElementList<T> : IEnumerable<T> where T : IElementContainer
     {

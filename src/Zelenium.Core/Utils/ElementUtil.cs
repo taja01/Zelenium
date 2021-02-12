@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using Zelenium.Core.Config;
 using Zelenium.Core.Enums;
 using Zelenium.Core.WebDriver;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 using Zelenium.Shared;
 
 namespace Zelenium.Core.Utils

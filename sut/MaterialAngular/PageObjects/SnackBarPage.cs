@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using Zelenium.Core.Model;
-using Zelenium.Core.WebDriver;
+using Zelenium.Core.WebDriver.Types;
 
 namespace MaterialAngular.PageObjects
 {

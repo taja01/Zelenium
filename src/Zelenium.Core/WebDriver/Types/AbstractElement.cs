@@ -6,10 +6,10 @@ using OpenQA.Selenium.Interactions;
 using Zelenium.Core.Config;
 using Zelenium.Core.Enums;
 using Zelenium.Core.Helper;
+using Zelenium.Core.Interfaces;
 using Zelenium.Core.Utils;
-using Zelenium.Core.WebDriver.Interfaces;
 
-namespace Zelenium.Core.WebDriver
+namespace Zelenium.Core.WebDriver.Types
 {
     public abstract class AbstractElement : IElementContainer
     {

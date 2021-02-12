@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Zelenium.Core.Helper;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 using Wait = Zelenium.Core.WebDriver.Wait;
 
 namespace Zelenium.Core.Utils
