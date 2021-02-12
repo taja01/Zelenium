@@ -1,7 +1,7 @@
 ﻿using System;
 using Zelenium.Core.Model;
 
-namespace Zelenium.Core.WebDriver.Interfaces
+namespace Zelenium.Core.Interfaces
 {
     public interface ILoadableContainer
     {

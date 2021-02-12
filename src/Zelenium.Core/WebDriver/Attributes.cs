@@ -1,6 +1,6 @@
 ﻿using System;
 using Zelenium.Core.Config;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver
 {

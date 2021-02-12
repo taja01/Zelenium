@@ -2,9 +2,9 @@
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
 using Zelenium.Core.Model;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 
-namespace Zelenium.Core.WebDriver
+namespace Zelenium.Core.WebDriver.Types
 {
     public abstract class AbstractContainer : AbstractElement
     {

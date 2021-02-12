@@ -1,7 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using Zelenium.Core.WebDriver;
+using Zelenium.Core.WebDriver.Types;
 
 namespace Zelenium.UnitTests.CoreTests
 {

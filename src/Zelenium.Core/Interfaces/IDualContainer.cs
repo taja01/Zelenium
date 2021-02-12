@@ -1,4 +1,6 @@
-﻿namespace Zelenium.Core.WebDriver.Interfaces
+﻿using Zelenium.Core.WebDriver.Types;
+
+namespace Zelenium.Core.Interfaces
 {
     interface IDualContainer<out T1, out T2>
         where T1 : AbstractContainer

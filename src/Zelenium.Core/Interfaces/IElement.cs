@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Zelenium.Core.WebDriver.Interfaces
+namespace Zelenium.Core.Interfaces
 {
     public interface IElement : IElementContainer
     {

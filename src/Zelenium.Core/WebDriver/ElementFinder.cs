@@ -1,6 +1,6 @@
 ﻿using System;
 using OpenQA.Selenium;
-using Zelenium.Core.WebDriver.Interfaces;
+using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver
 {

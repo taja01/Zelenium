@@ -1,4 +1,4 @@
-﻿namespace Zelenium.Core.WebDriver.Interfaces
+﻿namespace Zelenium.Core.Interfaces
 {
     public interface IRouteBuilder<TEnum>
     {
