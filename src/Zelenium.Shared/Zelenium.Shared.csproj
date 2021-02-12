@@ -2,10 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>1.1.0</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Zelenium.Core\Zelenium.Core.csproj" />
-  </ItemGroup>
 
 </Project>
