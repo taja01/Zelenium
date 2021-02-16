@@ -16,7 +16,7 @@ namespace Zelenium.Core.WebDriver
         public string Get(string name)
         {
             //return Retry.Do<StaleElementReferenceException, string>(() => _finder.WebElement().GetAttribute(name));
-            return this.finder.WebElement().GetAttribute(name);
+            return this.finder.GetDisplayedWebElement().GetAttribute(name);
         }
 
         public bool Has(string name)

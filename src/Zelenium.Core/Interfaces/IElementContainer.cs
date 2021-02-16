@@ -12,6 +12,7 @@ namespace Zelenium.Core.Interfaces
     {
         IElementFinder Finder { get; set; }
         IWebElement WebElement { get; }
+        IWebElement DisplayedWebElement { get; }
         Point Location { get; }
         bool Displayed { get; }
         bool Present { get; }

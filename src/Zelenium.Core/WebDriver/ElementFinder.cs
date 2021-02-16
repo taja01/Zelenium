@@ -36,7 +36,25 @@ namespace Zelenium.Core.WebDriver
 
         public string Path { get; }
 
-        public IWebElement WebElement()
+        /// <summary>
+        /// Get WebElement if exist in the DOM
+        /// </summary>
+        /// <returns></returns>
+        public IWebElement GetWebElement()
+        {
+            if (this.IsCashValid() || this.Present())
+            {
+                return this.cachedWebElement;
+            }
+
+            throw new NoSuchElementException($"Element not found {this.Path}");
+        }
+
+        /// <summary>
+        /// Get WebElement if displayed
+        /// </summary>
+        /// <returns></returns>
+        public IWebElement GetDisplayedWebElement()
         {
             if (this.IsCashValid() || this.Displayed())
             {
@@ -73,14 +91,14 @@ namespace Zelenium.Core.WebDriver
             {
                 return this.cachedWebElement = this.finder == null
                     ? this.searchContext.FindElement(this.locator)
-                    : this.finder.WebElement().FindElement(this.locator);
+                    : this.finder.GetDisplayedWebElement().FindElement(this.locator);
             }
 
             IWebElement FindMultiSingleElement()
             {
                 var list = this.finder == null
                     ? this.searchContext.FindElements(this.locator)
-                    : this.finder.WebElement().FindElements(this.locator);
+                    : this.finder.GetDisplayedWebElement().FindElements(this.locator);
 
                 if (this.index >= list.Count)
                 {

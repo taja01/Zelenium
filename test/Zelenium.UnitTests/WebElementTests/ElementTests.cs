@@ -97,7 +97,7 @@ namespace Zelenium.UnitTestss.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(),
-                Throws.InstanceOf<ElementNotVisibleException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -109,7 +109,7 @@ namespace Zelenium.UnitTestss.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.Javascript),
-                Throws.InstanceOf<ElementNotVisibleException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
@@ -121,7 +121,7 @@ namespace Zelenium.UnitTestss.WebElementTests
             var sw = new Stopwatch();
             sw.Start();
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.NewTab),
-                Throws.InstanceOf<ElementNotVisibleException>());
+                Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);
