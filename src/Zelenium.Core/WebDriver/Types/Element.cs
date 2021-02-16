@@ -11,7 +11,7 @@ namespace Zelenium.Core.WebDriver.Types
         {
         }
 
-        public string Text => this.Finder.WebElement().Text;
+        public string Text => this.Finder.GetDisplayedWebElement().Text;
         public Color Color => this.GetColor();
 
         public void WaitForText(string expectedText, bool caseSensitive = true, TimeSpan? timeout = null, string errorMessage = null)

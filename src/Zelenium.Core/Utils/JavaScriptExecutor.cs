@@ -77,7 +77,7 @@ namespace Zelenium.Core.Utils
             {
                 return obj == null
                     ? this.executor.ExecuteScript(script)
-                    : this.executor.ExecuteScript(script, obj.Finder.WebElement());
+                    : this.executor.ExecuteScript(script, obj.Finder.GetWebElement());
             }
             catch (Exception e)
             {

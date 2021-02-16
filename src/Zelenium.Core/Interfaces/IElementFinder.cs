@@ -8,6 +8,7 @@ namespace Zelenium.Core.Interfaces
         string Path { get; }
         bool Present(TimeSpan? timeout = null);
         bool Displayed(TimeSpan? timeout = null);
-        IWebElement WebElement();
+        IWebElement GetDisplayedWebElement();
+        IWebElement GetWebElement();
     }
 }

@@ -15,7 +15,7 @@ namespace Zelenium.UnitTests.WebElementTests
         [OneTimeSetUp]
         public void SetUp()
         {
-            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, true);
+            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, false);
             this.driver.Manage().Window.Maximize();
 
             this.snackBarPage = new SnackBarPage(this.driver);

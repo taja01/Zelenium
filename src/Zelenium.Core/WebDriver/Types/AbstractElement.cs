@@ -25,8 +25,9 @@ namespace Zelenium.Core.WebDriver.Types
         }
 
         public IElementFinder Finder { get; set; }
-        public IWebElement WebElement => this.Finder.WebElement();
-        public Point Location => this.Do(() => this.Finder.WebElement().Location);
+        public IWebElement WebElement => this.Finder.GetWebElement();
+        public IWebElement DisplayedWebElement => this.Finder.GetDisplayedWebElement();
+        public Point Location => this.Do(() => this.Finder.GetDisplayedWebElement().Location);
         public bool Displayed => this.Finder.Displayed();
         public bool Present => this.Finder.Present();
         public bool DisplayedNow => this.Finder.Displayed(TimeSpan.Zero);
@@ -40,11 +41,6 @@ namespace Zelenium.Core.WebDriver.Types
 
         public void Click(ClickMethod clickMethod = ClickMethod.Default)
         {
-            if (!this.Displayed)
-            {
-                throw new ElementNotVisibleException($"ELement not visible - not possible to click. Path: {this.Path}");
-            }
-
             switch (clickMethod)
             {
                 case ClickMethod.Default:
@@ -52,7 +48,7 @@ namespace Zelenium.Core.WebDriver.Types
                         try
                         {
                             this.Scroll();
-                            this.WebElement.Click();
+                            this.DisplayedWebElement.Click();
                         }
                         catch (ElementClickInterceptedException e)
                         {
@@ -120,7 +116,7 @@ namespace Zelenium.Core.WebDriver.Types
             var color = Color.FromArgb(0, 0, 0, 0);
             this.Do(() =>
             {
-                var cssColor = this.Do(() => this.Finder.WebElement().GetCssValue("color"));
+                var cssColor = this.Do(() => this.Finder.GetDisplayedWebElement().GetCssValue("color"));
                 var currentColor = ColorUtil.ParseColor(cssColor);
 
                 if (currentColor.A == NOT_TRANSPARENT)
@@ -144,7 +140,7 @@ namespace Zelenium.Core.WebDriver.Types
             var color = Color.FromArgb(0, 0, 0, 0);
             this.Do(() =>
             {
-                var elementToCheck = this.Finder.WebElement();
+                var elementToCheck = this.Finder.GetDisplayedWebElement();
                 do
                 {
                     var e = elementToCheck;
@@ -173,7 +169,7 @@ namespace Zelenium.Core.WebDriver.Types
         public void DragAndDrop(int xAxis, int yAxis)
         {
             new Actions(this.webDriver)
-                .DragAndDropToOffset(this.Finder.WebElement(), offsetX: xAxis, offsetY: yAxis)
+                .DragAndDropToOffset(this.Finder.GetDisplayedWebElement(), offsetX: xAxis, offsetY: yAxis)
                 .Build()
                 .Perform();
         }
@@ -181,7 +177,7 @@ namespace Zelenium.Core.WebDriver.Types
         public void Swipe(int xAxis)
         {
             new Actions(this.webDriver)
-                .DragAndDropToOffset(this.Finder.WebElement(), offsetX: this.Location.X + xAxis, offsetY: this.Location.Y)
+                .DragAndDropToOffset(this.Finder.GetDisplayedWebElement(), offsetX: this.Location.X + xAxis, offsetY: this.Location.Y)
                 .Perform();
 
             Thread.Sleep(500);
@@ -192,7 +188,7 @@ namespace Zelenium.Core.WebDriver.Types
             try
             {
                 new Actions(this.webDriver)
-                     .MoveToElement(this.Finder.WebElement())
+                     .MoveToElement(this.Finder.GetDisplayedWebElement())
                      .Perform();
             }
             catch (MoveTargetOutOfBoundsException)
@@ -208,7 +204,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         public string GetCssValue(string propertyName)
         {
-            return this.Do(() => this.Finder.WebElement().GetCssValue(propertyName));
+            return this.Do(() => this.Finder.GetDisplayedWebElement().GetCssValue(propertyName));
         }
     }
 }

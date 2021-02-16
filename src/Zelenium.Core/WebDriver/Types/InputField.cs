@@ -14,7 +14,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         public virtual void Clear()
         {
-            this.Finder.WebElement().Clear();
+            this.Finder.GetDisplayedWebElement().Clear();
             //Wait.Initialize()
             //    .Timeout(TimeConfig.LongTimeout)
             //    .Message($"Couldn't clear text for input element {Path}")
@@ -37,14 +37,14 @@ namespace Zelenium.Core.WebDriver.Types
                 .Until(() =>
                 {
                     this.Clear();
-                    this.Finder.WebElement().SendKeys(text);
+                    this.Finder.GetDisplayedWebElement().SendKeys(text);
                     return this.Value == text;
                 });
         }
 
         public virtual void SendKeysSpecial(string text)
         {
-            this.Do(() => this.Finder.WebElement().SendKeys(text));
+            this.Do(() => this.Finder.GetDisplayedWebElement().SendKeys(text));
         }
     }
 }

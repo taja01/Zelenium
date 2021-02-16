@@ -81,7 +81,7 @@ namespace Zelenium.Core.WebDriver.Types
         {
             return this.finder == null
                 ? this.webDriver.FindElements(this.locator)
-                : this.finder.WebElement().FindElements(this.locator);
+                : this.finder.GetDisplayedWebElement().FindElements(this.locator);
         }
 
         private T GetElement(int index)
