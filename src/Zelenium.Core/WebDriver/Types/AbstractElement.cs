@@ -72,7 +72,7 @@ namespace Zelenium.Core.WebDriver.Types
         public void WaitUntilDisappear(string errorMessage, TimeSpan? timeout = null)
         {
             Wait.Initialize()
-                .Message(errorMessage)
+                .Message($"Element '{errorMessage}' is still visible")
                 .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Until(() => !this.DisplayedNow);
         }
@@ -94,7 +94,7 @@ namespace Zelenium.Core.WebDriver.Types
         public void WaitUntilDisplay(string errorMessage, TimeSpan? timeout = null)
         {
             Wait.Initialize()
-                .Message(errorMessage)
+                .Message($"Element '{errorMessage}' does not appear")
                 .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Until(() => this.DisplayedNow);
         }

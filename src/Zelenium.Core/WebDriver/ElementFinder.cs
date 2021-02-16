@@ -51,7 +51,7 @@ namespace Zelenium.Core.WebDriver
             return Wait.Initialize()
                 .Timeout(timeout ?? this.timeOut)
                 .IgnoreExceptionTypes(typeof(NoSuchElementException))
-                .Success(() => this.TryFindElement(out _));
+                .Success(() => this.TryFindElement(out _, timeout));
         }
 
         public bool Displayed(TimeSpan? timeout = null)
@@ -61,11 +61,11 @@ namespace Zelenium.Core.WebDriver
                .IgnoreExceptionTypes(typeof(NoSuchElementException))
                .Success(() =>
                {
-                   return this.TryFindElement(out var element) && element.Displayed;
+                   return this.TryFindElement(out var element, timeout) && element.Displayed;
                });
         }
 
-        private bool TryFindElement(out IWebElement webElement)
+        private bool TryFindElement(out IWebElement webElement, TimeSpan? timeout = null)
         {
             webElement = null;
 
@@ -91,16 +91,16 @@ namespace Zelenium.Core.WebDriver
             }
 
             webElement = Wait.Initialize()
-                 .IgnoreExceptionTypes(typeof(NoSuchElementException))
-                 .Timeout(this.timeOut)
-                 .Until(() =>
-                 {
-                     var element = this.index >= 0
-                       ? FindMultiSingleElement()
-                       : FindSingleElement();
+                .IgnoreExceptionTypes(typeof(NoSuchElementException))
+                .Timeout(timeout ?? this.timeOut)
+                .Until(() =>
+                {
+                    var element = this.index >= 0
+                    ? FindMultiSingleElement()
+                    : FindSingleElement();
 
-                     return element;
-                 });
+                    return element;
+                });
 
             return webElement != null;
         }
