@@ -21,7 +21,7 @@ namespace Zelenium.UnitTestss.WebElementTests
         [Test]
         public void ClickTest()
         {
-            buttonPage.Header.CdkButton.Click();
+            this.buttonPage.Header.CdkButton.Click();
 
             Wait.Initialize()
                 .Message("Url does not contains 'cdk'")
@@ -31,7 +31,7 @@ namespace Zelenium.UnitTestss.WebElementTests
         [Test]
         public void JsClickTest()
         {
-            buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.Javascript);
+            this.buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.Javascript);
 
             Wait.Initialize()
                 .Message("Url does not contains 'cdk'")
@@ -41,7 +41,7 @@ namespace Zelenium.UnitTestss.WebElementTests
         [Test]
         public void OpenNewTabTest()
         {
-            buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.NewTab);
+            this.buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.NewTab);
 
             var windows = this.driver.WindowHandles;
             Assert.AreEqual(2, windows.Count);

@@ -5,18 +5,26 @@ namespace Zelenium.Core.WebDriver.Types
 {
     public class SelectElement : Element
     {
+        private const string Attribute = "value";
         public SelectElement(IWebDriver webDriver, By by = null) : base(webDriver, by)
         {
 
         }
-        OpenQA.Selenium.Support.UI.SelectElement selectElement => new OpenQA.Selenium.Support.UI.SelectElement(this.DisplayedWebElement);
+        private OpenQA.Selenium.Support.UI.SelectElement selectElement => new OpenQA.Selenium.Support.UI.SelectElement(this.DisplayedWebElement);
 
+        /// <summary>
+        /// Deselect all options
+        /// </summary>
         public void DeselectAll()
         {
             this.selectElement.DeselectAll();
         }
 
-        public void SelectByIndex(int index)
+        /// <summary>
+        /// Set by Index
+        /// </summary>
+        /// <param name="index"></param>
+        public void SetByIndex(int index)
         {
             if (index >= 0 || index < this.Count)
             {
@@ -28,33 +36,54 @@ namespace Zelenium.Core.WebDriver.Types
             }
         }
 
-        public void SelectByText(string text)
+        /// <summary>
+        /// Set by translated value
+        /// </summary>
+        /// <param name="text"></param>
+        public void SetByText(string text)
         {
             this.selectElement.SelectByText(text);
         }
 
-        public void SelectByValue(string text)
+        /// <summary>
+        /// Set by value attribute
+        /// </summary>
+        /// <param name="text"></param>
+        public void SetByValue(string text)
         {
             this.selectElement.SelectByValue(text);
         }
 
-        public string SelectedText()
-        {
-            return this.selectElement.SelectedOption.Text;
-        }
+        /// <summary>
+        /// Return selected text
+        /// </summary>
+        public string SelectedText => this.selectElement.SelectedOption.Text;
 
-        public IList<string> GetAllOptions()
+        /// <summary>
+        /// Return selected value
+        /// </summary>
+        public string SelectedValue => this.selectElement.SelectedOption.GetAttribute(Attribute);
+
+        /// <summary>
+        /// Return all options displayed text
+        /// </summary>
+        /// <returns>List of strings</returns>
+        public IDictionary<string, string> GetAllOptions()
         {
-            var list = new List<string>();
+            var dict = new Dictionary<string, string>();
             using var all = this.selectElement.Options.GetEnumerator();
             while (all.MoveNext())
             {
-                list.Add(all.Current.Text);
+                dict.Add(all.Current.GetAttribute(Attribute), all.Current.Text);
             }
 
-            return list;
+            return dict;
         }
 
+        /// <summary>
+        /// Return list of selected texts
+        /// </summary>
+        /// <returns>List of strings</returns>
         public IList<string> GetSelectedOptionsTexts()
         {
             var list = new List<string>();
@@ -67,19 +96,28 @@ namespace Zelenium.Core.WebDriver.Types
             return list;
         }
 
-        public IList<string> GetSelectedOptionsValues(string attributeName = "value")
+        /// <summary>
+        /// Return list of option values
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <returns>List of strings</returns>
+        public IList<string> GetSelectedOptionsValues()
         {
             var list = new List<string>();
             using var all = this.selectElement.AllSelectedOptions.GetEnumerator();
             while (all.MoveNext())
             {
-                list.Add(all.Current.GetAttribute(attributeName));
+                list.Add(all.Current.GetAttribute(Attribute));
             }
 
             return list;
         }
 
-        public int CurrentIndex()
+        /// <summary>
+        /// Return current index of selected options
+        /// </summary>
+        /// <returns>int</returns>
+        public int GetCurrentIndex()
         {
             var index = 0;
             using var all = this.selectElement.Options.GetEnumerator();
@@ -97,6 +135,9 @@ namespace Zelenium.Core.WebDriver.Types
             return -1;
         }
 
+        /// <summary>
+        /// Return number of number of Options
+        /// </summary>
         public int Count => this.selectElement.Options.Count;
     }
 }

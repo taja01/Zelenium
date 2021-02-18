@@ -97,17 +97,17 @@ namespace Zelenium.Core.WebDriver.Types
 
         public void ExecuteScript(JsQuery script)
         {
-            JavaScriptExecutor.Execute(script.Script, this);
+            this.JavaScriptExecutor.Execute(script.Script, this);
         }
 
         public void ExecuteScript(JsQuery script, out object result)
         {
-            result = JavaScriptExecutor.Execute(script.Script, this);
+            result = this.JavaScriptExecutor.Execute(script.Script, this);
         }
 
         public void ExecuteScript<T>(JsQuery script, out T result)
         {
-            result = JavaScriptExecutor.Get<T>(script, this);
+            result = this.JavaScriptExecutor.Get<T>(script, this);
         }
 
         protected Color GetColor()
