@@ -25,7 +25,7 @@ namespace Zelenium.UnitTestss.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            var a = this.buttonPage.ButtonOverview.NotExist.Displayed;
+            _ = this.buttonPage.ButtonOverview.NotExist.Displayed;
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
             Assert.Less(sw.Elapsed.TotalSeconds, 6);

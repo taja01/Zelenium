@@ -20,7 +20,6 @@
     <ProjectReference Include="..\..\src\Zelenium.WebDriverManager\Zelenium.WebDriverManager.csproj" />
     <ProjectReference Include="..\..\src\Zelenium.Core\Zelenium.Core.csproj" />
     <ProjectReference Include="..\..\src\Zelenium.WebDriverManager\Zelenium.WebDriverManager.csproj" />
-    <ProjectReference Include="..\..\src\ZeleniumFramework\Zelenium.Core.csproj" />
     <ProjectReference Include="..\..\sut\MaterialAngular\MaterialAngular.csproj" />
   </ItemGroup>
 
