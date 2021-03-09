@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
 using Zelenium.Core.Interfaces;
@@ -26,7 +27,7 @@ namespace Zelenium.Core.WebDriver
             this.Path = this.GetPath();
         }
 
-        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null)
+        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null, bool isShadow = false)
         {
             this.searchContext = searchContext;
             this.locator = locator;
@@ -34,6 +35,7 @@ namespace Zelenium.Core.WebDriver
             this.finder = finder;
             this.cachedWebElement = cacheElement;
             this.index = index;
+            this.isShadow = isShadow;
             this.Path = this.GetPath();
         }
 
@@ -105,7 +107,7 @@ namespace Zelenium.Core.WebDriver
 
                 if (this.index >= list.Count)
                 {
-                    throw new NoSuchElementException("What is this?");
+                    throw new IndexOutOfRangeException($"List has only '{list.Count}' elements. Your index is: '{this.index}'");
                 }
 
                 return this.cachedWebElement = list[this.index];
@@ -113,20 +115,44 @@ namespace Zelenium.Core.WebDriver
 
             IWebElement FindShadowSingleElement()
             {
-                if (this.finder == null)
-                {
-                    throw new WebDriverException("You need to find the shadow 'parent' elemet first!");
-                }
-
-                if (this.locator.Mechanism != "css selector")
-                {
-                    throw new WebDriverException("Only css selector allow to find element under shadow root");
-                }
+                this.ValidateShadowConditions();
 
                 this.cachedWebElement = (IWebElement)((IJavaScriptExecutor)this.searchContext)
                     .ExecuteScript(BaseQueries.GetShadowElement(this.locator.Criteria).Script, this.finder.GetWebElement());
 
                 return this.cachedWebElement;
+            }
+
+            IWebElement FindShadowMultiSingleElement()
+            {
+                this.ValidateShadowConditions();
+
+                var list = ((IJavaScriptExecutor)this.searchContext)
+                   .ExecuteScript(BaseQueries.GetShadowElements(this.locator.Criteria).Script, this.finder.GetWebElement());
+
+                var counter = 0;
+                if (list is IEnumerable myList)
+                {
+
+                    foreach (object element in myList)
+                    {
+                        if (this.index == counter)
+                        {
+                            return this.cachedWebElement = (IWebElement)element;
+                        }
+                        else
+                        {
+                            counter++;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new NoSuchElementException("List is empty");
+                }
+
+                throw new IndexOutOfRangeException($"List has only '{counter}' elements. Your index is: '{this.index}'");
+
             }
 
             webElement = Wait.Initialize()
@@ -136,7 +162,9 @@ namespace Zelenium.Core.WebDriver
                 {
                     if (this.isShadow)
                     {
-                        var element = FindShadowSingleElement();
+                        var element = this.index >= 0
+                       ? FindShadowMultiSingleElement()
+                       : FindShadowSingleElement();
 
                         return element;
                     }
@@ -173,6 +201,19 @@ namespace Zelenium.Core.WebDriver
                 return this.locator == null ? string.Empty : this.locator.ToString();
             }
             return this.index > -1 ? $"{this.finder.Path} {this.locator}[{this.index}]" : $"{this.finder.Path} {this.locator}";
+        }
+
+        private void ValidateShadowConditions()
+        {
+            if (this.finder == null)
+            {
+                throw new WebDriverException("You need to find the shadow 'parent' elemet first!");
+            }
+
+            if (this.locator.Mechanism != "css selector")
+            {
+                throw new WebDriverException("Only css selector allow to find element under shadow root");
+            }
         }
     }
 }

@@ -33,6 +33,11 @@ namespace Zelenium.Core.WebDriver.Types
             return new ElementList<T>(this.webDriver, this.Finder, locator, timeout);
         }
 
+        protected ElementList<T> FindsShadow<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
+        {
+            return new ElementList<T>(this.webDriver, this.Finder, locator, timeout, true);
+        }
+
         public virtual void WaitForLoad(TimeSpan? timeout = null)
         {
             Wait.Initialize()

@@ -40,6 +40,12 @@ namespace Zelenium.Core.Config
             Script = $"return arguments[0].shadowRoot.querySelector('{cssSelector}')"
         };
 
+        public static JsQuery GetShadowElements(string cssSelector) => new JsQuery
+        {
+            Name = "GetShadowElements",
+            Script = $"return arguments[0].shadowRoot.querySelectorAll('{cssSelector}')"
+        };
+
         static string SetPseudoText(string pseudo)
         {
             return pseudo != null ? $", '{pseudo}'" : string.Empty;
