@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenQA.Selenium;
+using Zelenium.Core.Config;
 using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver
@@ -114,16 +115,16 @@ namespace Zelenium.Core.WebDriver
             {
                 if (this.finder == null)
                 {
-                    throw new WebDriverException("You need to find the shadow elemet first!");
+                    throw new WebDriverException("You need to find the shadow 'parent' elemet first!");
                 }
 
                 if (this.locator.Mechanism != "css selector")
                 {
-                    throw new WebDriverException("At the moment, only css selector allow to find element under shadow root");
+                    throw new WebDriverException("Only css selector allow to find element under shadow root");
                 }
 
                 this.cachedWebElement = (IWebElement)((IJavaScriptExecutor)this.searchContext)
-                    .ExecuteScript($"return arguments[0].shadowRoot.querySelector('{this.locator.Criteria}')", this.finder.GetWebElement());
+                    .ExecuteScript(BaseQueries.GetShadowElement(this.locator.Criteria).Script, this.finder.GetWebElement());
 
                 return this.cachedWebElement;
             }

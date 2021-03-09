@@ -14,8 +14,6 @@ namespace MaterialAngular.PageObjects
         public Element IFrame => this.Find<Element>(By.CssSelector("div:nth-child(2) > div:nth-child(3) > iframe"));
         public ShadowContainer Container => new ShadowContainer(this.webDriver, By.CssSelector("#output > shadow-output"));
 
-
-
         public override ValidationResult IsLoaded()
         {
             if (!this.Displayed)
