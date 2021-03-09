@@ -10,7 +10,7 @@ namespace MaterialAngular.PageObjects
         {
         }
 
-        public SelectElement Pets => this.Find<SelectElement>(By.CssSelector("#pet-select"), isShadow: true);
+        public SelectElement Pets => this.FindShadow<SelectElement>(By.CssSelector("#pet-select"));
 
 
         public override ValidationResult IsLoaded()

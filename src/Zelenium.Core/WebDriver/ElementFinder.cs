@@ -25,7 +25,7 @@ namespace Zelenium.Core.WebDriver
             this.Path = this.GetPath();
         }
 
-        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null, bool isShadow = false)
+        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null)
         {
             this.searchContext = searchContext;
             this.locator = locator;
@@ -33,7 +33,6 @@ namespace Zelenium.Core.WebDriver
             this.finder = finder;
             this.cachedWebElement = cacheElement;
             this.index = index;
-            this.isShadow = isShadow;
             this.Path = this.GetPath();
         }
 

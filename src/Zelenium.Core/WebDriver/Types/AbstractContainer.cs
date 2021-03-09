@@ -12,10 +12,18 @@ namespace Zelenium.Core.WebDriver.Types
         {
         }
 
-        protected T Find<T>(By locator, TimeSpan? timeout = null, bool isShadow = false) where T : IElementContainer
+        protected T Find<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
             var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, locator);
-            elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout, isShadow);
+            elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout);
+
+            return elementContainer;
+        }
+
+        protected T FindShadow<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
+        {
+            var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, locator);
+            elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout, true);
 
             return elementContainer;
         }
