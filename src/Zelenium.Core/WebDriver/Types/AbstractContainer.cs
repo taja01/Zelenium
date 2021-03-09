@@ -1,8 +1,8 @@
 ﻿using System;
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
-using Zelenium.Core.Model;
 using Zelenium.Core.Interfaces;
+using Zelenium.Core.Model;
 
 namespace Zelenium.Core.WebDriver.Types
 {
@@ -20,9 +20,22 @@ namespace Zelenium.Core.WebDriver.Types
             return elementContainer;
         }
 
+        protected T FindShadow<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
+        {
+            var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, locator);
+            elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout, true);
+
+            return elementContainer;
+        }
+
         protected ElementList<T> Finds<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
             return new ElementList<T>(this.webDriver, this.Finder, locator, timeout);
+        }
+
+        protected ElementList<T> FindsShadow<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
+        {
+            return new ElementList<T>(this.webDriver, this.Finder, locator, timeout, true);
         }
 
         public virtual void WaitForLoad(TimeSpan? timeout = null)

@@ -11,7 +11,9 @@ namespace MaterialAngular.PageObjects
         {
         }
 
-        public SelectElement Language => this.Find<SelectElement>(By.CssSelector("#select_language"));
+        public Element IFrame => this.Find<Element>(By.CssSelector("div:nth-child(2) > div:nth-child(3) > iframe"));
+        public ShadowContainer Container => new ShadowContainer(this.webDriver, By.CssSelector("#output > shadow-output"));
+        public ElementList<Element> LeftMenu => Finds<Element>(By.CssSelector("#sidebar-quicklinks div> ol >li>a > code"));
 
         public override ValidationResult IsLoaded()
         {
@@ -19,9 +21,9 @@ namespace MaterialAngular.PageObjects
             {
                 return new ValidationResult { Passed = false, Message = $"Page load failed \n{this.Path}" };
             }
-            if (!this.Language.Displayed)
+            if (!this.IFrame.Displayed)
             {
-                return new ValidationResult { Passed = false, Message = $"FavoriteFood element not loaded \n{this.Language.Path}" };
+                return new ValidationResult { Passed = false, Message = $"IFrame element not loaded \n{this.IFrame.Path}" };
             }
             return new ValidationResult { Passed = true, Message = "Ok" };
         }

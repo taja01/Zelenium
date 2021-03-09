@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
+using Zelenium.Core.Config;
 using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver.Types
@@ -13,13 +14,15 @@ namespace Zelenium.Core.WebDriver.Types
         private readonly IElementFinder finder;
         private readonly By locator;
         private readonly TimeSpan timeout;
+        private readonly bool isShadow;
 
-        public ElementList(IWebDriver webDriver, IElementFinder finder, By locator, TimeSpan? timeout)
+        public ElementList(IWebDriver webDriver, IElementFinder finder, By locator, TimeSpan? timeout, bool isShadow = false)
         {
             this.webDriver = webDriver;
             this.finder = finder;
             this.locator = locator;
             this.timeout = timeout ?? TimeSpan.FromSeconds(5);
+            this.isShadow = isShadow;
         }
 
         public string Path => $"{this.finder.Path} {this.locator}";
@@ -59,7 +62,9 @@ namespace Zelenium.Core.WebDriver.Types
 
         private List<T> FindElements()
         {
-            var elements = this.FindMultiElements();
+            var elements = this.isShadow
+                ? this.FindShadowMultiElements()
+                : this.FindMultiElements();
 
             if (!elements.Any())
             {
@@ -70,7 +75,7 @@ namespace Zelenium.Core.WebDriver.Types
             var typedList = elements.Select(element =>
             {
                 var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, this.locator);
-                elementContainer.Finder = new ElementFinder(this.webDriver, this.finder, element, this.locator, index++);
+                elementContainer.Finder = new ElementFinder(this.webDriver, this.finder, element, this.locator, index++, isShadow: this.isShadow);
                 return elementContainer;
             });
 
@@ -81,7 +86,25 @@ namespace Zelenium.Core.WebDriver.Types
         {
             return this.finder == null
                 ? this.webDriver.FindElements(this.locator)
-                : this.finder.GetDisplayedWebElement().FindElements(this.locator);
+                : this.finder.GetWebElement().FindElements(this.locator);
+        }
+
+        private IReadOnlyCollection<IWebElement> FindShadowMultiElements()
+        {
+            var list = ((IJavaScriptExecutor)this.webDriver)
+                   .ExecuteScript(BaseQueries.GetShadowElements(this.locator.Criteria).Script, this.finder.GetWebElement());
+            var newList = new List<IWebElement>();
+            if (list is IEnumerable myList)
+            {
+
+                foreach (var item in myList)
+                {
+                    newList.Add((IWebElement)item);
+                }
+                return newList;
+            }
+
+            return null;
         }
 
         private T GetElement(int index)

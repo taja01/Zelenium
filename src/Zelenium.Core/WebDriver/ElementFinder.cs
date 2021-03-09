@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using OpenQA.Selenium;
+using Zelenium.Core.Config;
 using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver
@@ -12,18 +14,20 @@ namespace Zelenium.Core.WebDriver
         private readonly By locator;
         private readonly IElementFinder finder;
         private readonly int index;
+        private readonly bool isShadow;
 
-        public ElementFinder(ISearchContext searchContext, IElementFinder finder, By locator, TimeSpan? timeOut = null)
+        public ElementFinder(ISearchContext searchContext, IElementFinder finder, By locator, TimeSpan? timeOut = null, bool isShadow = false)
         {
             this.searchContext = searchContext;
             this.locator = locator;
             this.timeOut = timeOut ?? TimeSpan.FromSeconds(5);
             this.finder = finder;
             this.index = -1;
+            this.isShadow = isShadow;
             this.Path = this.GetPath();
         }
 
-        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null)
+        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null, bool isShadow = false)
         {
             this.searchContext = searchContext;
             this.locator = locator;
@@ -31,6 +35,7 @@ namespace Zelenium.Core.WebDriver
             this.finder = finder;
             this.cachedWebElement = cacheElement;
             this.index = index;
+            this.isShadow = isShadow;
             this.Path = this.GetPath();
         }
 
@@ -102,10 +107,52 @@ namespace Zelenium.Core.WebDriver
 
                 if (this.index >= list.Count)
                 {
-                    throw new NoSuchElementException("What is this?");
+                    throw new IndexOutOfRangeException($"List has only '{list.Count}' elements. Your index is: '{this.index}'");
                 }
 
                 return this.cachedWebElement = list[this.index];
+            }
+
+            IWebElement FindShadowSingleElement()
+            {
+                this.ValidateShadowConditions();
+
+                this.cachedWebElement = (IWebElement)((IJavaScriptExecutor)this.searchContext)
+                    .ExecuteScript(BaseQueries.GetShadowElement(this.locator.Criteria).Script, this.finder.GetWebElement());
+
+                return this.cachedWebElement;
+            }
+
+            IWebElement FindShadowMultiSingleElement()
+            {
+                this.ValidateShadowConditions();
+
+                var list = ((IJavaScriptExecutor)this.searchContext)
+                   .ExecuteScript(BaseQueries.GetShadowElements(this.locator.Criteria).Script, this.finder.GetWebElement());
+
+                var counter = 0;
+                if (list is IEnumerable myList)
+                {
+
+                    foreach (object element in myList)
+                    {
+                        if (this.index == counter)
+                        {
+                            return this.cachedWebElement = (IWebElement)element;
+                        }
+                        else
+                        {
+                            counter++;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new NoSuchElementException("List is empty");
+                }
+
+                throw new IndexOutOfRangeException($"List has only '{counter}' elements. Your index is: '{this.index}'");
+
             }
 
             webElement = Wait.Initialize()
@@ -113,11 +160,22 @@ namespace Zelenium.Core.WebDriver
                 .Timeout(timeout ?? this.timeOut)
                 .Until(() =>
                 {
-                    var element = this.index >= 0
-                    ? FindMultiSingleElement()
-                    : FindSingleElement();
+                    if (this.isShadow)
+                    {
+                        var element = this.index >= 0
+                       ? FindShadowMultiSingleElement()
+                       : FindShadowSingleElement();
 
-                    return element;
+                        return element;
+                    }
+                    else
+                    {
+                        var element = this.index >= 0
+                        ? FindMultiSingleElement()
+                        : FindSingleElement();
+
+                        return element;
+                    }
                 });
 
             return webElement != null;
@@ -143,6 +201,19 @@ namespace Zelenium.Core.WebDriver
                 return this.locator == null ? string.Empty : this.locator.ToString();
             }
             return this.index > -1 ? $"{this.finder.Path} {this.locator}[{this.index}]" : $"{this.finder.Path} {this.locator}";
+        }
+
+        private void ValidateShadowConditions()
+        {
+            if (this.finder == null)
+            {
+                throw new WebDriverException("You need to find the shadow 'parent' elemet first!");
+            }
+
+            if (this.locator.Mechanism != "css selector")
+            {
+                throw new WebDriverException("Only css selector allow to find element under shadow root");
+            }
         }
     }
 }
