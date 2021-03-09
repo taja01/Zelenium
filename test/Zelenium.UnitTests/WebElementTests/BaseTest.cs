@@ -13,15 +13,18 @@ namespace Zelenium.UnitTests.WebElementTests
         [SetUp]
         public void OneTimeBaseSetup()
         {
-            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, false);
+            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome);
             this.driver.Manage().Window.Maximize();
         }
 
         [TearDown]
         public void TearDown()
         {
-            this.driver.Quit();
-            this.driver.Dispose();
+            if (this.driver != null)
+            {
+                this.driver.Quit();
+                this.driver.Dispose();
+            }
         }
     }
 }
