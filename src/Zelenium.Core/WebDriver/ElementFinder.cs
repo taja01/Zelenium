@@ -91,14 +91,14 @@ namespace Zelenium.Core.WebDriver
             {
                 return this.cachedWebElement = this.finder == null
                     ? this.searchContext.FindElement(this.locator)
-                    : this.finder.GetDisplayedWebElement().FindElement(this.locator);
+                    : this.finder.GetWebElement().FindElement(this.locator);
             }
 
             IWebElement FindMultiSingleElement()
             {
                 var list = this.finder == null
                     ? this.searchContext.FindElements(this.locator)
-                    : this.finder.GetDisplayedWebElement().FindElements(this.locator);
+                    : this.finder.GetWebElement().FindElements(this.locator);
 
                 if (this.index >= list.Count)
                 {
