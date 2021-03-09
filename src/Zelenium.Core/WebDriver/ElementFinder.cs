@@ -12,18 +12,20 @@ namespace Zelenium.Core.WebDriver
         private readonly By locator;
         private readonly IElementFinder finder;
         private readonly int index;
+        private readonly bool isShadow;
 
-        public ElementFinder(ISearchContext searchContext, IElementFinder finder, By locator, TimeSpan? timeOut = null)
+        public ElementFinder(ISearchContext searchContext, IElementFinder finder, By locator, TimeSpan? timeOut = null, bool isShadow = false)
         {
             this.searchContext = searchContext;
             this.locator = locator;
             this.timeOut = timeOut ?? TimeSpan.FromSeconds(5);
             this.finder = finder;
             this.index = -1;
+            this.isShadow = isShadow;
             this.Path = this.GetPath();
         }
 
-        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null)
+        public ElementFinder(ISearchContext searchContext, IElementFinder finder, IWebElement cacheElement, By locator, int index, TimeSpan? timeOut = null, bool isShadow = false)
         {
             this.searchContext = searchContext;
             this.locator = locator;
@@ -31,6 +33,7 @@ namespace Zelenium.Core.WebDriver
             this.finder = finder;
             this.cachedWebElement = cacheElement;
             this.index = index;
+            this.isShadow = isShadow;
             this.Path = this.GetPath();
         }
 
@@ -108,16 +111,43 @@ namespace Zelenium.Core.WebDriver
                 return this.cachedWebElement = list[this.index];
             }
 
+            IWebElement FindShadowSingleElement()
+            {
+                if (this.finder == null)
+                {
+                    throw new WebDriverException("You need to find the shadow elemet first!");
+                }
+
+                if (this.locator.Mechanism != "css selector")
+                {
+                    throw new WebDriverException("At the moment, only css selector allow to find element under shadow root");
+                }
+
+                this.cachedWebElement = (IWebElement)((IJavaScriptExecutor)this.searchContext)
+                    .ExecuteScript($"return arguments[0].shadowRoot.querySelector('{this.locator.Criteria}')", this.finder.GetWebElement());
+
+                return this.cachedWebElement;
+            }
+
             webElement = Wait.Initialize()
                 .IgnoreExceptionTypes(typeof(NoSuchElementException))
                 .Timeout(timeout ?? this.timeOut)
                 .Until(() =>
                 {
-                    var element = this.index >= 0
-                    ? FindMultiSingleElement()
-                    : FindSingleElement();
+                    if (this.isShadow)
+                    {
+                        var element = FindShadowSingleElement();
 
-                    return element;
+                        return element;
+                    }
+                    else
+                    {
+                        var element = this.index >= 0
+                        ? FindMultiSingleElement()
+                        : FindSingleElement();
+
+                        return element;
+                    }
                 });
 
             return webElement != null;

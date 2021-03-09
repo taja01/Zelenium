@@ -9,7 +9,8 @@ namespace Zelenium.Core.WebDriver.Types
         {
         }
 
-        public string Value => this.Attributes.Get("value");
+
+        public override string Text => this.Attributes.Get("value");
         public string Placeholder => this.Attributes.Get("placeholder");
 
         public virtual void Clear()
@@ -38,7 +39,7 @@ namespace Zelenium.Core.WebDriver.Types
                 {
                     this.Clear();
                     this.Finder.GetDisplayedWebElement().SendKeys(text);
-                    return this.Value == text;
+                    return this.Text == text;
                 });
         }
 

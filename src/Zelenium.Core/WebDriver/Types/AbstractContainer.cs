@@ -1,8 +1,8 @@
 ﻿using System;
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
-using Zelenium.Core.Model;
 using Zelenium.Core.Interfaces;
+using Zelenium.Core.Model;
 
 namespace Zelenium.Core.WebDriver.Types
 {
@@ -12,10 +12,10 @@ namespace Zelenium.Core.WebDriver.Types
         {
         }
 
-        protected T Find<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
+        protected T Find<T>(By locator, TimeSpan? timeout = null, bool isShadow = false) where T : IElementContainer
         {
             var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, locator);
-            elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout);
+            elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout, isShadow);
 
             return elementContainer;
         }
