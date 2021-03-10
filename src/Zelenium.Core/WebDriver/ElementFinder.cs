@@ -162,19 +162,15 @@ namespace Zelenium.Core.WebDriver
                 {
                     if (this.isShadow)
                     {
-                        var element = this.index >= 0
+                        return this.index >= 0
                        ? FindShadowMultiSingleElement()
                        : FindShadowSingleElement();
-
-                        return element;
                     }
                     else
                     {
-                        var element = this.index >= 0
+                        return this.index >= 0
                         ? FindMultiSingleElement()
                         : FindSingleElement();
-
-                        return element;
                     }
                 });
 
