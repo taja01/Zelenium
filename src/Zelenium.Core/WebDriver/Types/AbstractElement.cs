@@ -27,7 +27,7 @@ namespace Zelenium.Core.WebDriver.Types
         public IElementFinder Finder { get; set; }
         public IWebElement WebElement => this.Finder.GetWebElement();
         public IWebElement DisplayedWebElement => this.Finder.GetDisplayedWebElement();
-        public Point Location => this.Do(() => this.Finder.GetDisplayedWebElement().Location);
+        public Point Location => this.Do(() => this.Finder.GetWebElement().Location);
         public bool Displayed => this.Finder.Displayed();
         public bool Present => this.Finder.Present();
         public bool DisplayedNow => this.Finder.Displayed(TimeSpan.Zero);
@@ -48,11 +48,11 @@ namespace Zelenium.Core.WebDriver.Types
                         try
                         {
                             this.Scroll();
-                            this.DisplayedWebElement.Click();
+                            this.WebElement.Click();
                         }
                         catch (ElementClickInterceptedException e)
                         {
-                            Console.WriteLine($"Failed to 'xlick' emelent: {this.Path}");
+                            Console.WriteLine($"Failed to 'click' emelent: {this.Path}");
                             Console.WriteLine("Trying to click using javascript!");
                             Console.WriteLine(e.Message);
                             this.ExecuteScript(BaseQueries.JavaScriptClick);

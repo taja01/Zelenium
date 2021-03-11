@@ -38,14 +38,14 @@ namespace Zelenium.Core.WebDriver.Types
                 .Until(() =>
                 {
                     this.Clear();
-                    this.Finder.GetDisplayedWebElement().SendKeys(text);
+                    this.Finder.GetWebElement().SendKeys(text);
                     return this.Text == text;
                 });
         }
 
         public virtual void SendKeysSpecial(string text)
         {
-            this.Do(() => this.Finder.GetDisplayedWebElement().SendKeys(text));
+            this.Do(() => this.Finder.GetWebElement().SendKeys(text));
         }
     }
 }
