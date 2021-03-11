@@ -28,9 +28,9 @@ namespace Zelenium.Core.WebDriver.Types
         public IWebElement WebElement => this.Finder.GetWebElement();
         public IWebElement DisplayedWebElement => this.Finder.GetDisplayedWebElement();
         public Point Location => this.Do(() => this.Finder.GetWebElement().Location);
-        public bool Displayed => this.Finder.Displayed();
+        public bool Displayed => this.Do(() => this.Finder.Displayed());
         public bool Present => this.Finder.Present();
-        public bool DisplayedNow => this.Finder.Displayed(TimeSpan.Zero);
+        public bool DisplayedNow => this.Do(() => this.Finder.Displayed(TimeSpan.Zero));
         public bool PresentNow => this.Finder.Present(TimeSpan.Zero);
         public Color BackgroundColor => this.GetBackgroundColor();
         public ClassAttribute Class => new ClassAttribute(this.Finder);
