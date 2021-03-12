@@ -27,16 +27,17 @@ namespace Zelenium.Core.WebDriver.Types
         public IElementFinder Finder { get; set; }
         public IWebElement WebElement => this.Finder.GetWebElement();
         public IWebElement DisplayedWebElement => this.Finder.GetDisplayedWebElement();
-        public Point Location => this.Do(() => this.Finder.GetDisplayedWebElement().Location);
-        public bool Displayed => this.Finder.Displayed();
+        public Point Location => this.Do(() => this.Finder.GetWebElement().Location);
+        public bool Displayed => this.Do(() => this.Finder.Displayed());
         public bool Present => this.Finder.Present();
-        public bool DisplayedNow => this.Finder.Displayed(TimeSpan.Zero);
+        public bool DisplayedNow => this.Do(() => this.Finder.Displayed(TimeSpan.Zero));
         public bool PresentNow => this.Finder.Present(TimeSpan.Zero);
         public Color BackgroundColor => this.GetBackgroundColor();
         public ClassAttribute Class => new ClassAttribute(this.Finder);
         public Attributes Attributes => new Attributes(this.Finder);
         public string Path => this.Finder.Path;
-
+        public bool Selected => this.Do(() => this.Finder.GetWebElement().Selected);
+        public bool Enabled => this.Do(() => this.Finder.GetWebElement().Enabled);
         public JavaScriptExecutor JavaScriptExecutor { get; private set; }
 
         public void Click(ClickMethod clickMethod = ClickMethod.Default)
@@ -48,11 +49,11 @@ namespace Zelenium.Core.WebDriver.Types
                         try
                         {
                             this.Scroll();
-                            this.DisplayedWebElement.Click();
+                            this.WebElement.Click();
                         }
                         catch (ElementClickInterceptedException e)
                         {
-                            Console.WriteLine($"Failed to 'xlick' emelent: {this.Path}");
+                            Console.WriteLine($"Failed to 'click' emelent: {this.Path}");
                             Console.WriteLine("Trying to click using javascript!");
                             Console.WriteLine(e.Message);
                             this.ExecuteScript(BaseQueries.JavaScriptClick);
@@ -188,7 +189,7 @@ namespace Zelenium.Core.WebDriver.Types
             try
             {
                 new Actions(this.webDriver)
-                     .MoveToElement(this.Finder.GetDisplayedWebElement())
+                     .MoveToElement(this.Finder.GetWebElement())
                      .Perform();
             }
             catch (MoveTargetOutOfBoundsException)
