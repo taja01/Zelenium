@@ -16,5 +16,17 @@ namespace Zelenium.Core.Google
         /// Get Google tracking id 
         /// </summary>
         public string GoogleAnalyticsID => this.executor.Get<string>(AnalyticsQueries.GetGoogleAnalyticsID);
+
+        /// <summary>
+        /// Clear data layer. Usefull before event trigger to find your events
+        /// </summary>
+        public void ClearDataLayer() => this.executor.Execute(AnalyticsQueries.ClearDataLayer.Script);
+
+        /// <summary>
+        /// Return with DataLayer as object
+        /// </summary>
+        /// <returns>object</returns>
+        public object GetDataLayer() => this.executor.Execute(AnalyticsQueries.GetDataLayer.Script);
+
     }
 }

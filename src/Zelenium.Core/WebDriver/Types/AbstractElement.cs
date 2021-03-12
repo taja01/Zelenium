@@ -36,7 +36,8 @@ namespace Zelenium.Core.WebDriver.Types
         public ClassAttribute Class => new ClassAttribute(this.Finder);
         public Attributes Attributes => new Attributes(this.Finder);
         public string Path => this.Finder.Path;
-
+        public bool Selected => this.Do(() => this.Finder.GetWebElement().Selected);
+        public bool Enabled => this.Do(() => this.Finder.GetWebElement().Enabled);
         public JavaScriptExecutor JavaScriptExecutor { get; private set; }
 
         public void Click(ClickMethod clickMethod = ClickMethod.Default)
@@ -188,7 +189,7 @@ namespace Zelenium.Core.WebDriver.Types
             try
             {
                 new Actions(this.webDriver)
-                     .MoveToElement(this.Finder.GetDisplayedWebElement())
+                     .MoveToElement(this.Finder.GetWebElement())
                      .Perform();
             }
             catch (MoveTargetOutOfBoundsException)
