@@ -33,6 +33,7 @@ namespace Zelenium.WebDriverManager.Options
             // Disable chrome save your password pop up
             this.chromeOptions.AddUserProfilePreference("credentials_enable_service", false);
             this.chromeOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
+            this.chromeOptions.AddArgument("disable-blink-features=AutomationControlled");
 
             return (T)this;
         }
