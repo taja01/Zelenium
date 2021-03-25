@@ -11,22 +11,28 @@ namespace Zelenium.Core.WebDriver.Types
         {
         }
 
-        public virtual string Text => this.Finder.GetWebElement().Text;
+        public virtual string Text => this.GetText();
         public Color Color => this.GetColor();
 
         public void WaitForText(string expectedText, bool caseSensitive = true, TimeSpan? timeout = null, string errorMessage = null)
         {
-            var messagePrefix = errorMessage == null ? string.Empty : "[" + errorMessage + "] ";
-
-            Wait.Initialize()
-            .Timeout(timeout)
-            .Until(() =>
+            var actualText = string.Empty;
+            try
             {
-                var actualText = this.Text;
-                return caseSensitive
-                             ? expectedText.Equals(actualText)
-                             : expectedText.ToLower().Normalize() == actualText.ToLower().Normalize();
-            });
+                Wait.Initialize()
+                    .Timeout(timeout)
+                    .Until(() =>
+                    {
+                        actualText = this.Text;
+                        return caseSensitive
+                            ? expectedText.Trim().Equals(actualText.Trim())
+                            : expectedText.ToLower().Normalize().Trim() == actualText.ToLower().Normalize().Trim();
+                    });
+            }
+            catch (WebDriverTimeoutException)
+            {
+                throw new WebDriverTimeoutException($"Expected text: '{expectedText}', but on element the text was: '{actualText}'.\nCase sensitive: {caseSensitive}\n{errorMessage}");
+            }
         }
 
         public bool HasTextWithin(string expectedText, bool caseSensitive = true, TimeSpan? timeout = null)
@@ -40,6 +46,12 @@ namespace Zelenium.Core.WebDriver.Types
             {
                 return false;
             }
+        }
+
+        private string GetText()
+        {
+            this.Scroll();
+            return this.Finder.GetWebElement().Text;
         }
     }
 }

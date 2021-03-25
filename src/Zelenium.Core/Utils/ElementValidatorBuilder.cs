@@ -61,7 +61,7 @@ namespace Zelenium.Core.Utils
 
         public ElementValidatorBuilder TextEqualsTo(string expectedText)
         {
-            Assert.AreEqual(expectedText, this.element.Text, this.message);
+            Assert.AreEqual(expectedText.Trim().Normalize(), this.element.Text.Trim().Normalize(), this.message);
             return this;
         }
 

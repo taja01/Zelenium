@@ -115,6 +115,8 @@ namespace Zelenium.Core.WebDriver.Types
         {
             const byte NOT_TRANSPARENT = 255;
             var color = Color.FromArgb(0, 0, 0, 0);
+
+            this.Scroll();
             this.Do(() =>
             {
                 var cssColor = this.Do(() => this.Finder.GetDisplayedWebElement().GetCssValue("color"));
@@ -139,6 +141,8 @@ namespace Zelenium.Core.WebDriver.Types
             const byte FULLY_TRANSPARENT = 0;
             const byte NOT_TRANSPARENT = 255;
             var color = Color.FromArgb(0, 0, 0, 0);
+
+            this.Scroll();
             this.Do(() =>
             {
                 var elementToCheck = this.Finder.GetDisplayedWebElement();
