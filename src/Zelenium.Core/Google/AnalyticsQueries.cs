@@ -19,7 +19,7 @@ namespace Zelenium.Core.Google
         public static JsQuery GetDataLayer => new JsQuery
         {
             Name = "GetDataLayer",
-            Script = "return window.dataLayer "
+            Script = "return window.dataLayer"
         };
     }
 }
