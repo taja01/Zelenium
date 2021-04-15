@@ -4,7 +4,7 @@ using Zelenium.Shared;
 
 namespace Zelenium.WebDriverManager.Options
 {
-    internal abstract class FireFoxOptionsBuilder
+    public abstract class FireFoxOptionsBuilder
     {
         protected readonly FirefoxOptions firefoxOptions;
 
@@ -16,7 +16,7 @@ namespace Zelenium.WebDriverManager.Options
         public FirefoxOptions Build() => this.firefoxOptions;
     }
 
-    internal class FirefoxCommonSettingsBuilder<T> : FireFoxOptionsBuilder where T : FirefoxCommonSettingsBuilder<T>
+    public class FirefoxCommonSettingsBuilder<T> : FireFoxOptionsBuilder where T : FirefoxCommonSettingsBuilder<T>
     {
         public T SetCommon()
         {
@@ -40,7 +40,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class FirefoxDeviceSettingsBuilder<T> : FirefoxCommonSettingsBuilder<FirefoxDeviceSettingsBuilder<T>> where T : FirefoxDeviceSettingsBuilder<T>
+    public class FirefoxDeviceSettingsBuilder<T> : FirefoxCommonSettingsBuilder<FirefoxDeviceSettingsBuilder<T>> where T : FirefoxDeviceSettingsBuilder<T>
     {
         public T SetDevice(Device device)
         {
@@ -57,7 +57,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class FirefoxHeadlessSettingsBuilder<T> : FirefoxDeviceSettingsBuilder<FirefoxHeadlessSettingsBuilder<T>> where T : FirefoxHeadlessSettingsBuilder<T>
+    public class FirefoxHeadlessSettingsBuilder<T> : FirefoxDeviceSettingsBuilder<FirefoxHeadlessSettingsBuilder<T>> where T : FirefoxHeadlessSettingsBuilder<T>
     {
         public T SetHeadless(bool debug)
         {

@@ -38,7 +38,6 @@ namespace Zelenium.WebDriverManager
 
         private IWebDriver CreateChromeDriver(Device device, bool debug = true)
         {
-
             var options = ChromeOptionsDirector
                 .NewChromeOptionsDirector
                 .SetCommon()

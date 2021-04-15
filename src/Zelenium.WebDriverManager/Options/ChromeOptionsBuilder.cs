@@ -4,7 +4,7 @@ using Zelenium.Shared;
 
 namespace Zelenium.WebDriverManager.Options
 {
-    internal abstract class ChromeOptionsBuilder
+    public abstract class ChromeOptionsBuilder
     {
         protected readonly ChromeOptions chromeOptions;
 
@@ -16,7 +16,7 @@ namespace Zelenium.WebDriverManager.Options
         public ChromeOptions Build() => this.chromeOptions;
     }
 
-    internal class ChromeCommonSettingsBuilder<T> : ChromeOptionsBuilder where T : ChromeCommonSettingsBuilder<T>
+    public class ChromeCommonSettingsBuilder<T> : ChromeOptionsBuilder where T : ChromeCommonSettingsBuilder<T>
     {
         public T SetCommon()
         {
@@ -39,7 +39,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class ChromeDeviceSettingsBuilder<T> : ChromeCommonSettingsBuilder<ChromeDeviceSettingsBuilder<T>> where T : ChromeDeviceSettingsBuilder<T>
+    public class ChromeDeviceSettingsBuilder<T> : ChromeCommonSettingsBuilder<ChromeDeviceSettingsBuilder<T>> where T : ChromeDeviceSettingsBuilder<T>
     {
         public T SetDevice(Device device)
         {
@@ -65,7 +65,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class ChromeHeadlessSettingsBuilder<T> : ChromeDeviceSettingsBuilder<ChromeHeadlessSettingsBuilder<T>> where T : ChromeHeadlessSettingsBuilder<T>
+    public class ChromeHeadlessSettingsBuilder<T> : ChromeDeviceSettingsBuilder<ChromeHeadlessSettingsBuilder<T>> where T : ChromeHeadlessSettingsBuilder<T>
     {
         public T SetHeadless(bool debug)
         {
@@ -78,7 +78,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class ChromeExtensionSettingsBuilder<T> : ChromeHeadlessSettingsBuilder<ChromeExtensionSettingsBuilder<T>> where T : ChromeExtensionSettingsBuilder<T>
+    public class ChromeExtensionSettingsBuilder<T> : ChromeHeadlessSettingsBuilder<ChromeExtensionSettingsBuilder<T>> where T : ChromeExtensionSettingsBuilder<T>
     {
         public T WithExtension(bool useExtension)
         {

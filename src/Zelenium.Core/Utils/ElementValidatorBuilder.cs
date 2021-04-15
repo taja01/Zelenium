@@ -59,6 +59,25 @@ namespace Zelenium.Core.Utils
             return this;
         }
 
+        public ElementValidatorBuilder TextDoesNotContains(string expectedText, bool caseSensitive = true)
+        {
+
+            var extendedMessage = $"{this.message} | Element's text does contain the expected text";
+            var text = this.element.Text;
+
+            if (caseSensitive)
+            {
+                StringAssert.DoesNotContain(expectedText, text, extendedMessage);
+            }
+            else
+            {
+                Assert.IsFalse(text.ContainsIgnoreCase(expectedText), $"{extendedMessage}| Element text check. Actual '{text}' text did contain "
+                                                                        + $"the expected that does NOT contain: '{expectedText}' text (IgnoreCaseSensitie)");
+            }
+
+            return this;
+        }
+
         public ElementValidatorBuilder TextEqualsTo(string expectedText)
         {
             Assert.AreEqual(expectedText.Trim().Normalize(), this.element.Text.Trim().Normalize(), this.message);

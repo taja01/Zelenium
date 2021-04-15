@@ -4,7 +4,7 @@ using Zelenium.Shared;
 
 namespace Zelenium.WebDriverManager.Options
 {
-    internal class EdgeOptionsBuilder
+    public class EdgeOptionsBuilder
     {
         protected readonly EdgeOptions edgeOptions;
 
@@ -16,7 +16,7 @@ namespace Zelenium.WebDriverManager.Options
         public EdgeOptions Build() => this.edgeOptions;
     }
 
-    internal class EdgeCommonSettingsBuilder<T> : EdgeOptionsBuilder where T : EdgeCommonSettingsBuilder<T>
+    public class EdgeCommonSettingsBuilder<T> : EdgeOptionsBuilder where T : EdgeCommonSettingsBuilder<T>
     {
         public T SetCommon()
         {
@@ -41,7 +41,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class EdgeDeviceSettingsBuilder<T> : EdgeCommonSettingsBuilder<EdgeDeviceSettingsBuilder<T>> where T : EdgeDeviceSettingsBuilder<T>
+    public class EdgeDeviceSettingsBuilder<T> : EdgeCommonSettingsBuilder<EdgeDeviceSettingsBuilder<T>> where T : EdgeDeviceSettingsBuilder<T>
     {
         public T SetDevice(Device device)
         {
@@ -67,7 +67,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class EdgeHeadlessSettingsBuilder<T> : EdgeDeviceSettingsBuilder<EdgeHeadlessSettingsBuilder<T>> where T : EdgeHeadlessSettingsBuilder<T>
+    public class EdgeHeadlessSettingsBuilder<T> : EdgeDeviceSettingsBuilder<EdgeHeadlessSettingsBuilder<T>> where T : EdgeHeadlessSettingsBuilder<T>
     {
         public T SetHeadless(bool debug)
         {
@@ -80,7 +80,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    internal class EdgeExtensionSettingsBuilder<T> : EdgeHeadlessSettingsBuilder<EdgeExtensionSettingsBuilder<T>> where T : EdgeExtensionSettingsBuilder<T>
+    public class EdgeExtensionSettingsBuilder<T> : EdgeHeadlessSettingsBuilder<EdgeExtensionSettingsBuilder<T>> where T : EdgeExtensionSettingsBuilder<T>
     {
         public T WithExtension(bool useExtension)
         {
