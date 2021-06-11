@@ -1,6 +1,4 @@
-﻿using System;
-using OpenQA.Selenium.Firefox;
-using Zelenium.Shared;
+﻿using OpenQA.Selenium.Firefox;
 
 namespace Zelenium.WebDriverManager.Options
 {
@@ -40,24 +38,7 @@ namespace Zelenium.WebDriverManager.Options
         }
     }
 
-    public class FirefoxDeviceSettingsBuilder<T> : FirefoxCommonSettingsBuilder<FirefoxDeviceSettingsBuilder<T>> where T : FirefoxDeviceSettingsBuilder<T>
-    {
-        public T SetDevice(Device device)
-        {
-            if (device == Device.Desktop)
-            {
-                this.firefoxOptions.AddArgument("--window-size=1920,1080");
-            }
-            else
-            {
-                throw new NotSupportedException("Firefox does not support mobile");
-            }
-
-            return (T)this;
-        }
-    }
-
-    public class FirefoxHeadlessSettingsBuilder<T> : FirefoxDeviceSettingsBuilder<FirefoxHeadlessSettingsBuilder<T>> where T : FirefoxHeadlessSettingsBuilder<T>
+    public class FirefoxHeadlessSettingsBuilder<T> : FirefoxCommonSettingsBuilder<FirefoxHeadlessSettingsBuilder<T>> where T : FirefoxHeadlessSettingsBuilder<T>
     {
         public T SetHeadless(bool debug)
         {

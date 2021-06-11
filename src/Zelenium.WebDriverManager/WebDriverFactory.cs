@@ -29,11 +29,14 @@ namespace Zelenium.WebDriverManager
                 options = browser switch
                 {
                     Browser.Chrome => this.GetChromeOptions(device, debug),
-                    Browser.Firefox => this.GetFirefoxOptions(device, debug),
+                    Browser.Firefox => this.GetFirefoxOptions(debug),
                     Browser.Edge => this.GetEdgeOptions(device, debug),
                     _ => throw new NotImplementedException()
                 };
-                return new RemoteWebDriver(new Uri(remoteUrl), options);
+
+                this.driver = new RemoteWebDriver(new Uri(remoteUrl), options);
+
+                return this.driver;
 
             }
             catch (Exception exception)
@@ -56,13 +59,15 @@ namespace Zelenium.WebDriverManager
 
             try
             {
-                return browser switch
+                driver = browser switch
                 {
                     Browser.Chrome => this.CreateChromeDriver(device, debug),
                     Browser.Firefox => this.CreateFirefoxDriver(device, debug),
                     Browser.Edge => this.CreateEdgeDriver(device, debug, path),
                     _ => throw new NotImplementedException()
                 };
+
+                return this.driver;
 
             }
             catch (Exception exception)
@@ -91,15 +96,14 @@ namespace Zelenium.WebDriverManager
             var geckoService = FirefoxDriverService.CreateDefaultService();
             geckoService.Host = "::1";
 
-            return new FirefoxDriver(geckoService, (FirefoxOptions)this.GetFirefoxOptions(device, debug));
+            return new FirefoxDriver(geckoService, (FirefoxOptions)this.GetFirefoxOptions(debug));
         }
 
-        private DriverOptions GetFirefoxOptions(Device device, bool debug = true)
+        private DriverOptions GetFirefoxOptions(bool debug = true)
         {
             return FireFoxOptionsDirector
                 .NewFirefoxOptionsDirector
                 .SetCommon()
-                .SetDevice(device)
                 .SetHeadless(debug)
                 .Build();
         }

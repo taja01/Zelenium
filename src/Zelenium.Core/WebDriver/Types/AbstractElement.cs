@@ -39,7 +39,8 @@ namespace Zelenium.Core.WebDriver.Types
         public bool Selected => this.Do(() => this.Finder.GetWebElement().Selected);
         public bool Enabled => this.Do(() => this.Finder.GetWebElement().Enabled);
         public JavaScriptExecutor JavaScriptExecutor { get; private set; }
-
+        public bool HasBeforePseudo => this.GetComputedStyle("content", ":before") != "none";
+        public bool HasAfterPseudo => this.GetComputedStyle("content", ":after") != "none";
         public void Click(ClickMethod clickMethod = ClickMethod.Default)
         {
             switch (clickMethod)
@@ -204,7 +205,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         public string GetComputedStyle(string style, string pseudo = null)
         {
-            return this.Do(() => this.JavaScriptExecutor.Get<string>(BaseQueries.GetComputedStyle(style, pseudo), this).ToString());
+            return this.Do(() => this.JavaScriptExecutor.Get<string>(BaseQueries.GetComputedStyle(style, pseudo), this));
         }
 
         public string GetCssValue(string propertyName)
