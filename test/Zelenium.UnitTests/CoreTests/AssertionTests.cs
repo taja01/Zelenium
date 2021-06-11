@@ -235,7 +235,10 @@ namespace Zelenium.UnitTestss.CoreTests
 
             Assert.That(() => Assertion.IsDisappeared(mockElement.Object, "mock element"),
                 Throws.TypeOf<AssertionException>()
-                .With.Message.Contains("'mock element' still present"));
+                .With.Message.Contains("Element still visible")
+                .With.Message.Contains("Type: IElementContainerProxy")
+                .With.Message.Contains("Property name: mock element")
+                .With.Message.Contains("Path: "));
         }
 
         [Test]

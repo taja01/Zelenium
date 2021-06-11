@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using NUnit.Framework;
+using Zelenium.Core.Interfaces;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver;
-using Zelenium.Core.Interfaces;
 using Zelenium.Core.WebDriver.Types;
 
 namespace Zelenium.Core.Utils
@@ -74,14 +74,14 @@ namespace Zelenium.Core.Utils
                 .Until(() => list.Count >= expectedNumber);
         }
 
-        public static void IsDisplayed(IElementContainer element, string message)
+        public static void IsDisplayed(IElementContainer element, string elementName)
         {
-            Assert.IsTrue(element.Displayed, message);
+            Assert.IsTrue(element.Displayed, GenerateErrorMessage(element, elementName, "Element does not display"));
         }
 
         public static void IsDisappeared(IElementContainer element, string elementName, TimeSpan? timeout = null)
         {
-            Assert.IsTrue(element.IsDisappeared(timeout), $"'{elementName}' still present");
+            Assert.IsTrue(element.IsDisappeared(timeout), GenerateErrorMessage(element, elementName, "Element still visible"));
         }
 
         public static void IsTextValid(IElement element, string message)
@@ -102,6 +102,14 @@ namespace Zelenium.Core.Utils
         public static void IsTrue(ValidationResult validationResult, string message)
         {
             Assert.IsTrue(validationResult.Passed, $"{message}: {validationResult.Message}");
+        }
+
+        private static string GenerateErrorMessage(IElementContainer element, string elementName, string mainReason)
+        {
+            return $"{mainReason}{Environment.NewLine}" +
+                            $"Type: {element.GetType().Name}{Environment.NewLine}" +
+                            $"Property name: {elementName}{Environment.NewLine}" +
+                            $"Path: {element.Path}";
         }
 
         private static ValidationResult TestTextValidity(IElement element, string message)

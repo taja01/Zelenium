@@ -67,10 +67,10 @@ namespace Zelenium.Core.WebDriver.Types
             }
         }
 
-        public void WaitUntilDisappear(string errorMessage, TimeSpan? timeout = null)
+        public void WaitUntilDisappear(string elementName, TimeSpan? timeout = null)
         {
             Wait.Initialize()
-                .Message($"Element '{errorMessage}' is still visible")
+                .Message(GenerateErrorMessage(this, elementName, "Element still visible"))
                 .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Until(() => !this.DisplayedNow);
         }
@@ -81,6 +81,14 @@ namespace Zelenium.Core.WebDriver.Types
                 .IgnoreExceptionTypes(typeof(WebDriverTimeoutException))
                 .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Success(() => !this.DisplayedNow);
+        }
+
+        private static string GenerateErrorMessage(IElementContainer element, string elementName, string mainReason)
+        {
+            return $"{mainReason}{Environment.NewLine}" +
+                            $"Type: {element.GetType().Name}{Environment.NewLine}" +
+                            $"Property name: {elementName}{Environment.NewLine}" +
+                            $"Path: {element.Path}";
         }
 
         /// <summary>
