@@ -94,13 +94,13 @@ namespace Zelenium.Core.WebDriver.Types
         /// <summary>
         /// Wait for the element
         /// </summary>
-        /// <param name="errorMessage">Exception contain this message</param>
+        /// <param name="elementName">Name of the element</param>
         /// <param name="timeout">Exnted timeout. By default the timeout is 5s</param>
         /// <exception cref="WebDriverTimeoutException"></exception>
-        public void WaitUntilDisplay(string errorMessage, TimeSpan? timeout = null)
+        public void WaitUntilDisplay(string elementName, TimeSpan? timeout = null)
         {
             Wait.Initialize()
-                .Message($"Element '{errorMessage}' does not appear")
+                .Message(GenerateErrorMessage(this, elementName, "Element still not visible"))
                 .Timeout(timeout ?? TimeConfig.DefaultTimeout)
                 .Until(() => this.DisplayedNow);
         }
