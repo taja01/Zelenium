@@ -26,6 +26,8 @@ namespace Zelenium.Core.Utils
                 }
                 catch (TException e)
                 {
+                    Console.WriteLine($"{e.GetType().FullName} has been thrown!");
+                    Console.WriteLine($"Trying = {currentTry} time(s) of {numberOfTries}");
                     lastException = e;
                 }
                 Thread.Sleep(delayBetweenTries ?? TimeSpan.Zero);

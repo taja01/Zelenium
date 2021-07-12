@@ -33,6 +33,7 @@ namespace Zelenium.Core.WebDriver.Types
         public bool DisplayedNow => this.Do(() => this.Finder.Displayed(TimeSpan.Zero));
         public bool PresentNow => this.Finder.Present(TimeSpan.Zero);
         public Color BackgroundColor => this.GetBackgroundColor();
+        public Color BorderColor => this.GetBorderColor();
         public ClassAttribute Class => new ClassAttribute(this.Finder);
         public Attributes Attributes => new Attributes(this.Finder);
         public string Path => this.Finder.Path;
@@ -49,8 +50,11 @@ namespace Zelenium.Core.WebDriver.Types
                     {
                         try
                         {
-                            this.Scroll();
-                            this.WebElement.Click();
+                            this.Do(() =>
+                            {
+                                this.Scroll();
+                                this.WebElement.Click();
+                            });
                         }
                         catch (ElementClickInterceptedException e)
                         {
@@ -128,7 +132,7 @@ namespace Zelenium.Core.WebDriver.Types
             this.Scroll();
             this.Do(() =>
             {
-                var cssColor = this.Do(() => this.Finder.GetDisplayedWebElement().GetCssValue("color"));
+                var cssColor = this.Do(() => this.Finder.GetDisplayedWebElement().GetCssValue(ColorNames.COLOR));
                 var currentColor = ColorUtil.ParseColor(cssColor);
 
                 if (currentColor.A == NOT_TRANSPARENT)
@@ -158,7 +162,7 @@ namespace Zelenium.Core.WebDriver.Types
                 do
                 {
                     var e = elementToCheck;
-                    var cssColor = this.Do(() => e.GetCssValue("background-color"));
+                    var cssColor = this.Do(() => e.GetCssValue(ColorNames.BACKGROUND));
                     var currentColor = ColorUtil.ParseColor(cssColor);
 
                     if (currentColor.A != FULLY_TRANSPARENT)
@@ -173,11 +177,11 @@ namespace Zelenium.Core.WebDriver.Types
             return color;
         }
 
-        private T Do<T>(Func<T> action) => Retry.Do<StaleElementReferenceException, T>(action);
+        private T Do<T>(Func<T> action) => Retry.Do<StaleElementReferenceException, T>(action, delayBetweenTries: TimeConfig.TinyTimeout);
 
         protected void Do(Action action)
         {
-            Retry.Do<StaleElementReferenceException>(action);
+            Retry.Do<StaleElementReferenceException>(action, delayBetweenTries: TimeConfig.TinyTimeout);
         }
 
         public void DragAndDrop(int xAxis, int yAxis)
@@ -218,7 +222,34 @@ namespace Zelenium.Core.WebDriver.Types
 
         public string GetCssValue(string propertyName)
         {
-            return this.Do(() => this.Finder.GetDisplayedWebElement().GetCssValue(propertyName));
+            return this.Do(() => this.Finder.GetWebElement().GetCssValue(propertyName));
+        }
+
+        public Color GetColor(string propertyName)
+        {
+            var cssColor = this.Do(() => this.Finder.GetWebElement().GetCssValue(propertyName));
+            return ColorUtil.ParseColor(cssColor);
+        }
+
+        private Color GetBorderColor()
+        {
+            var top = this.GetColor(ColorNames.BORDER_TOP);
+            var right = this.GetColor(ColorNames.BORDER_RIGHT);
+            var bottom = this.GetColor(ColorNames.BORDER_BOTTOM);
+            var left = this.GetColor(ColorNames.BORDER_RIGHT);
+
+            if (top == right && right == bottom && bottom == left)
+            {
+                return top;
+            }
+            else
+            {
+                throw new Exception($"Border colors are different!" +
+                    $"\nTop: {top}" +
+                    $"\nRight: {right}" +
+                    $"\nBottom: {bottom}" +
+                    $"\nLeft: {left}");
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         public virtual void Clear()
         {
-            this.Finder.GetDisplayedWebElement().Clear();
+            this.Finder.GetWebElement().Clear();
             //Wait.Initialize()
             //    .Timeout(TimeConfig.LongTimeout)
             //    .Message($"Couldn't clear text for input element {Path}")

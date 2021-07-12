@@ -12,5 +12,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Zelenium.Shared\Zelenium.Shared.csproj" />
   </ItemGroup>
-
 </Project>
