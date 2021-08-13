@@ -11,7 +11,6 @@ namespace MaterialAngular.PageObjects
             this.ShowSnackBarButton = this.Find<Element>(By.CssSelector("snack-bar-overview-example > button"));
             this.SnackBar = this.Find<Element>(By.CssSelector(".mat-simple-snackbar-action"));
             this.Header = this.Find<Header>(By.CssSelector(".docs-navbar-header"));
-
         }
 
         public Header Header { get; private set; }
@@ -20,7 +19,6 @@ namespace MaterialAngular.PageObjects
 
         public override ValidationResult IsLoaded()
         {
-
             if (!this.ShowSnackBarButton.Displayed)
             {
                 return new ValidationResult { Passed = false, Message = $"ShowSnackBar not displayed\n Path: {this.ShowSnackBarButton.Path}" };
