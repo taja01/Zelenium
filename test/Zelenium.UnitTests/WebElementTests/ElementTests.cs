@@ -158,7 +158,7 @@ namespace Zelenium.UnitTestss.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript<bool>(BaseQueries.GetInnerHtml, out _),
+            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript<bool>(BaseQueries.GetInnerHtml),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
@@ -170,7 +170,7 @@ namespace Zelenium.UnitTestss.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript(BaseQueries.GetInnerHtml, out _),
+            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript(BaseQueries.GetInnerHtml),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);

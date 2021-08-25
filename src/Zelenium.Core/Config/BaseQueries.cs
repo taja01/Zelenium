@@ -46,6 +46,30 @@ namespace Zelenium.Core.Config
             Script = $"return arguments[0].shadowRoot.querySelectorAll('{cssSelector}')"
         };
 
+        public static JsQuery SetStyle(string value) => new JsQuery
+        {
+            Name = "SetStyle",
+            Script = $"arguments[0].setAttribute('Style', '{value}')"
+        };
+
+        public static JsQuery GetStyle() => new JsQuery
+        {
+            Name = "GetStyle",
+            Script = $"return arguments[0].getAttribute('Style')"
+        };
+
+        public static JsQuery AddAttribute(string attribute, string value) => new JsQuery
+        {
+            Name = "AddAttribute",
+            Script = $"arguments[0].setAttribute('{attribute}', '{value}')"
+        };
+
+        public static JsQuery GetAttribute(string attribute) => new JsQuery
+        {
+            Name = "AddAttribute",
+            Script = $"return arguments[0].getAttribute('{attribute}')"
+        };
+
         static string SetPseudoText(string pseudo)
         {
             return pseudo != null ? $", '{pseudo}'" : string.Empty;

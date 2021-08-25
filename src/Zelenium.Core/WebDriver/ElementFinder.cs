@@ -51,8 +51,7 @@ namespace Zelenium.Core.WebDriver
             {
                 return this.cachedWebElement;
             }
-
-            throw new NoSuchElementException($"Element not found {this.Path}");
+            throw new NoSuchElementException($"Element not exist!{Environment.NewLine}Path: {this.Path}");
         }
 
         /// <summary>
@@ -61,12 +60,11 @@ namespace Zelenium.Core.WebDriver
         /// <returns></returns>
         public IWebElement GetDisplayedWebElement()
         {
-            if (this.IsCashValid() || this.Displayed())
+            if (this.IsCashValid() && this.cachedWebElement.Displayed || this.Displayed())
             {
                 return this.cachedWebElement;
             }
-
-            throw new NoSuchElementException($"Element not found {this.Path}");
+            throw new NoSuchElementException($"Element not exist/displayed!{Environment.NewLine}Path: {this.Path}");
         }
 
         public bool Present(TimeSpan? timeout = null)
@@ -182,7 +180,6 @@ namespace Zelenium.Core.WebDriver
             try
             {
                 return this.cachedWebElement != null && this.cachedWebElement.Enabled && true;
-
             }
             catch (StaleElementReferenceException)
             {

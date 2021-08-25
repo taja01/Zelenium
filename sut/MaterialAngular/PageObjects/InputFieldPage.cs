@@ -8,11 +8,12 @@ namespace MaterialAngular.PageObjects
     {
         public InputFieldPage(IWebDriver webDriver) : base(webDriver, By.CssSelector(".docs-app-background"), "https://material.angular.io/components/input/overview")
         {
-            this.PageThisInputField = this.Find<InputField>(By.CssSelector("#mat-input-0"));
-
+            this.InputField = this.Find<InputField>(By.CssSelector("#mat-input-0"));
+            this.TextAreaField = this.Find<InputField>(By.CssSelector("#mat-input-1"));
         }
 
-        public InputField PageThisInputField { get; private set; }
+        public InputField InputField { get; private set; }
+        public InputField TextAreaField { get; private set; }
 
         public override ValidationResult IsLoaded()
         {
@@ -20,9 +21,13 @@ namespace MaterialAngular.PageObjects
             {
                 return new ValidationResult { Passed = false, Message = $"Page not loaded Path:{this.Path}" };
             }
-            if (!this.PageThisInputField.Displayed)
+            if (!this.InputField.Displayed)
             {
-                return new ValidationResult { Passed = false, Message = $"ReadThisInputField not loaded Path:{this.PageThisInputField.Path}" };
+                return new ValidationResult { Passed = false, Message = $"InputField not loaded Path:{this.InputField.Path}" };
+            }
+            if (!this.TextAreaField.Displayed)
+            {
+                return new ValidationResult { Passed = false, Message = $"TextAreaField not loaded Path:{this.TextAreaField.Path}" };
             }
             return new ValidationResult { Passed = true, Message = "Ok" };
         }

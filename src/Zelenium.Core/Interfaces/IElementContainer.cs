@@ -29,8 +29,7 @@ namespace Zelenium.Core.Interfaces
         void WaitUntilDisappear(string errorMessage, TimeSpan? timeout = null);
         void WaitUntilDisplay(string errorMessage, TimeSpan? timeout = null);
         void ExecuteScript(JsQuery script);
-        public void ExecuteScript(JsQuery script, out object result);
-        public void ExecuteScript<T>(JsQuery script, out T result);
+        public T ExecuteScript<T>(JsQuery script);
         void DragAndDrop(int xAxis, int yAxis);
         void Swipe(int xAxis);
         void Scroll();

@@ -38,6 +38,7 @@ namespace MaterialAngular.PageObjects
     {
         public ButtonOverview(IWebDriver webDriver, By locator) : base(webDriver, locator)
         {
+            this.BasicWithoutDelay = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(1) > span:first-of-type"), System.TimeSpan.Zero);
             this.Basic = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(1) > span:first-of-type"));
             this.Primary = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(2) > span:first-of-type"));
             this.Accentc = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(3) > span:first-of-type"));
@@ -48,6 +49,7 @@ namespace MaterialAngular.PageObjects
         }
 
         public Element Basic { get; private set; }
+        public Element BasicWithoutDelay { get; private set; }
         public Element Primary { get; private set; }
         public Element Accentc { get; private set; }
         public Element Warn { get; private set; }

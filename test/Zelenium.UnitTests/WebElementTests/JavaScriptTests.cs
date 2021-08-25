@@ -28,11 +28,36 @@ namespace Zelenium.UnitTestss.WebElementTests
         [Test]
         public void GetInnerHtmlTest()
         {
-            this.buttonPage.ButtonOverview.ExecuteScript(BaseQueries.GetInnerHtml, out var goodObject);
+            var goodObject = this.buttonPage.ButtonOverview.ExecuteScript<object>(BaseQueries.GetInnerHtml);
             Assert.NotNull(goodObject);
 
-            this.buttonPage.ButtonOverview.Basic.ExecuteScript<ButtonType>(BaseQueries.GetInnerHtml, out var myEnum);
+            var myEnum = this.buttonPage.ButtonOverview.Basic.ExecuteScript<ButtonType>(BaseQueries.GetInnerHtml);
             Assert.AreEqual(ButtonType.Basic, myEnum);
+        }
+
+        [Test]
+        public void SetStyleTest()
+        {
+            var style = "visibility:hidden";
+            var basicButton = this.buttonPage.ButtonOverview.Basic;
+            basicButton.ExecuteScript(BaseQueries.SetStyle(style));
+
+            Assert.AreEqual(style, basicButton.ExecuteScript<string>(BaseQueries.GetStyle()));
+            Assert.IsTrue(basicButton.Present);
+            Assert.IsFalse(basicButton.DisplayedNow);
+
+            var a = basicButton.Attributes.Get("style");
+        }
+
+        [Test]
+        public void SetAttributeTest()
+        {
+            var attr = "id";
+            var value = "goodId";
+            var basicButton = this.buttonPage.ButtonOverview.Basic;
+            basicButton.ExecuteScript(BaseQueries.AddAttribute(attr, value));
+
+            Assert.AreEqual(value, basicButton.ExecuteScript<string>(BaseQueries.GetAttribute(attr)));
         }
 
         enum ButtonType
