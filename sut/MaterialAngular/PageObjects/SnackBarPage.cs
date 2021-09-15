@@ -9,13 +9,13 @@ namespace MaterialAngular.PageObjects
         public SnackBarPage(IWebDriver webDriver) : base(webDriver, null, "https://material.angular.io/components/snack-bar/overview")
         {
             this.ShowSnackBarButton = this.Find<Element>(By.CssSelector("snack-bar-overview-example > button"));
-            this.SnackBar = this.Find<Element>(By.CssSelector(".mat-simple-snackbar-action"));
+            this.SnackBar = this.Find<SnackBarContent>(By.CssSelector(".mat-simple-snackbar-action"));
             this.Header = this.Find<Header>(By.CssSelector(".docs-navbar-header"));
         }
 
         public Header Header { get; private set; }
         public Element ShowSnackBarButton { get; private set; }
-        public Element SnackBar { get; private set; }
+        public SnackBarContent SnackBar { get; private set; }
 
         public override ValidationResult IsLoaded()
         {
@@ -25,6 +25,28 @@ namespace MaterialAngular.PageObjects
             }
 
             return new ValidationResult { Passed = true, Message = "Ok" };
+        }
+
+
+        public class SnackBarContent : AbstractContainer
+        {
+            public SnackBarContent(IWebDriver webDriver, By locator) 
+                : base(webDriver, locator)
+            {
+                this.CloseButton = this.Find<Element>(By.CssSelector(".mat-button-wrapper"));
+            }
+
+            public Element CloseButton { get; private set; }
+
+            public override ValidationResult IsLoaded()
+            {
+                if (!this.Displayed)
+                {
+                    return new ValidationResult { Passed = false, Message = $"Container not displayed\n Path: {this.Path}" };
+                }
+
+                return new ValidationResult { Passed = true, Message = "Ok" };
+            }
         }
     }
 }

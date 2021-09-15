@@ -105,6 +105,7 @@ namespace Zelenium.UnitTests.WebElementTests
         [Order(8)]
         public void WaitForDisappearTheSnackBarTest()
         {
+            this.snackBarPage.SnackBar.CloseButton.Click();
             this.snackBarPage.SnackBar.WaitUntilDisappear("snackbar");
         }
 
