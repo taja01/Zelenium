@@ -22,6 +22,18 @@ namespace Zelenium.Core.Utils
             return this;
         }
 
+        public ElementValidatorBuilder IsSelected()
+        {
+            Assert.IsTrue(this.element.WebElement.Selected, $"{this.message} | Element is not Selected");
+            return this;
+        }
+
+        public ElementValidatorBuilder IsNotSelected()
+        {
+            Assert.IsFalse(this.element.WebElement.Selected, $"{this.message} | Element is  Selected");
+            return this;
+        }
+
         public ElementValidatorBuilder IsTextValid()
         {
             Assertion.IsTextValid(this.element, this.message);

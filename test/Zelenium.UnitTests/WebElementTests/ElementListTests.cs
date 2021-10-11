@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using MaterialAngular.PageObjects;
+﻿using MaterialAngular.PageObjects;
 using NUnit.Framework;
 
 namespace Zelenium.UnitTests.WebElementTests
@@ -21,22 +20,13 @@ namespace Zelenium.UnitTests.WebElementTests
         [Test]
         public void ListTest()
         {
-            var elements = this.selectPage.LeftMenu;
-            Assert.AreEqual(14, elements.Count);
-
-            foreach (var item in elements)
-            {
-                Debug.WriteLine(item.Text);
-                StringAssert.Contains("<", item.Text);
-                StringAssert.Contains(">", item.Text);
-            }
+            var elements = this.selectPage.Tabs;
+            Assert.AreEqual(3, elements.Count);
         }
 
         [Test]
         public void ShadowListTest()
         {
-            this.driver.SwitchTo().Frame(this.selectPage.IFrame.DisplayedWebElement);
-
             var elements = this.selectPage.Container.Title;
             Assert.AreEqual(1, elements.Count);
             Assert.AreEqual("Choose a pet:", elements[0].Text);

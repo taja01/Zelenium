@@ -1,6 +1,7 @@
 ﻿using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using Zelenium.Core.Utils;
 using Zelenium.Shared;
 using Zelenium.WebDriverManager;
 
@@ -14,11 +15,11 @@ namespace Zelenium.UnitTests.WebdriverManagerTests
         [Test]
         public void ChromeTest()
         {
-            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, false);
+            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, true);
             this.driver.Manage().Window.Maximize();
             this.selectPage = new SelectPage(this.driver);
             this.selectPage.Load();
-            Assert.IsTrue(this.selectPage.IsLoaded().Passed);
+            Assertion.IsTrue(this.selectPage.IsLoaded(), "Load test page");
         }
 
         [Test]
@@ -28,7 +29,7 @@ namespace Zelenium.UnitTests.WebdriverManagerTests
             this.driver.Manage().Window.Maximize();
             this.selectPage = new SelectPage(this.driver);
             this.selectPage.Load();
-            Assert.IsTrue(this.selectPage.IsLoaded().Passed);
+            Assertion.IsTrue(this.selectPage.IsLoaded(), "Load test page");
         }
 
         [TearDown]

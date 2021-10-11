@@ -7,13 +7,12 @@ namespace MaterialAngular.PageObjects
     public class SelectPage : AbstractLoadableContainer
     {
         public SelectPage(IWebDriver webDriver)
-            : base(webDriver, By.CssSelector(".page-wrapper"), "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select")
+            : base(webDriver, By.CssSelector("#editor-container"), "https://interactive-examples.mdn.mozilla.net/pages/tabbed/select.html")
         {
         }
 
-        public Element IFrame => this.Find<Element>(By.CssSelector("div:nth-child(2) > div:nth-child(3) > iframe"));
         public ShadowContainer Container => new ShadowContainer(this.webDriver, By.CssSelector("#output > shadow-output"));
-        public ElementList<Element> LeftMenu => Finds<Element>(By.CssSelector("#sidebar-quicklinks div> ol >li>a > code"));
+        public ElementList<Element> Tabs => Finds<Element>(By.CssSelector("[role='tab']"));
 
         public override ValidationResult IsLoaded()
         {
@@ -21,9 +20,9 @@ namespace MaterialAngular.PageObjects
             {
                 return new ValidationResult { Passed = false, Message = $"Page load failed \n{this.Path}" };
             }
-            if (!this.IFrame.Displayed)
+            if (!this.Container.Displayed)
             {
-                return new ValidationResult { Passed = false, Message = $"IFrame element not loaded \n{this.IFrame.Path}" };
+                return new ValidationResult { Passed = false, Message = $"IFrame element not loaded \n{this.Container.Path}" };
             }
             return new ValidationResult { Passed = true, Message = "Ok" };
         }

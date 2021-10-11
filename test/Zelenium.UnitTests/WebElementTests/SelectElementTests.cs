@@ -16,7 +16,6 @@ namespace Zelenium.UnitTests.WebElementTests
             this.selectPage = new SelectPage(this.driver);
             this.selectPage.Load();
             Assertion.IsTrue(this.selectPage.IsLoaded());
-            this.driver.SwitchTo().Frame(this.selectPage.IFrame.DisplayedWebElement);
         }
 
         [Test]
