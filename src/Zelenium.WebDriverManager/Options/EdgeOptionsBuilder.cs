@@ -25,8 +25,6 @@ namespace Zelenium.WebDriverManager.Options
             this.edgeOptions.AddArgument("--ignore-gpu-blocklis");
             this.edgeOptions.AcceptInsecureCertificates = true;
 
-            this.edgeOptions.UseChromium = true;
-            this.edgeOptions.UseInPrivateBrowsing = true;
             // Disable automation info-bar message
             this.edgeOptions.AddExcludedArgument("enable-automation");
             // Disable pop up 'Disable developer mode extensions'
