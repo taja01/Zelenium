@@ -11,8 +11,8 @@ namespace Zelenium.UnitTests.WebElementTests
     {
         private ButtonPage buttonPage;
         private Element basicButton;
-        private string attributeName = "attributeTestName";
-        private string attributeValue = "attributeTestValue";
+        private const string ATTIRBUTE_NAME = "attributeTestName";
+        private const string ATTRIBUTE_VALUE = "attributeTestValue";
 
         [SetUp]
         public void SetUp()
@@ -33,8 +33,8 @@ namespace Zelenium.UnitTests.WebElementTests
         [Test]
         public void GetAttributeTest()
         {
-            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(attributeName, attributeValue));
-            Assert.AreEqual(attributeValue, this.basicButton.Attributes.Get(attributeName));
+            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(ATTIRBUTE_NAME, ATTRIBUTE_VALUE));
+            Assert.AreEqual(ATTRIBUTE_VALUE, this.basicButton.Attributes.Get(ATTIRBUTE_NAME));
         }
 
         [Test]
@@ -46,9 +46,9 @@ namespace Zelenium.UnitTests.WebElementTests
         [Test]
         public void HasAttributeTest()
         {
-            Assert.False(this.basicButton.Attributes.Has(attributeName));
-            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(attributeName, attributeValue));
-            Assert.True(this.basicButton.Attributes.HasWithin(attributeName));
+            Assert.False(this.basicButton.Attributes.Has(ATTIRBUTE_NAME));
+            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(ATTIRBUTE_NAME, ATTRIBUTE_VALUE));
+            Assert.True(this.basicButton.Attributes.HasWithin(ATTIRBUTE_NAME));
         }
 
         [Test]
@@ -60,9 +60,9 @@ namespace Zelenium.UnitTests.WebElementTests
         [Test]
         public void WaitForAttributeTest()
         {
-            Assert.Throws<AttributeNotExistException>(() => this.basicButton.Attributes.WaitFor(attributeName));
-            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(attributeName, attributeValue));
-            this.basicButton.Attributes.WaitFor(attributeName);
+            Assert.Throws<AttributeNotExistException>(() => this.basicButton.Attributes.WaitFor(ATTIRBUTE_NAME));
+            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(ATTIRBUTE_NAME, ATTRIBUTE_VALUE));
+            this.basicButton.Attributes.WaitFor(ATTIRBUTE_NAME);
         }
 
         [Test]
@@ -74,9 +74,9 @@ namespace Zelenium.UnitTests.WebElementTests
         [Test]
         public void HasWithinAttributeTest()
         {
-            Assert.False(this.basicButton.Attributes.HasWithin(attributeValue));
-            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(attributeName, attributeValue));
-            this.basicButton.Attributes.HasWithin(attributeName);
+            Assert.False(this.basicButton.Attributes.HasWithin(ATTRIBUTE_VALUE));
+            this.basicButton.ExecuteScript(BaseQueries.AddAttribute(ATTIRBUTE_NAME, ATTRIBUTE_VALUE));
+            this.basicButton.Attributes.HasWithin(ATTIRBUTE_NAME);
         }
     }
 }

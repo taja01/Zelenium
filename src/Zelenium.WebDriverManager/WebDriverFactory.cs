@@ -59,10 +59,10 @@ namespace Zelenium.WebDriverManager
 
             try
             {
-                driver = browser switch
+                this.driver = browser switch
                 {
                     Browser.Chrome => this.CreateChromeDriver(device, debug),
-                    Browser.Firefox => this.CreateFirefoxDriver(device, debug),
+                    Browser.Firefox => this.CreateFirefoxDriver(debug),
                     Browser.Edge => this.CreateEdgeDriver(device, debug, path),
                     _ => throw new NotImplementedException()
                 };
@@ -91,12 +91,9 @@ namespace Zelenium.WebDriverManager
                 .Build();
         }
 
-        private IWebDriver CreateFirefoxDriver(Device device, bool debug = true)
+        private IWebDriver CreateFirefoxDriver(bool debug = true)
         {
-            var geckoService = FirefoxDriverService.CreateDefaultService();
-            geckoService.Host = "::1";
-
-            return new FirefoxDriver(geckoService, (FirefoxOptions)this.GetFirefoxOptions(debug));
+            return new FirefoxDriver((FirefoxOptions)this.GetFirefoxOptions(debug));
         }
 
         private DriverOptions GetFirefoxOptions(bool debug = true)

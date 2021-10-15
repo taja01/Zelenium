@@ -45,8 +45,6 @@ namespace Zelenium.UnitTestss.WebElementTests
             Assert.AreEqual(style, basicButton.ExecuteScript<string>(BaseQueries.GetStyle()));
             Assert.IsTrue(basicButton.Present);
             Assert.IsFalse(basicButton.DisplayedNow);
-
-            var a = basicButton.Attributes.Get("style");
         }
 
         [Test]
