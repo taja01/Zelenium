@@ -12,7 +12,7 @@ namespace MaterialAngular.PageObjects
         }
 
         public ShadowContainer Container => new ShadowContainer(this.webDriver, By.CssSelector("#output > shadow-output"));
-        public ElementList<Element> Tabs => Finds<Element>(By.CssSelector("[role='tab']"));
+        public ElementList<Element> Tabs => this.Finds<Element>(By.CssSelector("[role='tab']"));
 
         public override ValidationResult IsLoaded()
         {

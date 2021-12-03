@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using OpenQA.Selenium;
 
 namespace Zelenium.Core.WebDriver.Types
@@ -10,7 +12,8 @@ namespace Zelenium.Core.WebDriver.Types
         {
 
         }
-        private OpenQA.Selenium.Support.UI.SelectElement selectElement => new OpenQA.Selenium.Support.UI.SelectElement(this.WebElement);
+
+        private OpenQA.Selenium.Support.UI.SelectElement selectElement => new OpenQA.Selenium.Support.UI.SelectElement(this.DisplayedWebElement);
 
         /// <summary>
         /// Deselect all options
@@ -32,7 +35,7 @@ namespace Zelenium.Core.WebDriver.Types
             }
             else
             {
-                throw new System.IndexOutOfRangeException($"Index was out of range. Must be non-negative and less than the size of the collection. Index: {index}, Max index: {this.Count} Path: {this.Path}");
+                throw new IndexOutOfRangeException($"Index was out of range. Must be non-negative and less than the size of the collection. Index: {index}, Max index: {this.Count} Path: {this.Path}");
             }
         }
 
@@ -42,16 +45,36 @@ namespace Zelenium.Core.WebDriver.Types
         /// <param name="text"></param>
         public void SetByText(string text)
         {
+            Wait.Initialize()
+                .Message($"Text '{text}' not exist in options")
+                .Until(() => this.selectElement.Options.FirstOrDefault(x => x.Text == text));
+
             this.selectElement.SelectByText(text);
+
+            var currentText = this.SelectedText.Trim();
+            if (!currentText.Equals(text.Trim()))
+            {
+                throw new Exception($"'{nameof(this.SetByText)}' failed to set value to '{text}', it was: '{currentText}'");
+            }
         }
 
         /// <summary>
         /// Set by value attribute
         /// </summary>
-        /// <param name="text"></param>
-        public void SetByValue(string text)
+        /// <param name="value"></param>
+        public void SetByValue(string value)
         {
-            this.selectElement.SelectByValue(text);
+            Wait.Initialize()
+               .Message($"Value '{value}' not exist in options")
+               .Until(() => this.selectElement.Options.FirstOrDefault(x => x.GetAttribute("value") == value));
+
+            this.selectElement.SelectByValue(value);
+
+            var currentValue = this.SelectedValue.Trim();
+            if (!currentValue.Equals(value.Trim()))
+            {
+                throw new Exception($"'{nameof(this.SetByValue)}' failed to set value to '{value}', it was: '{currentValue}'");
+            }
         }
 
         /// <summary>
