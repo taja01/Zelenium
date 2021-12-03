@@ -13,7 +13,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         }
 
-        private OpenQA.Selenium.Support.UI.SelectElement selectElement => new OpenQA.Selenium.Support.UI.SelectElement(this.DisplayedWebElement);
+        private OpenQA.Selenium.Support.UI.SelectElement selectElement => new OpenQA.Selenium.Support.UI.SelectElement(this.WebElement);
 
         /// <summary>
         /// Deselect all options
