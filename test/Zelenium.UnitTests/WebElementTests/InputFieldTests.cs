@@ -1,6 +1,8 @@
-﻿using MaterialAngular.PageObjects;
+﻿using System.Diagnostics;
+using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using Zelenium.Core.Config;
 
 namespace Zelenium.UnitTests.WebElementTests
 {
@@ -54,6 +56,45 @@ namespace Zelenium.UnitTests.WebElementTests
         {
             var newText = "apple\napple";
             Assert.Throws<WebDriverTimeoutException>(() => this.inputFieldPage.InputField.SendKeys(newText));
+        }
+
+        [Test]
+        public void HasAnyTextTest()
+        {
+            Assert.True(this.inputFieldPage.InputField.HasAnyText());
+        }
+
+        [Test]
+        public void HasAnyTextFalseTest()
+        {
+            this.inputFieldPage.InputField.Clear();
+            Assert.False(this.inputFieldPage.InputField.HasAnyText());
+        }
+
+        [Test]
+        public void HasAnyTextTimeoutTest()
+        {
+            this.inputFieldPage.InputField.Clear();
+            var sw = new Stopwatch();
+            sw.Start();
+            Assert.False(this.inputFieldPage.InputField.HasAnyText());
+
+            sw.Stop();
+
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(0, 2));
+        }
+
+        [Test]
+        public void HasAnyTextWithTimeTest()
+        {
+            this.inputFieldPage.InputField.Clear();
+            var sw = new Stopwatch();
+            sw.Start();
+            Assert.False(this.inputFieldPage.InputField.HasAnyText(TimeConfig.DefaultTimeout));
+
+            sw.Stop();
+
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(TimeConfig.DefaultTimeout.TotalSeconds, TimeConfig.DefaultTimeout.TotalSeconds + 2));
         }
     }
 }

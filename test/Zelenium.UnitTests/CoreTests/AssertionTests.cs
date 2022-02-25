@@ -75,7 +75,7 @@ namespace Zelenium.UnitTestss.CoreTests
 
             Assert.That(() => Assertion.IsReadable(mockElement.Object, "some kind of element", 5.7),
                Throws.TypeOf<AssertionException>()
-               .With.Message.Contains("  some kind of element | \r\nContrast ratio (2.58) of the given color pair is below the limit (5.7) | \r\n" +
+               .With.Message.Contains($"  some kind of element | \r\nContrast ratio ({2.58m}) of the given color pair is below the limit ({5.7m}) | \r\n" +
                "Color: RGB(161,161,161), #A1A1A1 | \r\nBackground color: RGB(255,255,255), #FFFFFF\r\n  Expected: True\r\n  But was:  False\r\n"));
         }
 
