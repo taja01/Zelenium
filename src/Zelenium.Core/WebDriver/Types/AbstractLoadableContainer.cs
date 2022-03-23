@@ -5,16 +5,22 @@ namespace Zelenium.Core.WebDriver.Types
 {
     public abstract class AbstractLoadableContainer : AbstractContainer, ILoadableContainer
     {
-        private readonly string url;
+        protected readonly string Url;
 
         protected AbstractLoadableContainer(IWebDriver webDriver, By locator, string url) : base(webDriver, locator)
         {
-            this.url = url;
+            this.Url = url;
         }
 
         public virtual void Load()
         {
-            this.webDriver.Url = this.url;
+            this.webDriver.Url = this.Url;
+        }
+
+        public virtual void Load(string urlSegmens)
+        {
+
+            this.webDriver.Url = $"{this.Url}/{urlSegmens}";
         }
     }
 
