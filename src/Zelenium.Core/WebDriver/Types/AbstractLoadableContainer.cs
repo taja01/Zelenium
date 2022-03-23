@@ -12,15 +12,21 @@ namespace Zelenium.Core.WebDriver.Types
             this.Url = url;
         }
 
+        /// <summary>
+        /// Load Page, Url set with constructor OR with RouterBuilder
+        /// </summary>
         public virtual void Load()
         {
             this.webDriver.Url = this.Url;
         }
 
+        /// <summary>
+        /// Load Page, Url set with constructor OR with RouterBuilder
+        /// </summary>
+        /// <param name="urlSegmens">Extra url part. You have to add separator if necessary</param>
         public virtual void Load(string urlSegmens)
         {
-
-            this.webDriver.Url = $"{this.Url}/{urlSegmens}";
+            this.webDriver.Url = $"{this.Url}{urlSegmens}";
         }
     }
 
@@ -39,15 +45,21 @@ namespace Zelenium.Core.WebDriver.Types
             this.Url = url;
         }
 
+        /// <summary>
+        /// Load Page, Url set with constructor OR with RouterBuilder
+        /// </summary>
         public virtual void Load()
         {
             this.webDriver.Url = this.Url;
         }
 
+        /// <summary>
+        /// Load Page, Url set with constructor OR with RouterBuilder
+        /// </summary>
+        /// <param name="urlSegmens">Extra url part. You have to add separator if necessary</param>
         public virtual void Load(string urlSegmens)
         {
-
-            this.webDriver.Url = $"{this.Url}/{urlSegmens}";
+            this.webDriver.Url = $"{this.Url}{urlSegmens}";
         }
     }
 }
