@@ -15,7 +15,7 @@ namespace Zelenium.UnitTests.WebdriverManagerTests
         [Test]
         public void ChromeTest()
         {
-            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, false);
+            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, runInHeadlessMode: true, useModHeader: false);
             this.driver.Manage().Window.Maximize();
             this.selectPage = new SelectPage(this.driver);
             this.selectPage.Load();
@@ -25,7 +25,7 @@ namespace Zelenium.UnitTests.WebdriverManagerTests
         [Test]
         public void FirefoxTest()
         {
-            this.driver = new WebDriverFactory().GetWebDriver(Browser.Firefox, false);
+            this.driver = new WebDriverFactory().GetWebDriver(Browser.Firefox, runInHeadlessMode: true, useModHeader: false);
             this.driver.Manage().Window.Maximize();
             this.selectPage = new SelectPage(this.driver);
             this.selectPage.Load();

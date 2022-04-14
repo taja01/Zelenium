@@ -67,9 +67,9 @@ namespace Zelenium.WebDriverManager.Options
 
     public class EdgeHeadlessSettingsBuilder<T> : EdgeDeviceSettingsBuilder<EdgeHeadlessSettingsBuilder<T>> where T : EdgeHeadlessSettingsBuilder<T>
     {
-        public T SetHeadless(bool debug)
+        public T SetHeadless(bool runInHeadlessMode)
         {
-            if (!debug)
+            if (runInHeadlessMode)
             {
                 this.edgeOptions.AddArgument("--headless");
             }
@@ -84,7 +84,7 @@ namespace Zelenium.WebDriverManager.Options
         {
             if (useExtension)
             {
-                this.edgeOptions.AddExtension($@"{Path.GetFullPath(@"Driver\ChromeExtensions")}\modheader_2_4_0_0.crx");
+                this.edgeOptions.AddExtension($@"{Path.GetFullPath(@"BrowserExtensions")}\modheader_2_4_0_0.crx");
             }
 
             return (T)this;

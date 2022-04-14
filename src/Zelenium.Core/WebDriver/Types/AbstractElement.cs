@@ -226,6 +226,26 @@ namespace Zelenium.Core.WebDriver.Types
             return ColorUtil.ParseColor(cssColor);
         }
 
+        public bool IsInViewPort()
+        {
+            return this.ExecuteScript<bool>(BaseQueries.IsInView());
+        }
+
+        public bool IsInViewPortWithin(TimeSpan? timeout = null)
+        {
+            return Wait.Initialize()
+                .Timeout(timeout ?? TimeConfig.DefaultTimeout)
+                .Success(() => this.IsInViewPort());
+        }
+
+        public void WaitUntilInViewPort(string elementName, TimeSpan? timeout = null)
+        {
+            Wait.Initialize()
+               .Message(GenerateErrorMessage(this, elementName, "Element still not in ViewPort"))
+               .Timeout(timeout ?? TimeConfig.DefaultTimeout)
+               .Until(() => this.IsInViewPort());
+        }
+
         private Color GetBorderColor()
         {
             var top = this.GetColor(ColorNames.BORDER_TOP);

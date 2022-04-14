@@ -35,5 +35,9 @@ namespace Zelenium.Core.Interfaces
         void Scroll();
         string GetComputedStyle(string style, string pseudo = null);
         string GetCssValue(string propertyName);
+
+        bool IsInViewPortWithin(TimeSpan? timeout = null);
+        void WaitUntilInViewPort(string elementName, TimeSpan? timeout = null);
+        bool IsInViewPort();
     }
 }

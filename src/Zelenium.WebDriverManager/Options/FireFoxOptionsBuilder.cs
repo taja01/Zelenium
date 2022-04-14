@@ -40,9 +40,9 @@ namespace Zelenium.WebDriverManager.Options
 
     public class FirefoxHeadlessSettingsBuilder<T> : FirefoxCommonSettingsBuilder<FirefoxHeadlessSettingsBuilder<T>> where T : FirefoxHeadlessSettingsBuilder<T>
     {
-        public T SetHeadless(bool debug)
+        public T SetHeadless(bool runInHeadlessMode)
         {
-            if (!debug)
+            if (runInHeadlessMode)
             {
                 this.firefoxOptions.AddArgument("--headless");
             }

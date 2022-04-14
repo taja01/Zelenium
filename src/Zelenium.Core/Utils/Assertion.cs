@@ -26,6 +26,12 @@ namespace Zelenium.Core.Utils
             return null;
         }
 
+        public static void IsInViewPort(IElement element, string message, TimeSpan? timeout = null)
+        {
+            var visible = element.IsInViewPortWithin(timeout);
+            Assert.IsTrue(visible, $"Element NOT in the VIEW PORT\n{message}");
+        }
+
         public static void WaitColllectionCountAreEqual(int expectedNumber, ElementList<IElementContainer> list, string message, TimeSpan? timeout = null)
         {
             Wait.Initialize()
