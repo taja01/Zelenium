@@ -90,7 +90,7 @@ namespace Zelenium.Core.WebDriver.Types
         /// <summary>
         /// Return all options displayed text
         /// </summary>
-        /// <returns>List of strings</returns>
+        /// <returns>Dictionary<value, text></returns>
         public IDictionary<string, string> GetAllOptions()
         {
             var dict = new Dictionary<string, string>();
