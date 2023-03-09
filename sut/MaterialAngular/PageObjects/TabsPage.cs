@@ -12,8 +12,8 @@ namespace MaterialAngular.PageObjects
 
         public TabsPage(IWebDriver webDriver) : base(webDriver, By.CssSelector(".docs-component-sidenav-content"), "https://material.angular.io/components/tabs/overview")
         {
-            this.Header = this.Find<Element>(By.CssSelector("header"));
-            this.Tabs = this.Finds<Element>(By.CssSelector(".docs-example-viewer-body .mat-tab-label"));
+            this.Header = this.Find<Element>(By.CssSelector(".docs-primary-header"));
+            this.Tabs = this.Finds<Element>(By.CssSelector(".docs-component-viewer-section-tab"));
         }
 
         private ElementList<Element> Tabs { get; set; }

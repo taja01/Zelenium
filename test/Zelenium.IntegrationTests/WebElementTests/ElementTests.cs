@@ -3,9 +3,8 @@ using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
-using Zelenium.UnitTests.WebElementTests;
 
-namespace Zelenium.UnitTestss.WebElementTests
+namespace Zelenium.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ElementTests : BaseTest

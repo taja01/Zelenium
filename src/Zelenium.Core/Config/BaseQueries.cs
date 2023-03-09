@@ -16,6 +16,12 @@ namespace Zelenium.Core.Config
             Script = "return arguments[0].innerHTML;"
         };
 
+        public static JsQuery GetInnerText => new JsQuery
+        {
+            Name = "GetInnerText",
+            Script = "return arguments[0].innerText;"
+        };
+
         public static JsQuery OpenLinkInNewTab => new JsQuery
         {
             Name = "OpenLinkInNewTab",

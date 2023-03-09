@@ -38,14 +38,14 @@ namespace MaterialAngular.PageObjects
     {
         public ButtonOverview(IWebDriver webDriver, By locator) : base(webDriver, locator)
         {
-            this.BasicWithoutDelay = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(1) > span:first-of-type"), System.TimeSpan.Zero);
-            this.Basic = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(1) > span:first-of-type"));
-            this.Primary = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(2) > span:first-of-type"));
-            this.Accentc = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(3) > span:first-of-type"));
-            this.Warn = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(4) > span:first-of-type"));
-            this.Disabled = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(5) > span:first-of-type"));
-            this.Link = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(6) > span:first-of-type"));
-            this.NotExist = this.Find<Element>(By.CssSelector(".mat-button.mat-button-base:nth-child(16) > span:first-of-type"));
+            this.BasicWithoutDelay = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(1)"), System.TimeSpan.Zero);
+            this.Basic = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(1)"));
+            this.Primary = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(2)"));
+            this.Accentc = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(3)"));
+            this.Warn = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(4)"));
+            this.Disabled = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(5)"));
+            this.Link = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(6)"));
+            this.NotExist = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(111)"));
         }
 
         public Element Basic { get; private set; }

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Zelenium.Core.Utils;
 
-namespace Zelenium.UnitTests.WebElementTests
+namespace Zelenium.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ButtonColorTest : BaseTest
@@ -14,7 +14,7 @@ namespace Zelenium.UnitTests.WebElementTests
         {
             this.buttonPage = new ButtonPage(this.driver);
             this.buttonPage.Load();
-            Assert.IsTrue(this.buttonPage.IsLoaded().Passed);
+            Assertion.IsTrue(this.buttonPage.IsLoaded());
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace Zelenium.UnitTests.WebElementTests
         {
             var basicButton = this.buttonPage.ButtonOverview.Basic;
             var calcukatedContrast = ColorUtil.GetReadability(basicButton.Color, basicButton.BackgroundColor);
-            Assert.AreEqual(15.43, calcukatedContrast, 0.01);
+            Assert.AreEqual(20.12, calcukatedContrast, 0.01);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Zelenium.UnitTests.WebElementTests
         {
             var disabledButton = this.buttonPage.ButtonOverview.Disabled;
             var calcukatedContrast = ColorUtil.GetReadability(disabledButton.Color, disabledButton.BackgroundColor);
-            Assert.AreEqual(1.87, calcukatedContrast, 0.01);
+            Assert.AreEqual(2.62, calcukatedContrast, 0.01);
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Zelenium.UnitTests.WebElementTests
         {
             var linkButton = this.buttonPage.ButtonOverview.Link;
             var calcukatedContrast = ColorUtil.GetReadability(linkButton.Color, linkButton.BackgroundColor);
-            Assert.AreEqual(15.44, calcukatedContrast, 0.01);
+            Assert.AreEqual(20.12, calcukatedContrast, 0.01);
         }
     }
 }

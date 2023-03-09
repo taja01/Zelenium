@@ -1,9 +1,8 @@
 ﻿using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using Zelenium.Core.Config;
-using Zelenium.UnitTests.WebElementTests;
 
-namespace Zelenium.UnitTestss.WebElementTests
+namespace Zelenium.IntegrationTests.WebElementTests
 {
     [TestFixture]
     class JavaScriptTests : BaseTest
@@ -28,10 +27,15 @@ namespace Zelenium.UnitTestss.WebElementTests
         [Test]
         public void GetInnerHtmlTest()
         {
-            var goodObject = this.buttonPage.ButtonOverview.ExecuteScript<object>(BaseQueries.GetInnerHtml);
+            var goodObject = this.buttonPage.ButtonOverview.ExecuteScript<string>(BaseQueries.GetInnerHtml);
             Assert.NotNull(goodObject);
+            StringAssert.Contains("div", goodObject);
+        }
 
-            var myEnum = this.buttonPage.ButtonOverview.Basic.ExecuteScript<ButtonType>(BaseQueries.GetInnerHtml);
+        [Test]
+        public void GetInnerTextTest()
+        {
+            var myEnum = this.buttonPage.ButtonOverview.Basic.ExecuteScript<ButtonType>(BaseQueries.GetInnerText);
             Assert.AreEqual(ButtonType.Basic, myEnum);
         }
 

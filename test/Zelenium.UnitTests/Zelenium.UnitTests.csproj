@@ -13,15 +13,10 @@
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="111.0.5563.6400" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.32.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Zelenium.WebDriverManager\Zelenium.WebDriverManager.csproj" />
     <ProjectReference Include="..\..\src\Zelenium.Core\Zelenium.Core.csproj" />
-    <ProjectReference Include="..\..\src\Zelenium.WebDriverManager\Zelenium.WebDriverManager.csproj" />
-    <ProjectReference Include="..\..\sut\MaterialAngular\MaterialAngular.csproj" />
   </ItemGroup>
 
 </Project>

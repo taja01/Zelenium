@@ -2,14 +2,15 @@
 using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using Zelenium.Core.Utils;
 
-namespace Zelenium.UnitTests.WebElementTests
+namespace Zelenium.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ClassTests : BaseTest
     {
         TabsPage tabsPage;
-        const string ACTIVE_CLASS = "mat-tab-label-active";
+        const string ACTIVE_CLASS = "mdc-tab--active";
         const string FAKE_CLASS = "blabla";
 
         [SetUp]
@@ -17,7 +18,7 @@ namespace Zelenium.UnitTests.WebElementTests
         {
             this.driver.Url = "https://material.angular.io/components/tabs/overview";
             this.tabsPage = new TabsPage(this.driver);
-            Assert.IsTrue(this.tabsPage.IsLoaded().Passed);
+            Assertion.IsTrue(this.tabsPage.IsLoaded());
         }
 
         [Test]

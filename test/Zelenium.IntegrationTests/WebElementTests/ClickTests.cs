@@ -1,9 +1,8 @@
 ﻿using MaterialAngular.PageObjects;
 using NUnit.Framework;
 using Zelenium.Core.WebDriver;
-using Zelenium.UnitTests.WebElementTests;
 
-namespace Zelenium.UnitTestss.WebElementTests
+namespace Zelenium.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ClickTests : BaseTest

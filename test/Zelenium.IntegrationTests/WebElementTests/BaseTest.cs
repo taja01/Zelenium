@@ -2,7 +2,7 @@
 using OpenQA.Selenium;
 using Zelenium.WebDriverManager;
 
-namespace Zelenium.UnitTests.WebElementTests
+namespace Zelenium.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public abstract class BaseTest
