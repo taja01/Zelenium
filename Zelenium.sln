@@ -22,8 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialAngular", "sut\Mate
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.WebDriverManager", "src\Zelenium.WebDriverManager\Zelenium.WebDriverManager.csproj", "{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.Shared", "src\Zelenium.Shared\Zelenium.Shared.csproj", "{E9AC9DBD-B021-4528-80BA-50AF3C2794F4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,10 +44,6 @@ Global
 		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9AC9DBD-B021-4528-80BA-50AF3C2794F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9AC9DBD-B021-4528-80BA-50AF3C2794F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9AC9DBD-B021-4528-80BA-50AF3C2794F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9AC9DBD-B021-4528-80BA-50AF3C2794F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,7 +53,6 @@ Global
 		{A850069B-73C3-42B5-935A-7D96798C108C} = {7D9F3145-76F9-4208-B791-FFD27E7A79F7}
 		{69BF4913-ED78-4539-A689-18C75E2F65E7} = {C9BDB0ED-5474-465D-AB6A-ADD31027E59B}
 		{B9BA9F75-881F-4F2F-AF9C-6907EF79B38F} = {E5F0C2B3-BBD1-4636-8EF6-3A75ACC44249}
-		{E9AC9DBD-B021-4528-80BA-50AF3C2794F4} = {E5F0C2B3-BBD1-4636-8EF6-3A75ACC44249}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FCC6C77-E70F-4478-87CE-8858AA588EBA}

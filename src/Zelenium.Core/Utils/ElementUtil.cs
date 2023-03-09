@@ -3,9 +3,8 @@ using System.Linq;
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
 using Zelenium.Core.Enums;
-using Zelenium.Core.WebDriver;
 using Zelenium.Core.Interfaces;
-using Zelenium.Shared;
+using Zelenium.Core.WebDriver;
 
 namespace Zelenium.Core.Utils
 {

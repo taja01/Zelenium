@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using OpenQA.Selenium.Edge;
-using Zelenium.Shared;
+using Zelenium.Core.Enums;
 
 namespace Zelenium.WebDriverManager.Options
 {

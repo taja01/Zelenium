@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Zelenium.Core.Utils;
-using Zelenium.Shared;
 using Zelenium.WebDriverManager;
 
 namespace Zelenium.UnitTests.WebdriverManagerTests

@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Selenium.WebDriver" Version="4.6.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.8.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zelenium.Shared\Zelenium.Shared.csproj" />
+    <ProjectReference Include="..\Zelenium.Core\Zelenium.Core.csproj" />
   </ItemGroup>
 </Project>
