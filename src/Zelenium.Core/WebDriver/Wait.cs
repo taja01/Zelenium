@@ -97,7 +97,9 @@ namespace Zelenium.Core.WebDriver
             }
             catch (Exception e)
             {
+#pragma warning disable CA2200 // Rethrow to preserve stack details
                 throw e;
+#pragma warning restore CA2200 // Rethrow to preserve stack details
             }
         }
 
