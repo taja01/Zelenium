@@ -8,3 +8,5 @@
 **/TestResults
 **/.vs
 /copy.ps1
+/src/Zelenium.Core/Properties/PublishProfiles
+*.user
