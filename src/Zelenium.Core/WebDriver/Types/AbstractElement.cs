@@ -66,7 +66,7 @@ namespace Zelenium.Core.WebDriver.Types
 
                         break;
                     }
-                case ClickMethod.Javascript: this.ExecuteScript(BaseQueries.JavaScriptClick); break;
+                case ClickMethod.JavaScript: this.ExecuteScript(BaseQueries.JavaScriptClick); break;
                 case ClickMethod.NewTab: this.ExecuteScript(BaseQueries.OpenLinkInNewTab); break;
             }
         }

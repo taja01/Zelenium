@@ -3,7 +3,7 @@
     public enum ClickMethod
     {
         Default,
-        Javascript,
+        JavaScript,
         NewTab
     }
 }

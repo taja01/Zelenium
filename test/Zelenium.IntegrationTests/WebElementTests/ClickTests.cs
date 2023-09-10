@@ -30,7 +30,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Test]
         public void JsClickTest()
         {
-            this.buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.Javascript);
+            this.buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.JavaScript);
 
             Wait.Initialize()
                 .Message("Url does not contains 'cdk'")

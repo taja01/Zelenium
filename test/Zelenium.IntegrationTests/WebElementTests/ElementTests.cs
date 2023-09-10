@@ -107,7 +107,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.Javascript),
+            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.JavaScript),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);

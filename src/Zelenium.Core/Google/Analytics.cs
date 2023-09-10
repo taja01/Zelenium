@@ -18,7 +18,7 @@ namespace Zelenium.Core.Google
         public string GoogleAnalyticsID => this.executor.Get<string>(AnalyticsQueries.GetGoogleAnalyticsID);
 
         /// <summary>
-        /// Clear data layer. Usefull before event trigger to find your events
+        /// Clear data layer. Useful before event trigger to find your events
         /// </summary>
         public void ClearDataLayer() => this.executor.Execute(AnalyticsQueries.ClearDataLayer.Script);
 
