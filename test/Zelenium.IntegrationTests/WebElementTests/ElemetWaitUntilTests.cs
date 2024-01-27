@@ -19,7 +19,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
 
             this.snackBarPage = new SnackBarPage(this.driver);
             this.snackBarPage.Load();
-            Assert.IsTrue(this.snackBarPage.IsLoaded().Passed);
+            Assert.That(this.snackBarPage.IsLoaded().Passed, Is.True);
         }
 
         [OneTimeTearDown]
@@ -35,10 +35,10 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            Assert.IsFalse(this.snackBarPage.SnackBar.PresentNow);
+            Assert.That(this.snackBarPage.SnackBar.PresentNow, Is.False);
             sw.Stop();
             System.Diagnostics.Debug.WriteLine(sw.ElapsedMilliseconds);
-            Assert.LessOrEqual(sw.ElapsedMilliseconds, 1000);
+            Assert.That(sw.ElapsedMilliseconds, Is.LessThan(1000));
         }
 
         [Test]
@@ -47,10 +47,10 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            Assert.IsFalse(this.snackBarPage.SnackBar.DisplayedNow);
+            Assert.That(this.snackBarPage.SnackBar.DisplayedNow, Is.False);
             sw.Stop();
             System.Diagnostics.Debug.WriteLine(sw.ElapsedMilliseconds);
-            Assert.LessOrEqual(sw.ElapsedMilliseconds, 1000);
+            Assert.That(sw.ElapsedMilliseconds, Is.LessThan(1000));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         public void WaitForTheSnackBarNegativeTest()
         {
             var exception = Assert.Throws<WebDriverTimeoutException>(() => this.snackBarPage.SnackBar.WaitUntilDisplay("snackbar", TimeSpan.FromSeconds(1)));
-            StringAssert.Contains("snackbar", exception.Message);
+            Assert.That(exception.Message, Does.Contain("snackbar"));
         }
 
         [Test]
@@ -82,10 +82,10 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            Assert.IsTrue(this.snackBarPage.SnackBar.PresentNow);
+            Assert.That(this.snackBarPage.SnackBar.PresentNow, Is.True);
             sw.Stop();
             System.Diagnostics.Debug.WriteLine(sw.ElapsedMilliseconds);
-            Assert.LessOrEqual(sw.ElapsedMilliseconds, 1000);
+            Assert.That(sw.ElapsedMilliseconds, Is.LessThan(1000));
         }
 
         [Test]
@@ -94,10 +94,10 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            Assert.IsTrue(this.snackBarPage.SnackBar.DisplayedNow);
+            Assert.That(this.snackBarPage.SnackBar.DisplayedNow, Is.True);
             sw.Stop();
             System.Diagnostics.Debug.WriteLine(sw.ElapsedMilliseconds);
-            Assert.LessOrEqual(sw.ElapsedMilliseconds, 1000);
+            Assert.That(sw.ElapsedMilliseconds, Is.LessThan(1000));
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Order(11)]
         public void WaitForHasWithinTextTest()
         {
-            Assert.IsFalse(this.snackBarPage.Header.CdkButton.HasTextWithin("cdk", caseSensitive: true));
+            Assert.That(this.snackBarPage.Header.CdkButton.HasTextWithin("cdk", caseSensitive: true), Is.False);
         }
 
     }

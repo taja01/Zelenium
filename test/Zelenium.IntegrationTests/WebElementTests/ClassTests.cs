@@ -25,21 +25,21 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Order(1)]
         public void HasClassTest()
         {
-            Assert.IsTrue(this.tabsPage.Tab1.Class.Has(ACTIVE_CLASS));
+            Assert.That(this.tabsPage.Tab1.Class.Has(ACTIVE_CLASS), Is.True);
         }
 
         [Test]
         [Order(2)]
         public void HasClassNegativeTest()
         {
-            Assert.IsFalse(this.tabsPage.Tab1.Class.Has(FAKE_CLASS));
+            Assert.That(this.tabsPage.Tab1.Class.Has(FAKE_CLASS), Is.False);
         }
 
         [Test]
         [Order(3)]
         public void HasWithinClassNegativeTest()
         {
-            Assert.IsFalse(this.tabsPage.Tab1.Class.HasWithin(FAKE_CLASS, TimeSpan.FromSeconds(1)));
+            Assert.That(this.tabsPage.Tab1.Class.HasWithin(FAKE_CLASS, TimeSpan.FromSeconds(1)), Is.False);
         }
 
         [Test]

@@ -81,21 +81,21 @@ namespace Zelenium.UnitTests.CoreTests
         [Test]
         public void TestSuccessTrue()
         {
-            Assert.IsTrue(
-                Wait.Initialize()
+            var result = Wait.Initialize()
                     .Timeout(TimeSpan.Zero)
-                    .Success(() => "a" == "a")
-                    );
+                    .Success(() => "a" == "a");
+
+            Assert.That(result, Is.True);
         }
 
         [Test]
         public void TestSuccessFalse()
         {
-            Assert.IsFalse(
-                Wait.Initialize()
+            var result = Wait.Initialize()
                     .Timeout(TimeSpan.Zero)
-                    .Success(() => "a" != "a")
-            );
+                    .Success(() => "a" != "a");
+
+            Assert.That(result, Is.False);
         }
 
         [Test]

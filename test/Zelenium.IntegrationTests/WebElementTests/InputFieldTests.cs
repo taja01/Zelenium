@@ -16,13 +16,13 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             this.inputFieldPage = new InputFieldPage(this.driver);
             this.inputFieldPage.Load();
-            Assert.IsTrue(this.inputFieldPage.IsLoaded().Passed);
+            Assert.That(this.inputFieldPage.IsLoaded().Passed, Is.True);
         }
 
         [Test]
         public void ReadTest()
         {
-            Assert.AreEqual("Sushi", this.inputFieldPage.InputField.Text);
+            Assert.That(this.inputFieldPage.InputField.Text, Is.EqualTo("Sushi"));
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var newText = "apple";
             this.inputFieldPage.InputField.SendKeys(newText);
-            Assert.AreEqual(newText, this.inputFieldPage.InputField.Text);
+            Assert.That(this.inputFieldPage.InputField.Text, Is.EqualTo(newText));
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             this.inputFieldPage.InputField.SendKeys(newText);
             this.inputFieldPage.InputField.Clear();
 
-            Assert.AreEqual(string.Empty, this.inputFieldPage.InputField.Text);
+            Assert.That(this.inputFieldPage.InputField.Text, Is.EqualTo(string.Empty));
         }
 
         [Test]
@@ -61,14 +61,14 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Test]
         public void HasAnyTextTest()
         {
-            Assert.True(this.inputFieldPage.InputField.HasAnyText());
+            Assert.That(this.inputFieldPage.InputField.HasAnyText(), Is.True);
         }
 
         [Test]
         public void HasAnyTextFalseTest()
         {
             this.inputFieldPage.InputField.Clear();
-            Assert.False(this.inputFieldPage.InputField.HasAnyText());
+            Assert.That(this.inputFieldPage.InputField.HasAnyText(), Is.False);
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             this.inputFieldPage.InputField.Clear();
             var sw = new Stopwatch();
             sw.Start();
-            Assert.False(this.inputFieldPage.InputField.HasAnyText());
+            Assert.That(this.inputFieldPage.InputField.HasAnyText(), Is.False);
 
             sw.Stop();
 
@@ -90,7 +90,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             this.inputFieldPage.InputField.Clear();
             var sw = new Stopwatch();
             sw.Start();
-            Assert.False(this.inputFieldPage.InputField.HasAnyText(TimeConfig.DefaultTimeout));
+            Assert.That(this.inputFieldPage.InputField.HasAnyText(TimeConfig.DefaultTimeout), Is.False);
 
             sw.Stop();
 

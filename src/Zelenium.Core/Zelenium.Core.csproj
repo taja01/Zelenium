@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Version>1.0.0</Version>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>2.0.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="Selenium.Support" Version="4.12.4" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.12.4" />
+    <PackageReference Include="NUnit" Version="4.0.1" />
+    <PackageReference Include="Selenium.Support" Version="4.17.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.17.0" />
   </ItemGroup>
 
 </Project>

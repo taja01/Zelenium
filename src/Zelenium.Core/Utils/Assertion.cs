@@ -29,7 +29,7 @@ namespace Zelenium.Core.Utils
         public static void IsInViewPort(IElement element, string message, TimeSpan? timeout = null)
         {
             var visible = element.IsInViewPortWithin(timeout);
-            Assert.IsTrue(visible, $"Element NOT in the VIEW PORT\n{message}");
+            Assert.That(visible, Is.True, $"Element NOT in the VIEW PORT\n{message}");
         }
 
         public static void WaitColllectionCountAreEqual(int expectedNumber, ElementList<IElementContainer> list, string message, TimeSpan? timeout = null)
@@ -82,12 +82,12 @@ namespace Zelenium.Core.Utils
 
         public static void IsDisplayed(IElementContainer element, string elementName)
         {
-            Assert.IsTrue(element.Displayed, GenerateErrorMessage(element, elementName, "Element does not display"));
+            Assert.That(element.Displayed, Is.True, GenerateErrorMessage(element, elementName, "Element does not display"));
         }
 
         public static void IsDisappeared(IElementContainer element, string elementName, TimeSpan? timeout = null)
         {
-            Assert.IsTrue(element.IsDisappeared(timeout), GenerateErrorMessage(element, elementName, "Element still visible"));
+            Assert.That(element.IsDisappeared(timeout), Is.True, GenerateErrorMessage(element, elementName, "Element still visible"));
         }
 
         public static void IsTextValid(IElement element, string message)
@@ -102,12 +102,12 @@ namespace Zelenium.Core.Utils
 
         public static void IsTrue(ValidationResult validationResult)
         {
-            Assert.IsTrue(validationResult.Passed, validationResult.Message);
+            Assert.That(validationResult.Passed, Is.True, validationResult.Message);
         }
 
         public static void IsTrue(ValidationResult validationResult, string message)
         {
-            Assert.IsTrue(validationResult.Passed, $"{message}: {validationResult.Message}");
+            Assert.That(validationResult.Passed, Is.True, $"{message}: {validationResult.Message}");
         }
 
         private static string GenerateErrorMessage(IElementContainer element, string elementName, string mainReason)

@@ -24,13 +24,13 @@ namespace Zelenium.Core.Utils
 
         public ElementValidatorBuilder IsSelected()
         {
-            Assert.IsTrue(this.element.WebElement.Selected, $"{this.message} | Element is not Selected");
+            Assert.That(this.element.WebElement.Selected, Is.True, $"{this.message} | Element is not Selected");
             return this;
         }
 
         public ElementValidatorBuilder IsNotSelected()
         {
-            Assert.IsFalse(this.element.WebElement.Selected, $"{this.message} | Element is  Selected");
+            Assert.That(this.element.WebElement.Selected, Is.False, $"{this.message} | Element is  Selected");
             return this;
         }
 
@@ -48,7 +48,7 @@ namespace Zelenium.Core.Utils
 
         public ElementValidatorBuilder HasTextColor(Color color)
         {
-            Assert.AreEqual(color, this.element.Color, $"{this.message} | Element color is incorrect for " + this.element.Path);
+            Assert.That(this.element.Color, Is.EqualTo(color), $"{this.message} | Element color is incorrect for " + this.element.Path);
             return this;
         }
 
@@ -60,11 +60,11 @@ namespace Zelenium.Core.Utils
 
             if (caseSensitive)
             {
-                StringAssert.Contains(expectedText, text, extendedMessage);
+                Assert.That(text, Does.Contain(expectedText), extendedMessage);
             }
             else
             {
-                Assert.IsTrue(text.ContainsIgnoreCase(expectedText), $"{extendedMessage}| Element text check. Actual '{text}' text did not contain "
+                Assert.That(text.ContainsIgnoreCase(expectedText), Is.True, $"{extendedMessage}| Element text check. Actual '{text}' text did not contain "
                                                                         + $"the expected '{expectedText}' text (IgnoreCaseSensitie)");
             }
 
@@ -73,17 +73,16 @@ namespace Zelenium.Core.Utils
 
         public ElementValidatorBuilder TextDoesNotContains(string expectedText, bool caseSensitive = true)
         {
-
             var extendedMessage = $"{this.message} | Element's text does contain the expected text";
             var text = this.element.Text;
 
             if (caseSensitive)
             {
-                StringAssert.DoesNotContain(expectedText, text, extendedMessage);
+                Assert.That(text, Is.Not.Contains(expectedText), extendedMessage);
             }
             else
             {
-                Assert.IsFalse(text.ContainsIgnoreCase(expectedText), $"{extendedMessage}| Element text check. Actual '{text}' text did contain "
+                Assert.That(text.ContainsIgnoreCase(expectedText), Is.False, $"{extendedMessage}| Element text check. Actual '{text}' text did contain "
                                                                         + $"the expected that does NOT contain: '{expectedText}' text (IgnoreCaseSensitie)");
             }
 
@@ -92,13 +91,13 @@ namespace Zelenium.Core.Utils
 
         public ElementValidatorBuilder TextEqualsTo(string expectedText)
         {
-            Assert.AreEqual(expectedText.Trim().Normalize(), this.element.Text.Trim().Normalize(), this.message);
+            Assert.That(this.element.Text.Trim().Normalize(), Is.EqualTo(expectedText.Trim().Normalize()), this.message);
             return this;
         }
 
         public ElementValidatorBuilder IsTextUpperCase()
         {
-            Assert.IsFalse(this.element.Text.HasLowerLetter());
+            Assert.That(this.element.Text.HasLowerLetter(), Is.False);
             return this;
         }
     }

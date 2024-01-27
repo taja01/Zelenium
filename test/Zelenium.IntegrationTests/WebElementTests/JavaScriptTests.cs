@@ -14,29 +14,29 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             this.buttonPage = new ButtonPage(this.driver);
             this.buttonPage.Load();
-            Assert.IsTrue(this.buttonPage.IsLoaded().Passed);
+            Assert.That(this.buttonPage.IsLoaded().Passed, Is.True);
         }
 
         [Test]
         public void GetComputedStyleTest()
         {
             var basicButton = this.buttonPage.ButtonOverview.Basic;
-            Assert.AreEqual("horizontal-tb", basicButton.GetComputedStyle("writing-mode"));
+            Assert.That(basicButton.GetComputedStyle("writing-mode"), Does.Contain("horizontal-tb"));
         }
 
         [Test]
         public void GetInnerHtmlTest()
         {
             var goodObject = this.buttonPage.ButtonOverview.ExecuteScript<string>(BaseQueries.GetInnerHtml);
-            Assert.NotNull(goodObject);
-            StringAssert.Contains("div", goodObject);
+
+            Assert.That(goodObject, Does.Not.Null.And.Contain("div"));
         }
 
         [Test]
         public void GetInnerTextTest()
         {
             var myEnum = this.buttonPage.ButtonOverview.Basic.ExecuteScript<ButtonType>(BaseQueries.GetInnerText);
-            Assert.AreEqual(ButtonType.Basic, myEnum);
+            Assert.That(myEnum, Is.EqualTo(ButtonType.Basic));
         }
 
         [Test]
@@ -46,9 +46,9 @@ namespace Zelenium.IntegrationTests.WebElementTests
             var basicButton = this.buttonPage.ButtonOverview.Basic;
             basicButton.ExecuteScript(BaseQueries.SetStyle(style));
 
-            Assert.AreEqual(style, basicButton.ExecuteScript<string>(BaseQueries.GetStyle()));
-            Assert.IsTrue(basicButton.Present);
-            Assert.IsFalse(basicButton.DisplayedNow);
+            Assert.That(basicButton.ExecuteScript<string>(BaseQueries.GetStyle()), Is.EqualTo(style));
+            Assert.That(basicButton.Present, Is.True);
+            Assert.That(basicButton.DisplayedNow, Is.False);
         }
 
         [Test]
@@ -59,11 +59,12 @@ namespace Zelenium.IntegrationTests.WebElementTests
             var basicButton = this.buttonPage.ButtonOverview.Basic;
             basicButton.ExecuteScript(BaseQueries.AddAttribute(attr, value));
 
-            Assert.AreEqual(value, basicButton.ExecuteScript<string>(BaseQueries.GetAttribute(attr)));
+            Assert.That(basicButton.ExecuteScript<string>(BaseQueries.GetAttribute(attr)), Is.EqualTo(value));
         }
 
         enum ButtonType
         {
+            None,
             Basic
         }
     }

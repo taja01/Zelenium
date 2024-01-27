@@ -4,9 +4,9 @@ using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Zelenium.Core.Interfaces;
-using Zelenium.Core.Model;
 using Zelenium.Core.Utils;
 using Zelenium.Core.WebDriver.Types;
+using ValidationResult = Zelenium.Core.Model.ValidationResult;
 
 namespace Zelenium.UnitTestss.CoreTests
 {
@@ -74,9 +74,10 @@ namespace Zelenium.UnitTestss.CoreTests
             mockElement.SetupGet(e => e.BackgroundColor).Returns(Color.FromArgb(255, 255, 255));
 
             Assert.That(() => Assertion.IsReadable(mockElement.Object, "some kind of element", 5.7),
-               Throws.TypeOf<AssertionException>()
-               .With.Message.Contains($"  some kind of element | \r\nContrast ratio ({2.58m}) of the given color pair is below the limit ({5.7m}) | \r\n" +
-               "Color: RGB(161,161,161), #A1A1A1 | \r\nBackground color: RGB(255,255,255), #FFFFFF\r\n  Expected: True\r\n  But was:  False\r\n"));
+            Throws.TypeOf<AssertionException>()
+            .And.Message.Contains("  some kind of element | \r\nContrast ratio (2.58) of the given color pair is below the limit (5.7) | " +
+            "\r\nColor: RGB(161,161,161), #A1A1A1 | \r\nBackground color: RGB(255,255,255), #FFFFFF\nAssert.That(validationResult.Passed, Is.True)\r\n  " +
+            "Expected: True\r\n  But was:  False\r\n"));
         }
 
         [Test]

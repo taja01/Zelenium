@@ -16,7 +16,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             this.buttonPage = new ButtonPage(this.driver);
             this.buttonPage.Load();
-            Assert.IsTrue(this.buttonPage.IsLoaded().Passed);
+            Assert.That(this.buttonPage.IsLoaded().Passed, Is.True);
         }
 
         [Test]
@@ -26,8 +26,8 @@ namespace Zelenium.IntegrationTests.WebElementTests
             sw.Start();
             _ = this.buttonPage.ButtonOverview.NotExist.Displayed;
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -38,8 +38,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Scroll(),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -50,8 +49,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Color,
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -62,8 +60,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Attributes.Get("test-id"),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -74,8 +71,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Class.Has(".warning"),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -86,8 +82,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.BackgroundColor,
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -98,8 +93,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -110,8 +104,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.JavaScript),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -122,8 +115,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.NewTab),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -135,9 +127,8 @@ namespace Zelenium.IntegrationTests.WebElementTests
             var exception = Assert.Throws<NoSuchElementException>(() => _ = this.buttonPage.ButtonOverview.NotExist.Text);
             sw.Stop();
 
-            Assert.AreEqual(exception.GetType(), typeof(NoSuchElementException));
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(exception, Is.TypeOf<NoSuchElementException>());
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -148,8 +139,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript(BaseQueries.GetInnerHtml),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -160,8 +150,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript<bool>(BaseQueries.GetInnerHtml),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -172,8 +161,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.ExecuteScript(BaseQueries.GetInnerHtml),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -184,8 +172,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.DragAndDrop(100, 100),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -196,8 +183,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Swipe(100),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -208,8 +194,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.WaitForText("text"),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
 
         [Test]
@@ -220,8 +205,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             Assert.That(() => this.buttonPage.ButtonOverview.NotExist.HasTextWithin("text"),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
-            Assert.GreaterOrEqual(sw.Elapsed.TotalSeconds, 5);
-            Assert.Less(sw.Elapsed.TotalSeconds, 6);
+            Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
         }
     }
 }

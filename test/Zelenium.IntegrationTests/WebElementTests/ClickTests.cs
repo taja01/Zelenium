@@ -14,7 +14,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             this.buttonPage = new ButtonPage(this.driver);
             this.buttonPage.Load();
-            Assert.IsTrue(this.buttonPage.IsLoaded().Passed);
+            Assert.That(this.buttonPage.IsLoaded().Passed, Is.True);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             this.buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.NewTab);
 
             var windows = this.driver.WindowHandles;
-            Assert.AreEqual(2, windows.Count);
+            Assert.That(windows.Count, Is.EqualTo(2));
 
             this.driver.SwitchTo().Window(windows[1]);
             Wait.Initialize()

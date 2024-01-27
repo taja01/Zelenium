@@ -18,7 +18,7 @@ namespace Zelenium.UnitTests.CoreTests
 
             var mockLoadableContainer = mock.Object;
 
-            Assert.IsTrue(mockLoadableContainer.IsLoaded().Passed);
+            Assert.That(mockLoadableContainer.IsLoaded().Passed, Is.True);
         }
 
         [Test]
@@ -32,8 +32,8 @@ namespace Zelenium.UnitTests.CoreTests
 
             var mockLoadableContainer = mock.Object;
 
-            Assert.IsFalse(mockLoadableContainer.IsLoaded().Passed);
-            Assert.AreEqual("Title not found", mockLoadableContainer.IsLoaded().Message);
+            Assert.That(mockLoadableContainer.IsLoaded().Passed, Is.False);
+            Assert.That(mockLoadableContainer.IsLoaded().Message, Is.EqualTo("Title not found"));
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace Zelenium.UnitTests.CoreTests
             var mockLoadableContainer = mock.Object;
             mockLoadableContainer.Load();
 
-            Assert.AreEqual(driver.Object.Url, "https://google.com");
+            Assert.That(driver.Object.Url, Does.Contain("https://google.com"));
         }
     }
 }

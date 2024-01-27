@@ -19,7 +19,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             this.buttonPage = new ButtonPage(this.driver);
             this.buttonPage.Load();
-            Assert.IsTrue(this.buttonPage.IsLoaded().Passed);
+            Assert.That(this.buttonPage.IsLoaded().Passed, Is.True);
 
             this.basicButton = this.buttonPage.ButtonOverview.BasicWithoutDelay;
         }
@@ -27,28 +27,28 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Test]
         public void GetAttributeNotExistTest()
         {
-            Assert.Null(this.basicButton.Attributes.Get("notexistAttribute"));
+            Assert.That(this.basicButton.Attributes.Get("notexistAttribute"), Is.Null);
         }
 
         [Test]
         public void GetAttributeTest()
         {
             this.basicButton.ExecuteScript(BaseQueries.AddAttribute(ATTIRBUTE_NAME, ATTRIBUTE_VALUE));
-            Assert.AreEqual(ATTRIBUTE_VALUE, this.basicButton.Attributes.Get(ATTIRBUTE_NAME));
+            Assert.That(this.basicButton.Attributes.Get(ATTIRBUTE_NAME), Is.EqualTo(ATTRIBUTE_VALUE));
         }
 
         [Test]
         public void HasAttributeNotExistTest()
         {
-            Assert.False(this.basicButton.Attributes.Has("notexistAttribute"));
+            Assert.That(this.basicButton.Attributes.Has("notexistAttribute"), Is.False);
         }
 
         [Test]
         public void HasAttributeTest()
         {
-            Assert.False(this.basicButton.Attributes.Has(ATTIRBUTE_NAME));
+            Assert.That(this.basicButton.Attributes.Has(ATTIRBUTE_NAME), Is.False);
             this.basicButton.ExecuteScript(BaseQueries.AddAttribute(ATTIRBUTE_NAME, ATTRIBUTE_VALUE));
-            Assert.True(this.basicButton.Attributes.HasWithin(ATTIRBUTE_NAME));
+            Assert.That(this.basicButton.Attributes.HasWithin(ATTIRBUTE_NAME), Is.True);
         }
 
         [Test]
@@ -68,13 +68,13 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Test]
         public void HasWithinAttributeNotExistTest()
         {
-            Assert.False(this.basicButton.Attributes.HasWithin("notexistAttribute"));
+            Assert.That(this.basicButton.Attributes.HasWithin("notexistAttribute"), Is.False);
         }
 
         [Test]
         public void HasWithinAttributeTest()
         {
-            Assert.False(this.basicButton.Attributes.HasWithin(ATTRIBUTE_VALUE));
+            Assert.That(this.basicButton.Attributes.HasWithin(ATTRIBUTE_VALUE), Is.False);
             this.basicButton.ExecuteScript(BaseQueries.AddAttribute(ATTIRBUTE_NAME, ATTRIBUTE_VALUE));
             this.basicButton.Attributes.HasWithin(ATTIRBUTE_NAME);
         }

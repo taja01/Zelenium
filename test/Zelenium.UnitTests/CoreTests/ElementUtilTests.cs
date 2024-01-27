@@ -12,25 +12,25 @@ namespace Zelenium.UnitTests.CoreTests
         [Test]
         public void TestMobile1()
         {
-            Assert.AreEqual(".mobile", Locators(desktopSelector: ".desktop", mobileSelector: ".mobile", Device.Mobile));
+            Assert.That(Locators(desktopSelector: ".desktop", mobileSelector: ".mobile", Device.Mobile), Is.EqualTo(".mobile"));
         }
 
         [Test]
         public void TestMobile2()
         {
-            Assert.AreEqual(By.Id("mobile"), Locators(desktopSelector: By.Id("desktop"), mobileSelector: By.Id("mobile"), Device.Mobile));
+            Assert.That(Locators(desktopSelector: By.Id("desktop"), mobileSelector: By.Id("mobile"), Device.Mobile), Is.EqualTo(By.Id("mobile")));
         }
 
         [Test]
         public void TestMobile3()
         {
-            Assert.AreEqual(By.CssSelector("#mobile"), Locators(desktopSelector: By.Id("desktop"), mobileSelector: By.CssSelector("#mobile"), Device.Mobile));
+            Assert.That(Locators(desktopSelector: By.Id("desktop"), mobileSelector: By.CssSelector("#mobile"), Device.Mobile), Is.EqualTo(By.CssSelector("#mobile")));
         }
 
         [Test]
         public void TestDesktop()
         {
-            Assert.AreEqual(By.Id("desktop"), Locators(desktopSelector: By.Id("desktop"), mobileSelector: By.CssSelector("#mobile"), Device.Desktop));
+            Assert.That(Locators(desktopSelector: By.Id("desktop"), mobileSelector: By.CssSelector("#mobile"), Device.Desktop), Is.EqualTo(By.Id("desktop")));
         }
     }
 }
