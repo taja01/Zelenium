@@ -14,9 +14,9 @@ namespace Zelenium.IntegrationTests.WebdriverManagerTests
 
         [TestCase(Browser.Firefox)]
         [TestCase(Browser.Chrome)]
-        public void FirefoxTest(Browser browser)
+        public void BrowserTest(Browser browser)
         {
-            this.driver = new WebDriverFactory().GetWebDriver(browser, runInHeadlessMode: true, useModHeader: false);
+            this.driver = new WebDriverFactory().GetWebDriver(browser, runInHeadlessMode: false, useModHeader: false);
             this.driver.Manage().Window.Maximize();
             this.buttonPage = new ButtonPage(this.driver);
             this.buttonPage.Load();

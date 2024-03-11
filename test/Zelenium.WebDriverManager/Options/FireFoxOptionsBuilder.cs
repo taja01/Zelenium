@@ -24,6 +24,11 @@ namespace Zelenium.WebDriverManager.Options
 
             this.firefoxOptions.AcceptInsecureCertificates = true;
 
+            // Prevent from asking for location
+            this.firefoxOptions.SetPreference("geo.enabled", false);
+            this.firefoxOptions.SetPreference("geo.provider.use_corelocation", false);
+            this.firefoxOptions.SetPreference("geo.prompt.testing", false);
+            this.firefoxOptions.SetPreference("geo.prompt.testing.allow", false);
             /*
             // Disable automation info-bar message
             this.firefoxOptions.AddExcludedArgument("enable-automation");
