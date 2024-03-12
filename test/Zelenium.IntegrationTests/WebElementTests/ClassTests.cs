@@ -1,7 +1,10 @@
 ﻿using System;
 using MaterialAngular.PageObjects;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.Utils;
 
 namespace Zelenium.IntegrationTests.WebElementTests
@@ -12,12 +15,31 @@ namespace Zelenium.IntegrationTests.WebElementTests
         TabsPage tabsPage;
         const string ACTIVE_CLASS = "mdc-tab--active";
         const string FAKE_CLASS = "blabla";
+        private ILogger<TabsPage> logger;
+
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
+                .CreateLogger();
+
+            var loggerFactory = new LoggerFactory().AddSerilog();
+            logger = loggerFactory.CreateLogger<TabsPage>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            Log.CloseAndFlush();
+        }
 
         [SetUp]
         public void SetUp()
         {
             this.driver.Url = "https://material.angular.io/components/tabs/overview";
-            this.tabsPage = new TabsPage(this.driver);
+            this.tabsPage = new TabsPage(this.logger, this.driver);
             Assertion.IsTrue(this.tabsPage.IsLoaded());
         }
 

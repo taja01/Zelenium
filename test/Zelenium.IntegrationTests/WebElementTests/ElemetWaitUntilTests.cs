@@ -1,7 +1,10 @@
 ﻿using System;
 using MaterialAngular.PageObjects;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.WebDriverManager;
 
 namespace Zelenium.IntegrationTests.WebElementTests
@@ -11,13 +14,23 @@ namespace Zelenium.IntegrationTests.WebElementTests
     {
         SnackBarPage snackBarPage;
         IWebDriver driver;
+        ILogger<SnackBarPage> logger;
+
         [OneTimeSetUp]
         public void SetUp()
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
+                .CreateLogger();
+
+            var loggerFactory = new LoggerFactory().AddSerilog();
+            logger = loggerFactory.CreateLogger<SnackBarPage>();
+
             this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, runInHeadlessMode: true, useModHeader: false);
             this.driver.Manage().Window.Maximize();
 
-            this.snackBarPage = new SnackBarPage(this.driver);
+            this.snackBarPage = new SnackBarPage(this.logger, this.driver);
             this.snackBarPage.Load();
             Assert.That(this.snackBarPage.IsLoaded().Passed, Is.True);
         }
@@ -27,6 +40,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             this.driver.Quit();
             this.driver.Dispose();
+            Log.CloseAndFlush();
         }
 
         [Test]

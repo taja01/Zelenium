@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
 using MaterialAngular.PageObjects;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.Config;
 
 namespace Zelenium.IntegrationTests.WebElementTests
@@ -10,11 +13,30 @@ namespace Zelenium.IntegrationTests.WebElementTests
     public class InputFieldTests : BaseTest
     {
         private InputFieldPage inputFieldPage;
+        private ILogger<InputFieldPage> logger;
+
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
+                .CreateLogger();
+
+            var loggerFactory = new LoggerFactory().AddSerilog();
+            logger = loggerFactory.CreateLogger<InputFieldPage>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            Log.CloseAndFlush();
+        }
 
         [SetUp]
         public void SetUp()
         {
-            this.inputFieldPage = new InputFieldPage(this.driver);
+            this.inputFieldPage = new InputFieldPage(this.logger, this.driver);
             this.inputFieldPage.Load();
             Assert.That(this.inputFieldPage.IsLoaded().Passed, Is.True);
         }

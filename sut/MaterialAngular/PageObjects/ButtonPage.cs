@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver.Types;
 
@@ -6,7 +7,7 @@ namespace MaterialAngular.PageObjects
 {
     public class ButtonPage : AbstractLoadableContainer
     {
-        public ButtonPage(IWebDriver webDriver) : base(webDriver, By.CssSelector(".docs-app-background"), "https://material.angular.io/components/button/overview")
+        public ButtonPage(ILogger<ButtonPage> logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-app-background"), "https://material.angular.io/components/button/overview")
         {
             this.ButtonOverview = this.Find<ButtonOverview>(By.CssSelector("button-overview-example section:nth-of-type(1)"));
             this.Header = this.Find<Header>(By.CssSelector(".docs-navbar-header"));
@@ -36,7 +37,7 @@ namespace MaterialAngular.PageObjects
 
     public class ButtonOverview : AbstractContainer
     {
-        public ButtonOverview(IWebDriver webDriver, By locator) : base(webDriver, locator)
+        public ButtonOverview(ILogger logger, IWebDriver webDriver, By locator) : base(logger, webDriver, locator)
         {
             this.BasicWithoutDelay = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(1)"), System.TimeSpan.Zero);
             this.Basic = this.Find<Element>(By.CssSelector(".mdc-button:nth-child(1)"));

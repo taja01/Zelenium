@@ -1,5 +1,8 @@
 ﻿using MaterialAngular.PageObjects;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.Config;
 
 namespace Zelenium.IntegrationTests.WebElementTests
@@ -8,11 +11,30 @@ namespace Zelenium.IntegrationTests.WebElementTests
     class JavaScriptTests : BaseTest
     {
         private ButtonPage buttonPage;
+        private ILogger<ButtonPage> logger;
+
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
+                .CreateLogger();
+
+            var loggerFactory = new LoggerFactory().AddSerilog();
+            logger = loggerFactory.CreateLogger<ButtonPage>();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            Log.CloseAndFlush();
+        }
 
         [SetUp]
         public void SetUp()
         {
-            this.buttonPage = new ButtonPage(this.driver);
+            this.buttonPage = new ButtonPage(this.logger, this.driver);
             this.buttonPage.Load();
             Assert.That(this.buttonPage.IsLoaded().Passed, Is.True);
         }

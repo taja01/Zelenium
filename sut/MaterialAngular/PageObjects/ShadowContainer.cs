@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver.Types;
 
@@ -6,7 +7,8 @@ namespace MaterialAngular.PageObjects
 {
     public class ShadowContainer : AbstractContainer
     {
-        public ShadowContainer(IWebDriver webDriver, By locator) : base(webDriver, locator)
+        public ShadowContainer(ILogger<ShadowContainer> logger, IWebDriver webDriver, By locator)
+            : base(logger, webDriver, locator)
         {
         }
 

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver.Types;
 
@@ -6,8 +7,8 @@ namespace MaterialAngular.PageObjects
 {
     public class Header : AbstractContainer
     {
-        public Header(IWebDriver driver, By selector)
-            : base(driver, selector)
+        public Header(ILogger logger, IWebDriver driver, By selector)
+            : base(logger, driver, selector)
         {
             this.MaterialButton = this.Find<Element>(By.CssSelector("a[href='/']"));
             this.ComponentButton = this.Find<Element>(By.CssSelector("a[href='/components']"));

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver.Types;
 
@@ -10,7 +11,7 @@ namespace MaterialAngular.PageObjects
         private Element tab2;
         private Element tab1;
 
-        public TabsPage(IWebDriver webDriver) : base(webDriver, By.CssSelector(".docs-component-sidenav-content"), "https://material.angular.io/components/tabs/overview")
+        public TabsPage(ILogger<TabsPage> logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-component-sidenav-content"), "https://material.angular.io/components/tabs/overview")
         {
             this.Header = this.Find<Element>(By.CssSelector(".docs-primary-header"));
             this.Tabs = this.Finds<Element>(By.CssSelector(".docs-component-viewer-section-tab"));

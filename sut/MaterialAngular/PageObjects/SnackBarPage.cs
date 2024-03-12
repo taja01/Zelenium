@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver.Types;
 
@@ -6,7 +7,7 @@ namespace MaterialAngular.PageObjects
 {
     public class SnackBarPage : AbstractLoadableContainer
     {
-        public SnackBarPage(IWebDriver webDriver) : base(webDriver, null, "https://material.angular.io/components/snack-bar/overview")
+        public SnackBarPage(ILogger<SnackBarPage> logger, IWebDriver webDriver) : base(logger, webDriver, null, "https://material.angular.io/components/snack-bar/overview")
         {
             this.ShowSnackBarButton = this.Find<Element>(By.CssSelector("snack-bar-overview-example > button"));
             this.SnackBar = this.Find<SnackBarContent>(By.CssSelector(".mdc-snackbar"));
@@ -30,8 +31,8 @@ namespace MaterialAngular.PageObjects
 
         public class SnackBarContent : AbstractContainer
         {
-            public SnackBarContent(IWebDriver webDriver, By locator)
-                : base(webDriver, locator)
+            public SnackBarContent(ILogger<SnackBarContent> logger, IWebDriver webDriver, By locator)
+                : base(logger, webDriver, locator)
             {
                 this.CloseButton = this.Find<Element>(By.CssSelector(".mat-mdc-button"));
             }
