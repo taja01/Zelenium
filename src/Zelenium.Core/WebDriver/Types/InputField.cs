@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 
 namespace Zelenium.Core.WebDriver.Types
@@ -9,7 +10,7 @@ namespace Zelenium.Core.WebDriver.Types
     /// </summary>
     public class InputField : Element
     {
-        public InputField(IWebDriver webDriver, By locator = null) : base(webDriver, locator)
+        public InputField(ILogger<InputField> logger, IWebDriver webDriver, By locator = null) : base(logger, webDriver, locator)
         {
         }
 

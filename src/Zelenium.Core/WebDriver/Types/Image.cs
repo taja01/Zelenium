@@ -1,10 +1,11 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 
 namespace Zelenium.Core.WebDriver.Types
 {
     public class Image : Element
     {
-        public Image(IWebDriver webDriver, By by) : base(webDriver, by)
+        public Image(ILogger<Image> logger, IWebDriver webDriver, By by) : base(logger, webDriver, by)
         {
         }
 

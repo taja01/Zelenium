@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 
 namespace Zelenium.Core.WebDriver.Types
@@ -8,7 +9,7 @@ namespace Zelenium.Core.WebDriver.Types
     public class SelectElement : Element
     {
         private const string Attribute = "value";
-        public SelectElement(IWebDriver webDriver, By by = null) : base(webDriver, by)
+        public SelectElement(ILogger<SelectElement> logger, IWebDriver webDriver, By by = null) : base(logger, webDriver, by)
         {
 
         }

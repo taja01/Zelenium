@@ -1,6 +1,6 @@
 ﻿namespace Zelenium.WebDriverManager.Options
 {
-    public class ChromeOptionsDirector : ChromeExtensionSettingsBuilder<ChromeOptionsDirector>
+    public class ChromeOptionsDirector : ChromeRemoteSettingsBuilder<ChromeOptionsDirector>
     {
         public static ChromeOptionsDirector NewChromeOptionsDirector => new ChromeOptionsDirector();
     }

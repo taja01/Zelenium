@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Logging;
+using OpenQA.Selenium;
 using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver.Types
@@ -7,7 +8,7 @@ namespace Zelenium.Core.WebDriver.Types
     {
         protected readonly string Url;
 
-        protected AbstractLoadableContainer(IWebDriver webDriver, By locator, string url) : base(webDriver, locator)
+        protected AbstractLoadableContainer(ILogger<AbstractLoadableContainer> logger, IWebDriver webDriver, By locator, string url) : base(logger, webDriver, locator)
         {
             this.Url = url;
         }
@@ -34,13 +35,13 @@ namespace Zelenium.Core.WebDriver.Types
     {
         protected readonly string Url;
 
-        protected AbstractLoadableContainer(IWebDriver webDriver, By locator, IRouteBuilder<TEnum> routeBuilder, TEnum page)
-            : base(webDriver, locator)
+        protected AbstractLoadableContainer(ILogger<AbstractLoadableContainer<TEnum>> logger, IWebDriver webDriver, By locator, IRouteBuilder<TEnum> routeBuilder, TEnum page)
+            : base(logger, webDriver, locator)
         {
             this.Url = routeBuilder.GetUrl(page);
         }
 
-        protected AbstractLoadableContainer(IWebDriver webDriver, By locator, string url) : base(webDriver, locator)
+        protected AbstractLoadableContainer(ILogger<AbstractLoadableContainer> logger, IWebDriver webDriver, By locator, string url) : base(logger, webDriver, locator)
         {
             this.Url = url;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Threading;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Zelenium.Core.Config;
@@ -14,8 +15,10 @@ namespace Zelenium.Core.WebDriver.Types
     public abstract class AbstractElement : IElementContainer
     {
         protected readonly IWebDriver webDriver;
-        protected AbstractElement(IWebDriver webDriver, By locator = null)
+        protected readonly ILogger logger;
+        protected AbstractElement(ILogger logger, IWebDriver webDriver, By locator = null)
         {
+            this.logger = logger;
             this.webDriver = webDriver;
             if (locator != null)
             {
@@ -58,9 +61,9 @@ namespace Zelenium.Core.WebDriver.Types
                         }
                         catch (ElementClickInterceptedException e)
                         {
-                            Console.WriteLine($"Failed to 'click' emelent: {this.Path}");
-                            Console.WriteLine("Trying to click using javascript!");
-                            Console.WriteLine(e.Message);
+                            this.logger.LogError(e, "Failed to 'click' element: {path}", this.Path);
+                            this.logger.LogWarning("Trying to click using javascript!");
+
                             this.ExecuteScript(BaseQueries.JavaScriptClick);
                         }
 
@@ -99,7 +102,7 @@ namespace Zelenium.Core.WebDriver.Types
         /// Wait for the element
         /// </summary>
         /// <param name="elementName">Name of the element</param>
-        /// <param name="timeout">Exnted timeout. By default the timeout is 5s</param>
+        /// <param name="timeout">Extend timeout. By default the timeout is 5s</param>
         /// <exception cref="WebDriverTimeoutException"></exception>
         public void WaitUntilDisplay(string elementName, TimeSpan? timeout = null)
         {
@@ -259,11 +262,14 @@ namespace Zelenium.Core.WebDriver.Types
             }
             else
             {
-                throw new Exception($"Border colors are different!" +
+                var ex = new Exception($"Border colors are different!" +
                     $"\nTop: {top}" +
                     $"\nRight: {right}" +
                     $"\nBottom: {bottom}" +
                     $"\nLeft: {left}");
+
+                this.logger.LogError(ex, "GetBorderColor");
+                throw ex;
             }
         }
     }

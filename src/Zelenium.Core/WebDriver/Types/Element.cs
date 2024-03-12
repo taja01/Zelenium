@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using Zelenium.Core.Interfaces;
 
@@ -7,7 +8,8 @@ namespace Zelenium.Core.WebDriver.Types
 {
     public class Element : AbstractElement, IElement
     {
-        public Element(IWebDriver webDriver, By by = null) : base(webDriver, by)
+        public Element(ILogger logger, IWebDriver webDriver, By by = null)
+            : base(logger, webDriver, by)
         {
         }
 

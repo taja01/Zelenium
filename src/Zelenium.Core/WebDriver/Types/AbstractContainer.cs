@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
 using Zelenium.Core.Interfaces;
@@ -8,13 +9,15 @@ namespace Zelenium.Core.WebDriver.Types
 {
     public abstract class AbstractContainer : AbstractElement
     {
-        protected AbstractContainer(IWebDriver webDriver, By locator) : base(webDriver, locator)
+        private readonly ILogger _logger;
+        protected AbstractContainer(ILogger logger, IWebDriver webDriver, By locator) : base(logger, webDriver, locator)
         {
+            _logger = logger;
         }
 
         protected T Find<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
-            var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, locator);
+            var elementContainer = (T)Activator.CreateInstance(typeof(T), _logger, this.webDriver, locator);
             elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout);
 
             return elementContainer;
@@ -22,7 +25,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         protected T FindShadow<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
-            var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, locator);
+            var elementContainer = (T)Activator.CreateInstance(typeof(T), _logger, this.webDriver, locator);
             elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout, true);
 
             return elementContainer;

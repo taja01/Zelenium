@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using OpenQA.Selenium.Chrome;
 using Zelenium.Core.Enums;
 
@@ -20,49 +21,44 @@ namespace Zelenium.WebDriverManager.Options
     {
         public T SetCommon()
         {
-            // This disables the Chrome sandbox, which is a security measure that prevents code from the web page 
-            // from executing on the system. This is sometimes needed in Docker or Linux environments where the 
-            // sandbox can't be used, but generally, leave this enabled for security.
-            this.chromeOptions.AddArgument("--no-sandbox");
-
-            // This option allows Chrome to load insecure content (http) on a secure page (https). This is 
-            // generally not recommended as it can make your tests less accurately reflect a real use case.
+            //// This option allows Chrome to load insecure content (http) on a secure page (https). This is 
+            //// generally not recommended as it can make your tests less accurately reflect a real use case.
             this.chromeOptions.AddArgument("--allow-running-insecure-content");
 
-            // This ignores the GPU software rendering list and forces GPU acceleration to be enabled. This is 
-            // used when you want to test website performance with hardware acceleration enabled, but generally 
-            // does not impact testing as most web content is unaffected by GPU acceleration.
+            //// This ignores the GPU software rendering list and forces GPU acceleration to be enabled. This is 
+            //// used when you want to test website performance with hardware acceleration enabled, but generally 
+            //// does not impact testing as most web content is unaffected by GPU acceleration.
             this.chromeOptions.AddArgument("--ignore-gpu-blocklist");
 
-            // This allows browsing to websites with invalid SSL certificates. This can be useful for testing 
-            // internal sites with self-signed certificates, for example.
+            //// This allows browsing to websites with invalid SSL certificates. This can be useful for testing 
+            //// internal sites with self-signed certificates, for example.
             this.chromeOptions.AcceptInsecureCertificates = true;
 
-            // Not a standard Chrome argument and does not impact the behavior of the browser during automation, 
-            // can be safely removed.
+            //// Not a standard Chrome argument and does not impact the behavior of the browser during automation, 
+            //// can be safely removed.
             this.chromeOptions.AddExcludedArgument("enable-automation");
 
-            // Disables ChromeDriver's built-in automation extension. This extension helps with automating 
-            // things like form controls, but is not strictly necessary and some prefer to disable it.
+            //// Disables ChromeDriver's built-in automation extension. This extension helps with automating 
+            //// things like form controls, but is not strictly necessary and some prefer to disable it.
             this.chromeOptions.AddAdditionalOption("useAutomationExtension", false);
 
-            // Disables Chrome's autofill feature. This is useful in tests where autofill may interfere with 
-            // manual form input during tests.
+            //// Disables Chrome's autofill feature. This is useful in tests where autofill may interfere with 
+            //// manual form input during tests.
             this.chromeOptions.AddUserProfilePreference("credentials_enable_service", false);
 
-            // Disables Chrome's built-in password manager. Useful in tests where saved passwords may interfere 
-            // with manual form input during tests.
+            //// Disables Chrome's built-in password manager. Useful in tests where saved passwords may interfere 
+            //// with manual form input during tests.
             this.chromeOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
 
-            // Disables the 'AutomationControlled' attribute from the WebDriver, which makes it difficult for 
-            // websites to detect and block WebDriver controlled browsers.
+            //// Disables the 'AutomationControlled' attribute from the WebDriver, which makes it difficult for 
+            //// websites to detect and block WebDriver controlled browsers.
             this.chromeOptions.AddArgument("disable-blink-features=AutomationControlled");
 
-            // Prevent from asking for location
-            //this.chromeOptions.AddUserProfilePreference("prefs", new Dictionary<string, object>
-            //    {
-            //        { "profile.default_content_setting_values.geolocation", 2 }
-            //    });
+            //// Prevent from asking for location
+            this.chromeOptions.AddUserProfilePreference("prefs", new Dictionary<string, object>
+                {
+                    { "profile.default_content_setting_values.geolocation", 2 }
+                });
 
             return (T)this;
         }
@@ -131,6 +127,22 @@ namespace Zelenium.WebDriverManager.Options
             if (useExtension)
             {
                 this.chromeOptions.AddExtension($@"{Path.GetFullPath(@"BrowserExtensions")}\modheader_chome.crx");
+            }
+
+            return (T)this;
+        }
+    }
+
+    public class ChromeRemoteSettingsBuilder<T> : ChromeExtensionSettingsBuilder<ChromeRemoteSettingsBuilder<T>> where T : ChromeRemoteSettingsBuilder<T>
+    {
+        public T WithRemoteSettings(bool remoteAddressAdded)
+        {
+            if (remoteAddressAdded)
+            {
+                // This disables the Chrome sandbox, which is a security measure that prevents code from the web page 
+                // from executing on the system. This is sometimes needed in Docker or Linux environments where the 
+                // sandbox can't be used, but generally, leave this enabled for security.
+                this.chromeOptions.AddArgument("--no-sandbox");
             }
 
             return (T)this;
