@@ -7,7 +7,7 @@ namespace MaterialAngular.PageObjects
 {
     public class SnackBarPage : AbstractLoadableContainer
     {
-        public SnackBarPage(ILogger<SnackBarPage> logger, IWebDriver webDriver) : base(logger, webDriver, null, "https://material.angular.io/components/snack-bar/overview")
+        public SnackBarPage(ILogger logger, IWebDriver webDriver) : base(logger, webDriver, null, "https://material.angular.io/components/snack-bar/overview")
         {
             this.ShowSnackBarButton = this.Find<Element>(By.CssSelector("snack-bar-overview-example > button"));
             this.SnackBar = this.Find<SnackBarContent>(By.CssSelector(".mdc-snackbar"));
@@ -31,7 +31,7 @@ namespace MaterialAngular.PageObjects
 
         public class SnackBarContent : AbstractContainer
         {
-            public SnackBarContent(ILogger<SnackBarContent> logger, IWebDriver webDriver, By locator)
+            public SnackBarContent(ILogger logger, IWebDriver webDriver, By locator)
                 : base(logger, webDriver, locator)
             {
                 this.CloseButton = this.Find<Element>(By.CssSelector(".mat-mdc-button"));

@@ -7,7 +7,7 @@ namespace MaterialAngular.PageObjects
 {
     public class ShadowContainer : AbstractContainer
     {
-        public ShadowContainer(ILogger<ShadowContainer> logger, IWebDriver webDriver, By locator)
+        public ShadowContainer(ILogger logger, IWebDriver webDriver, By locator)
             : base(logger, webDriver, locator)
         {
         }

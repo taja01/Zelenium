@@ -7,7 +7,7 @@ namespace MaterialAngular.PageObjects
 {
     public class InputFieldPage : AbstractLoadableContainer
     {
-        public InputFieldPage(ILogger<InputFieldPage> logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-app-background"), "https://material.angular.io/components/input/overview")
+        public InputFieldPage(ILogger logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-app-background"), "https://material.angular.io/components/input/overview")
         {
             this.InputField = this.Find<InputField>(By.CssSelector("#mat-input-0"));
             this.TextAreaField = this.Find<InputField>(By.CssSelector("#mat-input-1"));

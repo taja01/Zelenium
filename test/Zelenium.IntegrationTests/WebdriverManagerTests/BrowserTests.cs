@@ -25,7 +25,7 @@ namespace Zelenium.IntegrationTests.WebdriverManagerTests
                 .CreateLogger();
 
             var loggerFactory = new LoggerFactory().AddSerilog();
-            logger = loggerFactory.CreateLogger<ButtonPage>();
+            this.logger = loggerFactory.CreateLogger<ButtonPage>();
         }
 
         [OneTimeTearDown]
@@ -38,12 +38,12 @@ namespace Zelenium.IntegrationTests.WebdriverManagerTests
         [TestCase(Browser.Chrome)]
         public void BrowserTest(Browser browser)
         {
-            logger.LogInformation("Start Test");
-            logger.LogInformation("BrowserTest: {browser}", browser);
+            this.logger.LogInformation("Start Test");
+            this.logger.LogInformation("BrowserTest: {browser}", browser);
 
             this.driver = new WebDriverFactory().GetWebDriver(browser, runInHeadlessMode: false, useModHeader: false);
             this.driver.Manage().Window.Maximize();
-            this.buttonPage = new ButtonPage(logger, this.driver);
+            this.buttonPage = new ButtonPage(this.logger, this.driver);
             this.buttonPage.Load();
             Assertion.IsTrue(this.buttonPage.IsLoaded(), "Load test page");
         }
@@ -51,7 +51,7 @@ namespace Zelenium.IntegrationTests.WebdriverManagerTests
         [TearDown]
         public void AfterTest()
         {
-            logger.LogInformation("End Test");
+            this.logger.LogInformation("End Test");
 
             this.driver?.Quit();
             this.driver?.Dispose();

@@ -15,24 +15,13 @@ namespace Zelenium.IntegrationTests.WebElementTests
         TabsPage tabsPage;
         const string ACTIVE_CLASS = "mdc-tab--active";
         const string FAKE_CLASS = "blabla";
-        private ILogger<TabsPage> logger;
+        private ILogger<ClassTests> logger;
 
         [OneTimeSetUp]
-        public void Setup()
+        public void TestSetup()
         {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
-                .CreateLogger();
-
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            logger = loggerFactory.CreateLogger<TabsPage>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            Log.CloseAndFlush();
+            this.loggerFactory = new LoggerFactory().AddSerilog();
+            this.logger = this.loggerFactory.CreateLogger<ClassTests>();
         }
 
         [SetUp]

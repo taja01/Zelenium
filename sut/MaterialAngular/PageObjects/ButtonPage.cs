@@ -7,7 +7,7 @@ namespace MaterialAngular.PageObjects
 {
     public class ButtonPage : AbstractLoadableContainer
     {
-        public ButtonPage(ILogger<ButtonPage> logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-app-background"), "https://material.angular.io/components/button/overview")
+        public ButtonPage(ILogger logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-app-background"), "https://material.angular.io/components/button/overview")
         {
             this.ButtonOverview = this.Find<ButtonOverview>(By.CssSelector("button-overview-example section:nth-of-type(1)"));
             this.Header = this.Find<Header>(By.CssSelector(".docs-navbar-header"));

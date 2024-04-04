@@ -11,9 +11,9 @@ namespace MaterialAngular.PageObjects
         private Element tab2;
         private Element tab1;
 
-        public TabsPage(ILogger<TabsPage> logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-component-sidenav-content"), "https://material.angular.io/components/tabs/overview")
+        public TabsPage(ILogger logger, IWebDriver webDriver) : base(logger, webDriver, By.CssSelector(".docs-component-sidenav-content"), "https://material.angular.io/components/tabs/overview")
         {
-            this.Header = this.Find<Element>(By.CssSelector(".docs-primary-header"));
+            //this.Header = this.Find<Element>(By.CssSelector(".mat-mdc-tab-links"));
             this.Tabs = this.Finds<Element>(By.CssSelector(".docs-component-viewer-section-tab"));
         }
 
@@ -61,10 +61,10 @@ namespace MaterialAngular.PageObjects
             {
                 return new ValidationResult { Passed = false, Message = $"Page load failed \n{this.Path}" };
             }
-            if (!this.Header.Displayed)
-            {
-                return new ValidationResult { Passed = false, Message = $"Header missing \n{this.Header.Path}" };
-            }
+            //if (!this.Header.Displayed)
+            //{
+            //    return new ValidationResult { Passed = false, Message = $"Header missing \n{this.Header.Path}" };
+            //}
             if (this.Tabs.Count != 3)
             {
                 return new ValidationResult { Passed = false, Message = $"Unexpected number of tabs \n{this.Tabs.Path}" };

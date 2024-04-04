@@ -9,7 +9,7 @@ namespace Zelenium.Core.WebDriver.Types
     public class SelectElement : Element
     {
         private const string Attribute = "value";
-        public SelectElement(ILogger<SelectElement> logger, IWebDriver webDriver, By by = null) : base(logger, webDriver, by)
+        public SelectElement(ILogger logger, IWebDriver webDriver, By by = null) : base(logger, webDriver, by)
         {
 
         }

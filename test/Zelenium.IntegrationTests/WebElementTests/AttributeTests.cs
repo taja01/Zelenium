@@ -16,25 +16,15 @@ namespace Zelenium.IntegrationTests.WebElementTests
         private Element basicButton;
         private const string ATTIRBUTE_NAME = "attributeTestName";
         private const string ATTRIBUTE_VALUE = "attributeTestValue";
-        private ILogger<ButtonPage> logger;
+        private ILogger<AttributeTests> logger;
 
         [OneTimeSetUp]
-        public void Setup()
+        public void TestSetup()
         {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
-                .CreateLogger();
-
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            logger = loggerFactory.CreateLogger<ButtonPage>();
+            this.loggerFactory = new LoggerFactory().AddSerilog();
+            this.logger = this.loggerFactory.CreateLogger<AttributeTests>();
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            Log.CloseAndFlush();
-        }
 
         [SetUp]
         public void SetUp()

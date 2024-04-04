@@ -11,24 +11,13 @@ namespace Zelenium.IntegrationTests.WebElementTests
     public class ClickTests : BaseTest
     {
         private ButtonPage buttonPage;
-        private ILogger<ButtonPage> logger;
+        private ILogger<ClickTests> logger;
 
         [OneTimeSetUp]
-        public void Setup()
+        public void OneTimeSetUp()
         {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
-                .CreateLogger();
-
             var loggerFactory = new LoggerFactory().AddSerilog();
-            logger = loggerFactory.CreateLogger<ButtonPage>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            Log.CloseAndFlush();
+            this.logger = loggerFactory.CreateLogger<ClickTests>();
         }
 
         [SetUp]

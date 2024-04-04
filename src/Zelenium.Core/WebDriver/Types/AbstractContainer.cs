@@ -9,15 +9,13 @@ namespace Zelenium.Core.WebDriver.Types
 {
     public abstract class AbstractContainer : AbstractElement
     {
-        private readonly ILogger _logger;
         protected AbstractContainer(ILogger logger, IWebDriver webDriver, By locator) : base(logger, webDriver, locator)
         {
-            _logger = logger;
         }
 
         protected T Find<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
-            var elementContainer = (T)Activator.CreateInstance(typeof(T), _logger, this.webDriver, locator);
+            var elementContainer = (T)Activator.CreateInstance(typeof(T), this.logger, this.webDriver, locator);
             elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout);
 
             return elementContainer;
@@ -25,7 +23,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         protected T FindShadow<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
-            var elementContainer = (T)Activator.CreateInstance(typeof(T), _logger, this.webDriver, locator);
+            var elementContainer = (T)Activator.CreateInstance(typeof(T), this.logger, this.webDriver, locator);
             elementContainer.Finder = new ElementFinder(this.webDriver, this.Finder, locator, timeout, true);
 
             return elementContainer;
@@ -33,12 +31,12 @@ namespace Zelenium.Core.WebDriver.Types
 
         protected ElementList<T> Finds<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
-            return new ElementList<T>(this.webDriver, this.Finder, locator, timeout);
+            return new ElementList<T>(this.logger, this.webDriver, this.Finder, locator, timeout);
         }
 
         protected ElementList<T> FindsShadow<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
-            return new ElementList<T>(this.webDriver, this.Finder, locator, timeout, true);
+            return new ElementList<T>(this.logger, this.webDriver, this.Finder, locator, timeout, true);
         }
 
         public virtual void WaitForLoad(TimeSpan? timeout = null)

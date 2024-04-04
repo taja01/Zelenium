@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.Config;
 
 namespace Zelenium.IntegrationTests.WebElementTests
@@ -11,24 +10,13 @@ namespace Zelenium.IntegrationTests.WebElementTests
     class JavaScriptTests : BaseTest
     {
         private ButtonPage buttonPage;
-        private ILogger<ButtonPage> logger;
+        private ILogger<JavaScriptTests> logger;
 
         [OneTimeSetUp]
-        public void Setup()
+        public void TestSetup()
         {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                .WriteTo.Console(theme: AnsiConsoleTheme.Literate)
-                .CreateLogger();
-
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            logger = loggerFactory.CreateLogger<ButtonPage>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            Log.CloseAndFlush();
+            this.loggerFactory = new LoggerFactory().AddSerilog();
+            this.logger = this.loggerFactory.CreateLogger<JavaScriptTests>();
         }
 
         [SetUp]

@@ -10,7 +10,7 @@ namespace Zelenium.Core.WebDriver.Types
     /// </summary>
     public class InputField : Element
     {
-        public InputField(ILogger<InputField> logger, IWebDriver webDriver, By locator = null) : base(logger, webDriver, locator)
+        public InputField(ILogger logger, IWebDriver webDriver, By locator = null) : base(logger, webDriver, locator)
         {
         }
 

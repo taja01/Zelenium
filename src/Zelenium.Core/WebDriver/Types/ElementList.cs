@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using Zelenium.Core.Config;
 using Zelenium.Core.Interfaces;
@@ -10,14 +11,16 @@ namespace Zelenium.Core.WebDriver.Types
 {
     public class ElementList<T> : IEnumerable<T> where T : IElementContainer
     {
+        private readonly ILogger logger;
         private readonly IWebDriver webDriver;
         private readonly IElementFinder finder;
         private readonly By locator;
         private readonly TimeSpan timeout;
         private readonly bool isShadow;
 
-        public ElementList(IWebDriver webDriver, IElementFinder finder, By locator, TimeSpan? timeout, bool isShadow = false)
+        public ElementList(ILogger logger, IWebDriver webDriver, IElementFinder finder, By locator, TimeSpan? timeout, bool isShadow = false)
         {
+            this.logger = logger;
             this.webDriver = webDriver;
             this.finder = finder;
             this.locator = locator;
@@ -74,7 +77,7 @@ namespace Zelenium.Core.WebDriver.Types
             var index = 0;
             var typedList = elements.Select(element =>
             {
-                var elementContainer = (T)Activator.CreateInstance(typeof(T), this.webDriver, this.locator);
+                var elementContainer = (T)Activator.CreateInstance(typeof(T), this.logger, this.webDriver, this.locator);
                 elementContainer.Finder = new ElementFinder(this.webDriver, this.finder, element, this.locator, index++, isShadow: this.isShadow);
                 return elementContainer;
             });
