@@ -13,16 +13,16 @@ namespace Zelenium.WebDriverManager
     public class WebDriverFactory
     {
 
-        public IWebDriver GetWebDriver(Browser browser, Device device, string remoteUrl, bool runInHeadlessMode = true)
+        public static IWebDriver GetWebDriver(Browser browser, Device device, string remoteUrl, bool runInHeadlessMode = true)
         {
             try
             {
                 DriverOptions options = null;
                 options = browser switch
                 {
-                    Browser.Chrome => this.GetChromeOptions(device, runInHeadlessMode, false, true),
-                    Browser.Firefox => this.GetFirefoxOptions(runInHeadlessMode),
-                    Browser.Edge => this.GetEdgeOptions(device, runInHeadlessMode),
+                    Browser.Chrome => GetChromeOptions(device, runInHeadlessMode, false, true),
+                    Browser.Firefox => GetFirefoxOptions(runInHeadlessMode),
+                    Browser.Edge => GetEdgeOptions(device, runInHeadlessMode),
                     _ => throw new NotImplementedException()
                 };
 
@@ -35,20 +35,20 @@ namespace Zelenium.WebDriverManager
             }
         }
 
-        public IWebDriver GetWebDriver(Browser browser, bool runInHeadlessMode, bool useModHeader, string path = null)
+        public static IWebDriver GetWebDriver(Browser browser, bool runInHeadlessMode, bool useModHeader, string path = null)
         {
-            return this.GetWebDriver(browser, Device.Desktop, runInHeadlessMode, useModHeader, path);
+            return GetWebDriver(browser, Device.Desktop, runInHeadlessMode, useModHeader, path);
         }
 
-        public IWebDriver GetWebDriver(Browser browser, Device device, bool runInHeadlessMode = true, bool useModHeader = false, string path = null)
+        public static IWebDriver GetWebDriver(Browser browser, Device device, bool runInHeadlessMode = true, bool useModHeader = false, string path = null)
         {
             try
             {
                 return browser switch
                 {
-                    Browser.Chrome => this.CreateChromeDriver(device, runInHeadlessMode, useModHeader),
-                    Browser.Firefox => this.CreateFirefoxDriver(runInHeadlessMode, useModHeader),
-                    Browser.Edge => this.CreateEdgeDriver(device, runInHeadlessMode, path),
+                    Browser.Chrome => CreateChromeDriver(device, runInHeadlessMode, useModHeader),
+                    Browser.Firefox => CreateFirefoxDriver(runInHeadlessMode, useModHeader),
+                    Browser.Edge => CreateEdgeDriver(device, runInHeadlessMode, path),
                     _ => throw new NotImplementedException()
                 };
             }
@@ -58,12 +58,12 @@ namespace Zelenium.WebDriverManager
             }
         }
 
-        private IWebDriver CreateChromeDriver(Device device, bool runInHeadlessMode, bool useModHeader, bool remoteUrlAdded = false)
+        private static ChromeDriver CreateChromeDriver(Device device, bool runInHeadlessMode, bool useModHeader, bool remoteUrlAdded = false)
         {
-            return new ChromeDriver((ChromeOptions)this.GetChromeOptions(device, runInHeadlessMode, useModHeader, remoteUrlAdded));
+            return new ChromeDriver((ChromeOptions)GetChromeOptions(device, runInHeadlessMode, useModHeader, remoteUrlAdded));
         }
 
-        private DriverOptions GetChromeOptions(Device device, bool runInHeadlessMode, bool useModHeader, bool remoteUrlAdded)
+        private static ChromeOptions GetChromeOptions(Device device, bool runInHeadlessMode, bool useModHeader, bool remoteUrlAdded)
         {
             if (runInHeadlessMode && useModHeader)
             {
@@ -82,9 +82,9 @@ namespace Zelenium.WebDriverManager
                 .Build();
         }
 
-        private IWebDriver CreateFirefoxDriver(bool runInHeadlessMode, bool useModHeader)
+        private static FirefoxDriver CreateFirefoxDriver(bool runInHeadlessMode, bool useModHeader)
         {
-            var driver = new FirefoxDriver((FirefoxOptions)this.GetFirefoxOptions(runInHeadlessMode));
+            var driver = new FirefoxDriver((FirefoxOptions)GetFirefoxOptions(runInHeadlessMode));
 
             if (useModHeader)
             {
@@ -94,7 +94,7 @@ namespace Zelenium.WebDriverManager
             return driver;
         }
 
-        private DriverOptions GetFirefoxOptions(bool runInHeadlessMode)
+        private static FirefoxOptions GetFirefoxOptions(bool runInHeadlessMode)
         {
             return FireFoxOptionsDirector
                 .NewFirefoxOptionsDirector
@@ -103,12 +103,12 @@ namespace Zelenium.WebDriverManager
                 .Build();
         }
 
-        private IWebDriver CreateEdgeDriver(Device device, bool debug = true, string path = null)
+        private static EdgeDriver CreateEdgeDriver(Device device, bool debug = true, string path = null)
         {
-            return new EdgeDriver(path, (EdgeOptions)this.GetEdgeOptions(device, debug));
+            return new EdgeDriver(path, (EdgeOptions)GetEdgeOptions(device, debug));
         }
 
-        private DriverOptions GetEdgeOptions(Device device, bool debug = true)
+        private static EdgeOptions GetEdgeOptions(Device device, bool debug = true)
         {
             return EdgeOptionsDirector
                 .NewEdgeOptionsDirector

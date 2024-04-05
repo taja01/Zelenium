@@ -41,7 +41,7 @@ namespace Zelenium.IntegrationTests.WebdriverManagerTests
             this.logger.LogInformation("Start Test");
             this.logger.LogInformation("BrowserTest: {browser}", browser);
 
-            this.driver = new WebDriverFactory().GetWebDriver(browser, runInHeadlessMode: false, useModHeader: false);
+            this.driver = WebDriverFactory.GetWebDriver(browser, runInHeadlessMode: false, useModHeader: false);
             this.driver.Manage().Window.Maximize();
             this.buttonPage = new ButtonPage(this.logger, this.driver);
             this.buttonPage.Load();

@@ -27,7 +27,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
             var loggerFactory = new LoggerFactory().AddSerilog();
             this.logger = loggerFactory.CreateLogger<ElemetWaitUntilTests>();
 
-            this.driver = new WebDriverFactory().GetWebDriver(Browser.Chrome, runInHeadlessMode: true, useModHeader: false);
+            this.driver = WebDriverFactory.GetWebDriver(Browser.Chrome, runInHeadlessMode: true, useModHeader: false);
             this.driver.Manage().Window.Maximize();
 
             this.snackBarPage = new SnackBarPage(this.logger, this.driver);

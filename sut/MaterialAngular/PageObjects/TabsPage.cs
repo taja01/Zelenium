@@ -23,10 +23,7 @@ namespace MaterialAngular.PageObjects
         {
             get
             {
-                if (this.tab1 == null)
-                {
-                    this.tab1 = this.Tabs[0];
-                }
+                this.tab1 ??= this.Tabs[0];
                 return this.tab1;
             }
         }
@@ -35,10 +32,7 @@ namespace MaterialAngular.PageObjects
         {
             get
             {
-                if (this.tab2 == null)
-                {
-                    this.tab2 = this.Tabs[1];
-                }
+                this.tab2 ??= this.Tabs[1];
                 return this.tab2;
             }
         }
@@ -47,10 +41,7 @@ namespace MaterialAngular.PageObjects
         {
             get
             {
-                if (this.tab3 == null)
-                {
-                    this.tab3 = this.Tabs[2];
-                }
+                this.tab3 ??= this.Tabs[2];
                 return this.tab3;
             }
         }
