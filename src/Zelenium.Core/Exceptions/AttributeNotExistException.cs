@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Zelenium.Core.Exceptions
 {
@@ -16,11 +15,6 @@ namespace Zelenium.Core.Exceptions
 
         public AttributeNotExistException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        public AttributeNotExistException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }
