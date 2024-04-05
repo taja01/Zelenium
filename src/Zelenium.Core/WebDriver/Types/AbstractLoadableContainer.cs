@@ -35,7 +35,7 @@ namespace Zelenium.Core.WebDriver.Types
     {
         protected readonly string Url;
 
-        protected AbstractLoadableContainer(ILogger<TEnum> logger, IWebDriver webDriver, By locator, IRouteBuilder<TEnum> routeBuilder, TEnum page)
+        protected AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, IRouteBuilder<TEnum> routeBuilder, TEnum page)
             : base(logger, webDriver, locator)
         {
             this.Url = routeBuilder.GetUrl(page);
