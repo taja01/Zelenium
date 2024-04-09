@@ -13,10 +13,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +20,13 @@
     <PackageReference Include="NUnit" Version="4.1.0" />
     <PackageReference Include="Selenium.Support" Version="4.19.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.19.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
