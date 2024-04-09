@@ -6,8 +6,7 @@ namespace Zelenium.Core.WebDriver.Types
 {
     public abstract class AbstractLoadableContainer : AbstractContainer, ILoadableContainer
     {
-        protected readonly string Url;
-
+        public readonly string Url;
         protected AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, string url) : base(logger, webDriver, locator)
         {
             this.Url = url;
@@ -33,12 +32,11 @@ namespace Zelenium.Core.WebDriver.Types
 
     public abstract class AbstractLoadableContainer<TEnum> : AbstractContainer, ILoadableContainer
     {
-        protected readonly string Url;
-
+        public readonly string Url;
         protected AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, IRouteBuilder<TEnum> routeBuilder, TEnum page)
             : base(logger, webDriver, locator)
         {
-            this.Url = routeBuilder.GetUrl(page);
+            Url = routeBuilder.GetUrl(page);
         }
 
         protected AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, string url) : base(logger, webDriver, locator)

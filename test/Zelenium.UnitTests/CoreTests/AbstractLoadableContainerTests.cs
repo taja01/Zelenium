@@ -13,7 +13,7 @@ namespace Zelenium.UnitTests.CoreTests
         public void PassedTest()
         {
             var driver = new Mock<IWebDriver>();
-            var logger = new Mock<ILogger<AbstractLoadableContainerTests>>();
+            var logger = new Mock<ILogger>();
 
             driver.As<IJavaScriptExecutor>();
             var mockContainer = new Mock<AbstractLoadableContainer>(logger.Object, driver.Object, By.Id("id"), "url") { };
@@ -28,7 +28,7 @@ namespace Zelenium.UnitTests.CoreTests
         public void IsLoadedTest()
         {
             var driver = new Mock<IWebDriver>();
-            var logger = new Mock<ILogger<AbstractLoadableContainerTests>>();
+            var logger = new Mock<ILogger>();
 
             driver.As<IJavaScriptExecutor>();
             var mock = new Mock<AbstractLoadableContainer>(logger.Object, driver.Object, By.CssSelector(".class"), "url") { };
@@ -46,7 +46,7 @@ namespace Zelenium.UnitTests.CoreTests
         {
             //wut?
             var driver = new Mock<IWebDriver>();
-            var logger = new Mock<ILogger<AbstractLoadableContainerTests>>();
+            var logger = new Mock<ILogger>();
 
             driver.Setup(x => x.Url).Returns("https://google.com");
             driver.As<IJavaScriptExecutor>();

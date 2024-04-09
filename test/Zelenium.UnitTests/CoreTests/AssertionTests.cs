@@ -15,6 +15,13 @@ namespace Zelenium.UnitTestss.CoreTests
     {
         private readonly ValidationResult testResultOk = new ValidationResult { Passed = true, Message = "Ok" };
         private readonly ValidationResult testResultFailed = new ValidationResult { Passed = false, Message = "Not ok" };
+        private Mock<ElementList<IElementContainer>> mockList;
+
+        [SetUp]
+        public void Setup()
+        {
+            mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null, null);
+        }
 
         [Test]
         public void IsTrueTestPassed()
@@ -233,7 +240,6 @@ namespace Zelenium.UnitTestss.CoreTests
 
             mockElement.Setup(x => x.IsDisappeared(It.IsAny<TimeSpan>())).Returns(false);
 
-
             Assert.That(() => Assertion.IsDisappeared(mockElement.Object, "mock element"),
                 Throws.TypeOf<AssertionException>()
                 .With.Message.Contains("Element still visible")
@@ -245,7 +251,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitForCollectionNumberAreEqualsTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assertion.WaitColllectionCountAreEqual(5, mockList.Object, "mock list");
@@ -254,7 +259,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitForCollectionNumberAreEqualsNegativeTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(1);
 
             Assert.That(() => Assertion.WaitColllectionCountAreEqual(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
@@ -265,7 +269,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitForCollectionNumberAreNotEqualsTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assertion.WaitColllectionCountAreNotEqual(1, mockList.Object, "mock list");
@@ -274,7 +277,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitForCollectionNumberAreNotEqualsNegativeTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(1);
 
             Assert.That(() => Assertion.WaitColllectionCountAreNotEqual(1, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
@@ -285,7 +287,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreGreaterTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assertion.WaitColllectionCountAreGreater(4, mockList.Object, "mock list");
@@ -294,7 +295,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreGreaterNegativeTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assert.That(() => Assertion.WaitColllectionCountAreGreater(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
@@ -309,7 +309,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreLessTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assertion.WaitColllectionCountAreLess(6, mockList.Object, "mock list");
@@ -318,7 +317,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreLessNegativeTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assert.That(() => Assertion.WaitColllectionCountAreLess(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
@@ -332,7 +330,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreLessOrEqualTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assertion.WaitColllectionCountAreLessOrEqual(5, mockList.Object, "mock list");
@@ -342,7 +339,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreLessOrEqualNegativeTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assert.That(() => Assertion.WaitColllectionCountAreLess(4, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
@@ -353,7 +349,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreGreaterOrEqualTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assertion.WaitColllectionCountAreGreaterOrEqual(4, mockList.Object, "mock list");
@@ -363,7 +358,6 @@ namespace Zelenium.UnitTestss.CoreTests
         [Test]
         public void WaitColllectionCountAreGreaterOrEqualNegativeTest()
         {
-            var mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null);
             mockList.Setup(x => x.Count).Returns(5);
 
             Assert.That(() => Assertion.WaitColllectionCountAreGreaterOrEqual(6, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
