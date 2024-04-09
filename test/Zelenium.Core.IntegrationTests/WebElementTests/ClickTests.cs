@@ -5,7 +5,7 @@ using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.WebDriver;
 
-namespace Zelenium.IntegrationTests.WebElementTests
+namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ClickTests : BaseTest
@@ -41,7 +41,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Test]
         public void JsClickTest()
         {
-            this.buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.JavaScript);
+            this.buttonPage.Header.CdkButton.Click(Enums.ClickMethod.JavaScript);
 
             Wait.Initialize()
                 .Message("Url does not contains 'cdk'")
@@ -51,7 +51,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         [Test]
         public void OpenNewTabTest()
         {
-            this.buttonPage.Header.CdkButton.Click(Zelenium.Core.Enums.ClickMethod.NewTab);
+            this.buttonPage.Header.CdkButton.Click(Enums.ClickMethod.NewTab);
 
             var windows = this.driver.WindowHandles;
             Assert.That(windows.Count, Is.EqualTo(2));

@@ -7,7 +7,7 @@ using Zelenium.Core.Config;
 using Zelenium.Core.Exceptions;
 using Zelenium.Core.WebDriver.Types;
 
-namespace Zelenium.IntegrationTests.WebElementTests
+namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class AttributeTests : BaseTest

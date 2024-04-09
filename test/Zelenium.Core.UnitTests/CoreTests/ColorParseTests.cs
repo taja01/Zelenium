@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Zelenium.Core.Utils;
 
-namespace Zelenium.UnitTests.CoreTests
+namespace Zelenium.Core.UnitTests.CoreTests
 {
     /// <summary>
     /// Values from https://contrastchecker.com/

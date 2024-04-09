@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using Zelenium.Core.Enums;
 using static Zelenium.Core.Utils.ElementUtil;
 
-namespace Zelenium.UnitTests.CoreTests
+namespace Zelenium.Core.UnitTests.CoreTests
 {
     [TestFixture]
     public class ElementUtilTests

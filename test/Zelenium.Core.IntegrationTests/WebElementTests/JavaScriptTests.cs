@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Serilog;
 using Zelenium.Core.Config;
 
-namespace Zelenium.IntegrationTests.WebElementTests
+namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     class JavaScriptTests : BaseTest

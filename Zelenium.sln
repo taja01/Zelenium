@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7D9F3145-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.Core", "src\Zelenium.Core\Zelenium.Core.csproj", "{0FEBFBDC-47C7-42E0-BEE0-BED713A3B988}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.UnitTests", "test\Zelenium.UnitTests\Zelenium.UnitTests.csproj", "{A850069B-73C3-42B5-935A-7D96798C108C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.Core.UnitTests", "test\Zelenium.Core.UnitTests\Zelenium.Core.UnitTests.csproj", "{A850069B-73C3-42B5-935A-7D96798C108C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1780964-6C59-42F5-BF3E-A8038A70953D}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sut", "sut", "{C9BDB0ED-547
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialAngular", "sut\MaterialAngular\MaterialAngular.csproj", "{69BF4913-ED78-4539-A689-18C75E2F65E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.IntegrationTests", "test\Zelenium.IntegrationTests\Zelenium.IntegrationTests.csproj", "{57502523-1D5C-47E2-80B0-F9EC40A8D3A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.Core.IntegrationTests", "test\Zelenium.Core.IntegrationTests\Zelenium.Core.IntegrationTests.csproj", "{57502523-1D5C-47E2-80B0-F9EC40A8D3A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.WebDriverManager", "src\Zelenium.WebDriverManager\Zelenium.WebDriverManager.csproj", "{F2BA7CE9-D38A-4C70-848E-9EE599D5D04B}"
 EndProject

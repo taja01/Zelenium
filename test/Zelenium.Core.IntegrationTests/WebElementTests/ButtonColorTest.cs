@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Serilog;
 using Zelenium.Core.Utils;
 
-namespace Zelenium.IntegrationTests.WebElementTests
+namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ButtonColorTest : BaseTest

@@ -8,7 +8,7 @@ using Zelenium.Core.Utils;
 using Zelenium.Core.WebDriver.Types;
 using ValidationResult = Zelenium.Core.Model.ValidationResult;
 
-namespace Zelenium.UnitTestss.CoreTests
+namespace Zelenium.Core.UnitTests.CoreTests
 {
     [TestFixture]
     public class AssertionTests

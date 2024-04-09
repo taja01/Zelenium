@@ -7,7 +7,7 @@ using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.Config;
 
-namespace Zelenium.IntegrationTests.WebElementTests
+namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ElementTests : BaseTest
@@ -113,7 +113,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.JavaScript),
+            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Enums.ClickMethod.JavaScript),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));
@@ -124,7 +124,7 @@ namespace Zelenium.IntegrationTests.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Zelenium.Core.Enums.ClickMethod.NewTab),
+            Assert.That(() => this.buttonPage.ButtonOverview.NotExist.Click(Enums.ClickMethod.NewTab),
                 Throws.InstanceOf<NoSuchElementException>());
             sw.Stop();
             Assert.That(sw.Elapsed.TotalSeconds, Is.InRange(5, 6));

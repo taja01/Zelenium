@@ -5,7 +5,7 @@ using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.WebDriverManager;
 
-namespace Zelenium.IntegrationTests.WebElementTests
+namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public abstract class BaseTest

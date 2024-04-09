@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver;
 
-namespace Zelenium.UnitTests.CoreTests
+namespace Zelenium.Core.UnitTests.CoreTests
 {
     [TestFixture]
     public class WaitTests

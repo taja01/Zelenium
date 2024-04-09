@@ -7,7 +7,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.Utils;
 using Zelenium.WebDriverManager;
 
-namespace Zelenium.IntegrationTests.WebdriverManagerTests
+namespace Zelenium.Core.IntegrationTests.WebdriverManagerTests
 {
     [TestFixture]
     public class BrowserTests

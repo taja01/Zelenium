@@ -6,7 +6,7 @@ using Zelenium.Core.Interfaces;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver.Types;
 
-namespace Zelenium.UnitTests.CoreTests
+namespace Zelenium.Core.UnitTests.CoreTests
 {
     [TestFixture]
     internal class RouteBuilderTests

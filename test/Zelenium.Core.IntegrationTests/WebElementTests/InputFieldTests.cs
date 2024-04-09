@@ -7,7 +7,7 @@ using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using Zelenium.Core.Config;
 
-namespace Zelenium.IntegrationTests.WebElementTests
+namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class InputFieldTests : BaseTest

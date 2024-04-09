@@ -4,7 +4,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using Zelenium.Core.WebDriver.Types;
 
-namespace Zelenium.UnitTests.CoreTests
+namespace Zelenium.Core.UnitTests.CoreTests
 {
     [TestFixture]
     class AbstractLoadableContainerTests
@@ -17,7 +17,7 @@ namespace Zelenium.UnitTests.CoreTests
 
             driver.As<IJavaScriptExecutor>();
             var mockContainer = new Mock<AbstractLoadableContainer>(logger.Object, driver.Object, By.Id("id"), "url") { };
-            mockContainer.Setup(d => d.IsLoaded()).Returns(new Core.Model.ValidationResult { Passed = true });
+            mockContainer.Setup(d => d.IsLoaded()).Returns(new Model.ValidationResult { Passed = true });
 
             var mockLoadableContainer = mockContainer.Object;
 
@@ -33,7 +33,7 @@ namespace Zelenium.UnitTests.CoreTests
             driver.As<IJavaScriptExecutor>();
             var mock = new Mock<AbstractLoadableContainer>(logger.Object, driver.Object, By.CssSelector(".class"), "url") { };
 
-            mock.Setup(d => d.IsLoaded()).Returns(new Core.Model.ValidationResult { Passed = false, Message = "Title not found" });
+            mock.Setup(d => d.IsLoaded()).Returns(new Model.ValidationResult { Passed = false, Message = "Title not found" });
 
             var mockLoadableContainer = mock.Object;
 
