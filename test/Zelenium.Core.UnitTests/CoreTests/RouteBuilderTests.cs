@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -23,13 +24,13 @@ namespace Zelenium.Core.UnitTests.CoreTests
             var routeBuilder = new Mock<IRouteBuilder<MyPage>>();
             routeBuilder.Setup(t => t.GetUrl(MyPage.MainPage)).Returns("http://test.com");
 
-            _container = new ConcreteLoadableContainer(logger.Object, webDriver.Object, locator, routeBuilder.Object, MyPage.MainPage);
+            this._container = new ConcreteLoadableContainer(logger.Object, webDriver.Object, locator, routeBuilder.Object, MyPage.MainPage);
         }
 
         [Test]
         public void TestThatUrlIsCorrect()
         {
-            Assert.That("http://test.com", Is.EqualTo(_container.Url));
+            Assert.That("http://test.com", Is.EqualTo(this._container.Url));
         }
     }
 
@@ -38,15 +39,23 @@ namespace Zelenium.Core.UnitTests.CoreTests
         MainPage
     }
 
-    public class ConcreteLoadableContainer : AbstractLoadableContainer<MyPage>
+    public class ConcreteLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, IRouteBuilder<MyPage> routeBuilder, MyPage page)
+        : AbstractLoadableContainer<MyPage>(logger, webDriver, locator, routeBuilder, page)
     {
-        public ConcreteLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, IRouteBuilder<MyPage> routeBuilder, MyPage page) :
-            base(logger, webDriver, locator, routeBuilder, page)
-        { }
+        public Element MyElement => this.Find<Element>(By.CssSelector("span"));
 
         public override ValidationResult IsLoaded()
         {
-            throw new System.NotImplementedException();
+            (Func<bool> Condition, string Description)[] checks =
+        [
+            (() => this.Displayed, "Container not loaded"),
+            (() => this.MyElement.Displayed, "MyElement not loaded"),
+
+        ];
+
+            return base.CheckAllLoaded(checks);
         }
+
+
     }
 }

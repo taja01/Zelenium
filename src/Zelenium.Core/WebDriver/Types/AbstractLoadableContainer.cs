@@ -4,13 +4,9 @@ using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver.Types
 {
-    public abstract class AbstractLoadableContainer : AbstractContainer, ILoadableContainer
+    public abstract class AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, string url) : AbstractContainer(logger, webDriver, locator), ILoadableContainer
     {
-        public readonly string Url;
-        protected AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, string url) : base(logger, webDriver, locator)
-        {
-            this.Url = url;
-        }
+        public readonly string Url = url;
 
         /// <summary>
         /// Load Page, Url set with constructor OR with RouterBuilder
@@ -36,7 +32,7 @@ namespace Zelenium.Core.WebDriver.Types
         protected AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, IRouteBuilder<TEnum> routeBuilder, TEnum page)
             : base(logger, webDriver, locator)
         {
-            Url = routeBuilder.GetUrl(page);
+            this.Url = routeBuilder.GetUrl(page);
         }
 
         protected AbstractLoadableContainer(ILogger logger, IWebDriver webDriver, By locator, string url) : base(logger, webDriver, locator)

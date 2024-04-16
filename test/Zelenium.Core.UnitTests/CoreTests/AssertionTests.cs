@@ -13,14 +13,14 @@ namespace Zelenium.Core.UnitTests.CoreTests
     [TestFixture]
     public class AssertionTests
     {
-        private readonly ValidationResult testResultOk = new ValidationResult { Passed = true, Message = "Ok" };
-        private readonly ValidationResult testResultFailed = new ValidationResult { Passed = false, Message = "Not ok" };
+        private readonly ValidationResult testResultOk = new() { Passed = true, Message = "Ok" };
+        private readonly ValidationResult testResultFailed = new() { Passed = false, Message = "Not ok" };
         private Mock<ElementList<IElementContainer>> mockList;
 
         [SetUp]
         public void Setup()
         {
-            mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null, null);
+            this.mockList = new Mock<ElementList<IElementContainer>>(null, null, null, null, null, null);
         }
 
         [Test]
@@ -251,17 +251,17 @@ namespace Zelenium.Core.UnitTests.CoreTests
         [Test]
         public void WaitForCollectionNumberAreEqualsTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assertion.WaitColllectionCountAreEqual(5, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreEqual(5, this.mockList.Object, "mock list");
         }
 
         [Test]
         public void WaitForCollectionNumberAreEqualsNegativeTest()
         {
-            mockList.Setup(x => x.Count).Returns(1);
+            this.mockList.Setup(x => x.Count).Returns(1);
 
-            Assert.That(() => Assertion.WaitColllectionCountAreEqual(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreEqual(5, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                 Throws.TypeOf<WebDriverTimeoutException>()
                 .With.Message.Contains("mock list"));
         }
@@ -269,17 +269,17 @@ namespace Zelenium.Core.UnitTests.CoreTests
         [Test]
         public void WaitForCollectionNumberAreNotEqualsTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assertion.WaitColllectionCountAreNotEqual(1, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreNotEqual(1, this.mockList.Object, "mock list");
         }
 
         [Test]
         public void WaitForCollectionNumberAreNotEqualsNegativeTest()
         {
-            mockList.Setup(x => x.Count).Returns(1);
+            this.mockList.Setup(x => x.Count).Returns(1);
 
-            Assert.That(() => Assertion.WaitColllectionCountAreNotEqual(1, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreNotEqual(1, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                 Throws.TypeOf<WebDriverTimeoutException>()
                 .With.Message.Contains("mock list"));
         }
@@ -287,21 +287,21 @@ namespace Zelenium.Core.UnitTests.CoreTests
         [Test]
         public void WaitColllectionCountAreGreaterTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assertion.WaitColllectionCountAreGreater(4, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreGreater(4, this.mockList.Object, "mock list");
         }
 
         [Test]
         public void WaitColllectionCountAreGreaterNegativeTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assert.That(() => Assertion.WaitColllectionCountAreGreater(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreGreater(5, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                 Throws.TypeOf<WebDriverTimeoutException>()
                 .With.Message.Contains("mock list"));
 
-            Assert.That(() => Assertion.WaitColllectionCountAreGreater(6, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreGreater(6, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                 Throws.TypeOf<WebDriverTimeoutException>()
                 .With.Message.Contains("mock list"));
         }
@@ -309,20 +309,20 @@ namespace Zelenium.Core.UnitTests.CoreTests
         [Test]
         public void WaitColllectionCountAreLessTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assertion.WaitColllectionCountAreLess(6, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreLess(6, this.mockList.Object, "mock list");
         }
 
         [Test]
         public void WaitColllectionCountAreLessNegativeTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assert.That(() => Assertion.WaitColllectionCountAreLess(5, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreLess(5, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                 Throws.TypeOf<WebDriverTimeoutException>()
                 .With.Message.Contains("mock list"));
-            Assert.That(() => Assertion.WaitColllectionCountAreLess(4, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreLess(4, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                Throws.TypeOf<WebDriverTimeoutException>()
                .With.Message.Contains("mock list"));
         }
@@ -330,18 +330,18 @@ namespace Zelenium.Core.UnitTests.CoreTests
         [Test]
         public void WaitColllectionCountAreLessOrEqualTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assertion.WaitColllectionCountAreLessOrEqual(5, mockList.Object, "mock list");
-            Assertion.WaitColllectionCountAreLessOrEqual(6, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreLessOrEqual(5, this.mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreLessOrEqual(6, this.mockList.Object, "mock list");
         }
 
         [Test]
         public void WaitColllectionCountAreLessOrEqualNegativeTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assert.That(() => Assertion.WaitColllectionCountAreLess(4, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreLess(4, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                 Throws.TypeOf<WebDriverTimeoutException>()
                 .With.Message.Contains("mock list"));
         }
@@ -349,18 +349,18 @@ namespace Zelenium.Core.UnitTests.CoreTests
         [Test]
         public void WaitColllectionCountAreGreaterOrEqualTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assertion.WaitColllectionCountAreGreaterOrEqual(4, mockList.Object, "mock list");
-            Assertion.WaitColllectionCountAreGreaterOrEqual(5, mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreGreaterOrEqual(4, this.mockList.Object, "mock list");
+            Assertion.WaitColllectionCountAreGreaterOrEqual(5, this.mockList.Object, "mock list");
         }
 
         [Test]
         public void WaitColllectionCountAreGreaterOrEqualNegativeTest()
         {
-            mockList.Setup(x => x.Count).Returns(5);
+            this.mockList.Setup(x => x.Count).Returns(5);
 
-            Assert.That(() => Assertion.WaitColllectionCountAreGreaterOrEqual(6, mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
+            Assert.That(() => Assertion.WaitColllectionCountAreGreaterOrEqual(6, this.mockList.Object, "mock list", TimeSpan.FromSeconds(1)),
                 Throws.TypeOf<WebDriverTimeoutException>()
                 .With.Message.Contains("mock list"));
         }

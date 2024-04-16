@@ -76,7 +76,7 @@ namespace Zelenium.Core.WebDriver.Types
         /// <param name="text"></param>
         public virtual void SendKeysSpecial(string text)
         {
-            this.Do(() => this.Finder.GetWebElement().SendKeys(text));
+            Do(() => this.Finder.GetWebElement().SendKeys(text));
         }
 
         private string Normalize(string s)

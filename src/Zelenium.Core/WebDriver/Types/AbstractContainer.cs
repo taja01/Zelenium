@@ -7,12 +7,8 @@ using Zelenium.Core.Model;
 
 namespace Zelenium.Core.WebDriver.Types
 {
-    public abstract class AbstractContainer : AbstractElement
+    public abstract class AbstractContainer(ILogger logger, IWebDriver webDriver, By locator) : AbstractElement(logger, webDriver, locator)
     {
-        protected AbstractContainer(ILogger logger, IWebDriver webDriver, By locator) : base(logger, webDriver, locator)
-        {
-        }
-
         protected T Find<T>(By locator, TimeSpan? timeout = null) where T : IElementContainer
         {
             var elementContainer = (T)Activator.CreateInstance(typeof(T), this.logger, this.webDriver, locator);

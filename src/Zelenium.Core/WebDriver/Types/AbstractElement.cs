@@ -30,18 +30,18 @@ namespace Zelenium.Core.WebDriver.Types
         public IElementFinder Finder { get; set; }
         public IWebElement WebElement => this.Finder.GetWebElement();
         public IWebElement DisplayedWebElement => this.Finder.GetDisplayedWebElement();
-        public Point Location => this.Do(() => this.Finder.GetWebElement().Location);
-        public bool Displayed => this.Do(() => this.Finder.Displayed());
+        public Point Location => Do(() => this.Finder.GetWebElement().Location);
+        public bool Displayed => Do(() => this.Finder.Displayed());
         public bool Present => this.Finder.Present();
-        public bool DisplayedNow => this.Do(() => this.Finder.Displayed(TimeSpan.Zero));
+        public bool DisplayedNow => Do(() => this.Finder.Displayed(TimeSpan.Zero));
         public bool PresentNow => this.Finder.Present(TimeSpan.Zero);
         public Color BackgroundColor => this.GetBackgroundColor();
         public Color BorderColor => this.GetBorderColor();
-        public ClassAttribute Class => new ClassAttribute(this.Finder);
-        public Attributes Attributes => new Attributes(this.Finder);
+        public ClassAttribute Class => new(this.Finder);
+        public Attributes Attributes => new(this.Finder);
         public string Path => this.Finder.Path;
-        public bool Selected => this.Do(() => this.Finder.GetWebElement().Selected);
-        public bool Enabled => this.Do(() => this.Finder.GetWebElement().Enabled);
+        public bool Selected => Do(() => this.Finder.GetWebElement().Selected);
+        public bool Enabled => Do(() => this.Finder.GetWebElement().Enabled);
         public JavaScriptExecutor JavaScriptExecutor { get; private set; }
         public bool HasBeforePseudo => this.GetComputedStyle("content", ":before") != "none";
         public bool HasAfterPseudo => this.GetComputedStyle("content", ":after") != "none";
@@ -53,7 +53,7 @@ namespace Zelenium.Core.WebDriver.Types
                     {
                         try
                         {
-                            this.Do(() =>
+                            Do(() =>
                             {
                                 this.Scroll();
                                 this.WebElement.Click();
@@ -128,9 +128,9 @@ namespace Zelenium.Core.WebDriver.Types
             var color = Color.FromArgb(0, 0, 0, 0);
 
             this.Scroll();
-            this.Do(() =>
+            Do(() =>
             {
-                var cssColor = this.Do(() => this.Finder.GetDisplayedWebElement().GetCssValue(ColorNames.COLOR));
+                var cssColor = Do(() => this.Finder.GetDisplayedWebElement().GetCssValue(ColorNames.COLOR));
                 var currentColor = ColorUtil.ParseColor(cssColor);
 
                 if (currentColor.A == NOT_TRANSPARENT)
@@ -154,13 +154,13 @@ namespace Zelenium.Core.WebDriver.Types
             var color = Color.FromArgb(0, 0, 0, 0);
 
             this.Scroll();
-            this.Do(() =>
+            Do(() =>
             {
                 var elementToCheck = this.Finder.GetDisplayedWebElement();
                 do
                 {
                     var e = elementToCheck;
-                    var cssColor = this.Do(() => e.GetCssValue(ColorNames.BACKGROUND));
+                    var cssColor = Do(() => e.GetCssValue(ColorNames.BACKGROUND));
                     var currentColor = ColorUtil.ParseColor(cssColor);
 
                     if (currentColor.A != FULLY_TRANSPARENT)
@@ -175,9 +175,9 @@ namespace Zelenium.Core.WebDriver.Types
             return color;
         }
 
-        private T Do<T>(Func<T> action) => Retry.Do<StaleElementReferenceException, T>(action, delayBetweenTries: TimeConfig.TinyTimeout);
+        private static T Do<T>(Func<T> action) => Retry.Do<StaleElementReferenceException, T>(action, delayBetweenTries: TimeConfig.TinyTimeout);
 
-        protected void Do(Action action)
+        protected static void Do(Action action)
         {
             Retry.Do<StaleElementReferenceException>(action, delayBetweenTries: TimeConfig.TinyTimeout);
         }
@@ -215,17 +215,17 @@ namespace Zelenium.Core.WebDriver.Types
 
         public string GetComputedStyle(string style, string pseudo = null)
         {
-            return this.Do(() => this.JavaScriptExecutor.Get<string>(BaseQueries.GetComputedStyle(style, pseudo), this));
+            return Do(() => this.JavaScriptExecutor.Get<string>(BaseQueries.GetComputedStyle(style, pseudo), this));
         }
 
         public string GetCssValue(string propertyName)
         {
-            return this.Do(() => this.Finder.GetWebElement().GetCssValue(propertyName));
+            return Do(() => this.Finder.GetWebElement().GetCssValue(propertyName));
         }
 
         public Color GetColor(string propertyName)
         {
-            var cssColor = this.Do(() => this.Finder.GetWebElement().GetCssValue(propertyName));
+            var cssColor = Do(() => this.Finder.GetWebElement().GetCssValue(propertyName));
             return ColorUtil.ParseColor(cssColor);
         }
 
