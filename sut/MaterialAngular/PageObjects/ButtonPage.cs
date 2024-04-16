@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using Zelenium.Core.Model;
 using Zelenium.Core.WebDriver.Types;
@@ -19,19 +20,14 @@ namespace MaterialAngular.PageObjects
 
         public override ValidationResult IsLoaded()
         {
-            if (!this.Displayed)
-            {
-                return new ValidationResult { Passed = false, Message = $"Page not loaded Path:{this.Path}" };
-            }
-            if (!this.ButtonOverview.Displayed)
-            {
-                return new ValidationResult { Passed = false, Message = $"ButtonOverview not loaded Path:{this.ButtonOverview.Path}" };
-            }
-            if (!this.Header.Displayed)
-            {
-                return new ValidationResult { Passed = false, Message = $"Header not loaded: Path{this.Header.Path}" };
-            }
-            return new ValidationResult { Passed = true, Message = "Ok" };
+            (Func<bool> Condition, string Description)[] checks =
+        [
+            (() => this.Displayed, "Container not loaded"),
+            (() => this.ButtonOverview.Displayed, "ButtonOverview not loaded"),
+            (() => this.Header.Displayed, "Header not loaded"),
+        ];
+
+            return base.CheckAllLoaded(checks);
         }
     }
 

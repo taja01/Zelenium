@@ -35,6 +35,19 @@ namespace Zelenium.Core.WebDriver.Types
             return new ElementList<T>(this.logger, this.webDriver, this.Finder, locator, timeout, true);
         }
 
+        protected ValidationResult CheckAllLoaded((Func<bool> Condition, string Description)[] checks)
+        {
+            foreach (var (Condition, Description) in checks)
+            {
+                if (!Condition())
+                {
+                    return new ValidationResult { Passed = false, Message = $"{Description}: {this.Path}" };
+                }
+            }
+
+            return new ValidationResult { Passed = true, Message = "Ok" };
+        }
+
         public virtual void WaitForLoad(TimeSpan? timeout = null)
         {
             Wait.Initialize()
