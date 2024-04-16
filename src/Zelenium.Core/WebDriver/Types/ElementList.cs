@@ -9,27 +9,17 @@ using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver.Types
 {
-    public class ElementList<T> : IEnumerable<T> where T : IElementContainer
+    public class ElementList<T>(ILogger logger, IWebDriver webDriver, IElementFinder finder, By locator, TimeSpan? timeout, bool isShadow = false) : IEnumerable<T> where T : IElementContainer
     {
-        private readonly ILogger logger;
-        private readonly IWebDriver webDriver;
-        private readonly IElementFinder finder;
-        private readonly By locator;
-        private readonly TimeSpan timeout;
-        private readonly bool isShadow;
-
-        public ElementList(ILogger logger, IWebDriver webDriver, IElementFinder finder, By locator, TimeSpan? timeout, bool isShadow = false)
-        {
-            this.logger = logger;
-            this.webDriver = webDriver;
-            this.finder = finder;
-            this.locator = locator;
-            this.timeout = timeout ?? TimeSpan.FromSeconds(5);
-            this.isShadow = isShadow;
-        }
+        private readonly ILogger logger = logger;
+        private readonly IWebDriver webDriver = webDriver;
+        private readonly IElementFinder finder = finder;
+        private readonly By locator = locator;
+        private readonly TimeSpan timeout = timeout ?? TimeSpan.FromSeconds(5);
+        private readonly bool isShadow = isShadow;
 
         public string Path => $"{this.finder.Path} {this.locator}";
-        public virtual int Count => this.Elements.Count();
+        public virtual int Count => this.Elements.Count;
         public T this[int index] => this.GetElement(index);
 
         public List<T> Elements
@@ -44,7 +34,7 @@ namespace Zelenium.Core.WebDriver.Types
                 }
                 catch (WebDriverTimeoutException)
                 {
-                    return new List<T>();
+                    return [];
                 }
             }
         }
@@ -56,7 +46,7 @@ namespace Zelenium.Core.WebDriver.Types
 
         public IEnumerator<T> GetEnumerator()
         {
-            if (this.Elements.Any())
+            if (this.Elements.Count != 0)
             {
                 return this.Elements.GetEnumerator();
             }
@@ -69,7 +59,7 @@ namespace Zelenium.Core.WebDriver.Types
                 ? this.FindShadowMultiElements()
                 : this.FindMultiElements();
 
-            if (!elements.Any())
+            if (elements.Count == 0)
             {
                 return null;
             }
@@ -85,29 +75,21 @@ namespace Zelenium.Core.WebDriver.Types
             return typedList.ToList();
         }
 
-        private IReadOnlyCollection<IWebElement> FindMultiElements()
+        private List<IWebElement> FindMultiElements()
         {
             return this.finder == null
-                ? this.webDriver.FindElements(this.locator)
-                : this.finder.GetWebElement().FindElements(this.locator);
+                ? [.. this.webDriver.FindElements(this.locator)]
+                : [.. this.finder.GetWebElement().FindElements(this.locator)];
         }
 
-        private IReadOnlyCollection<IWebElement> FindShadowMultiElements()
+        private List<IWebElement> FindShadowMultiElements()
         {
             var list = ((IJavaScriptExecutor)this.webDriver)
-                   .ExecuteScript(BaseQueries.GetShadowElements(this.locator.Criteria).Script, this.finder.GetWebElement());
-            var newList = new List<IWebElement>();
-            if (list is IEnumerable myList)
-            {
+                 .ExecuteScript(BaseQueries.GetShadowElements(this.locator.Criteria).Script, this.finder.GetWebElement());
 
-                foreach (var item in myList)
-                {
-                    newList.Add((IWebElement)item);
-                }
-                return newList;
-            }
-
-            return null;
+            return list is IEnumerable myList
+                ? myList.OfType<IWebElement>().ToList()
+                : null;
         }
 
         private T GetElement(int index)

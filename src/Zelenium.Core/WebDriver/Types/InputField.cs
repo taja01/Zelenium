@@ -8,11 +8,8 @@ namespace Zelenium.Core.WebDriver.Types
     /// <summary>
     /// Use for: Input and TextArea html elements
     /// </summary>
-    public class InputField : Element
+    public class InputField(ILogger logger, IWebDriver webDriver, By locator = null) : Element(logger, webDriver, locator)
     {
-        public InputField(ILogger logger, IWebDriver webDriver, By locator = null) : base(logger, webDriver, locator)
-        {
-        }
 
         /// <summary>
         /// Return input field 'Value' property

@@ -6,15 +6,11 @@ using OpenQA.Selenium;
 
 namespace Zelenium.Core.WebDriver.Types
 {
-    public class SelectElement : Element
+    public class SelectElement(ILogger logger, IWebDriver webDriver, By by = null) : Element(logger, webDriver, by)
     {
         private const string Attribute = "value";
-        public SelectElement(ILogger logger, IWebDriver webDriver, By by = null) : base(logger, webDriver, by)
-        {
 
-        }
-
-        private OpenQA.Selenium.Support.UI.SelectElement selectElement => new OpenQA.Selenium.Support.UI.SelectElement(this.WebElement);
+        private OpenQA.Selenium.Support.UI.SelectElement selectElement => new(this.WebElement);
 
         /// <summary>
         /// Deselect all options

@@ -6,12 +6,8 @@ using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.WebDriver.Types
 {
-    public class Element : AbstractElement, IElement
+    public class Element(ILogger logger, IWebDriver webDriver, By by = null) : AbstractElement(logger, webDriver, by), IElement
     {
-        public Element(ILogger logger, IWebDriver webDriver, By by = null)
-            : base(logger, webDriver, by)
-        {
-        }
 
         /// <summary>
         /// Get element's text

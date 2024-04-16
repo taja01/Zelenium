@@ -55,7 +55,5 @@ namespace Zelenium.Core.UnitTests.CoreTests
 
             return base.CheckAllLoaded(checks);
         }
-
-
     }
 }
