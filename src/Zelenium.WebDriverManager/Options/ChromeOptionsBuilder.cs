@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using OpenQA.Selenium.Chrome;
-using Zelenium.Core.Enums;
+using Zelenium.Shared;
 
 namespace Zelenium.WebDriverManager.Options
 {

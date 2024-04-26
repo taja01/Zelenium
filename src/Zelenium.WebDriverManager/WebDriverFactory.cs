@@ -5,7 +5,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
-using Zelenium.Core.Enums;
+using Zelenium.Shared;
 using Zelenium.WebDriverManager.Options;
 
 namespace Zelenium.WebDriverManager

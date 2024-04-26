@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using Zelenium.Core.Enums;
+using Zelenium.Shared;
 using static Zelenium.Core.Utils.ElementUtil;
 
 namespace Zelenium.Core.UnitTests.CoreTests

@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.Extension.Screensh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zelenium.Extension.Screenshot.Tests", "test\Zelenium.Extension.Screenshot.Tests\Zelenium.Extension.Screenshot.Tests.csproj", "{1442DA23-ED34-4896-944F-18051B6EA9CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zelenium.Shared", "src\Zelenium.Shared\Zelenium.Shared.csproj", "{3F5E0451-237C-44D7-B157-EA62639CF8D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{1442DA23-ED34-4896-944F-18051B6EA9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1442DA23-ED34-4896-944F-18051B6EA9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1442DA23-ED34-4896-944F-18051B6EA9CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5E0451-237C-44D7-B157-EA62639CF8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5E0451-237C-44D7-B157-EA62639CF8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5E0451-237C-44D7-B157-EA62639CF8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5E0451-237C-44D7-B157-EA62639CF8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{F2BA7CE9-D38A-4C70-848E-9EE599D5D04B} = {E5F0C2B3-BBD1-4636-8EF6-3A75ACC44249}
 		{F228C941-C1A4-4686-A89F-C3259856AAD9} = {E5F0C2B3-BBD1-4636-8EF6-3A75ACC44249}
 		{1442DA23-ED34-4896-944F-18051B6EA9CF} = {7D9F3145-76F9-4208-B791-FFD27E7A79F7}
+		{3F5E0451-237C-44D7-B157-EA62639CF8D9} = {E5F0C2B3-BBD1-4636-8EF6-3A75ACC44249}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FCC6C77-E70F-4478-87CE-8858AA588EBA}

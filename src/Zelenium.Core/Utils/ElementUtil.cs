@@ -5,6 +5,7 @@ using Zelenium.Core.Config;
 using Zelenium.Core.Enums;
 using Zelenium.Core.Interfaces;
 using Zelenium.Core.WebDriver;
+using Zelenium.Shared;
 
 namespace Zelenium.Core.Utils
 {
