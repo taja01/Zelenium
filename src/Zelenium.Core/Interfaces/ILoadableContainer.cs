@@ -1,5 +1,4 @@
 ﻿using System;
-using Zelenium.Core.Model;
 
 namespace Zelenium.Core.Interfaces
 {
@@ -8,6 +7,5 @@ namespace Zelenium.Core.Interfaces
         void Load();
         void Load(string urlSegmens);
         void WaitForLoad(TimeSpan? timeout = null);
-        ValidationResult IsLoaded();
     }
 }

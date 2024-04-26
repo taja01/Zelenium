@@ -3,6 +3,7 @@ using System.Drawing;
 using OpenQA.Selenium;
 using Zelenium.Core.Enums;
 using Zelenium.Core.Helper;
+using Zelenium.Core.Model;
 using Zelenium.Core.Utils;
 using Zelenium.Core.WebDriver;
 
@@ -24,6 +25,7 @@ namespace Zelenium.Core.Interfaces
         string Path { get; }
         JavaScriptExecutor JavaScriptExecutor { get; }
 
+        ValidationResult AreAllSubElementsDisplayed();
         bool IsDisappeared(TimeSpan? timeout = null);
         void Click(ClickMethod clickMethod);
         void WaitUntilDisappear(string errorMessage, TimeSpan? timeout = null);

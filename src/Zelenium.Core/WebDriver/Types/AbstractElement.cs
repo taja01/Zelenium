@@ -8,6 +8,7 @@ using Zelenium.Core.Config;
 using Zelenium.Core.Enums;
 using Zelenium.Core.Helper;
 using Zelenium.Core.Interfaces;
+using Zelenium.Core.Model;
 using Zelenium.Core.Utils;
 
 namespace Zelenium.Core.WebDriver.Types
@@ -271,6 +272,16 @@ namespace Zelenium.Core.WebDriver.Types
                 this.logger.LogError(ex, "GetBorderColor");
                 throw ex;
             }
+        }
+
+        public virtual ValidationResult AreAllSubElementsDisplayed()
+        {
+            if (!this.Displayed)
+            {
+                return new ValidationResult { Passed = false, Message = $"Container not loaded: {this.Path}" };
+            }
+
+            return new ValidationResult { Passed = true, Message = "Ok" };
         }
     }
 }

@@ -8,13 +8,9 @@ using Wait = Zelenium.Core.WebDriver.Wait;
 
 namespace Zelenium.Core.Utils
 {
-    public class JavaScriptExecutor
+    public class JavaScriptExecutor(IWebDriver driver)
     {
-        private readonly IJavaScriptExecutor executor;
-        public JavaScriptExecutor(IWebDriver driver)
-        {
-            this.executor = (IJavaScriptExecutor)driver;
-        }
+        private readonly IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
 
         public string Query(JsQuery jsQuery, Func<string, bool> condition = null)
         {
@@ -79,11 +75,9 @@ namespace Zelenium.Core.Utils
                     ? this.executor.ExecuteScript(script)
                     : this.executor.ExecuteScript(script, obj.Finder.GetWebElement());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-#pragma warning disable CA2200 // Rethrow to preserve stack details
-                throw e;
-#pragma warning restore CA2200 // Rethrow to preserve stack details
+                throw;
             }
         }
 

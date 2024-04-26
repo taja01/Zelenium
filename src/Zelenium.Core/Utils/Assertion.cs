@@ -105,6 +105,16 @@ namespace Zelenium.Core.Utils
             Assert.That(validationResult.Passed, Is.True, validationResult.Message);
         }
 
+        public static void IsLoaded(IElementContainer elementContainer)
+        {
+            IsTrue(elementContainer.AreAllSubElementsDisplayed());
+        }
+
+        public static void IsLoaded(IElementContainer elementContainer, string message)
+        {
+            IsTrue(elementContainer.AreAllSubElementsDisplayed(), message);
+        }
+
         public static void IsTrue(ValidationResult validationResult, string message)
         {
             Assert.That(validationResult.Passed, Is.True, $"{message}: {validationResult.Message}");
@@ -178,9 +188,9 @@ namespace Zelenium.Core.Utils
             return Pass();
         }
 
-        private static ValidationResult Fail(string message) => new ValidationResult { Message = message, Passed = false };
+        private static ValidationResult Fail(string message) => new() { Message = message, Passed = false };
 
-        private static ValidationResult Pass() => new ValidationResult { Message = "OK", Passed = true };
+        private static ValidationResult Pass() => new() { Message = "OK", Passed = true };
     }
 }
 
