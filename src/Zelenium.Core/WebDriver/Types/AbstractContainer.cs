@@ -103,11 +103,14 @@ namespace Zelenium.Core.WebDriver.Types
         /// <param name="timeout">The maximum amount of time to wait for the page to load. Defaults to a predefined long timeout (30 seconds) if not provided.</param>
         /// <remarks>
         /// Calls the IsLoaded method to validate if the page has loaded successfully. If the page does not load within the timeout, an exception is thrown with the message "Cannot load page".
+        /// This method uses a retry mechanism until the IsLoaded condition returns true.
+        /// It ignores NoSuchElementException and StaleElementReferenceException types while waiting.
         /// </remarks>
         public virtual void WaitForLoad(TimeSpan? timeout = null)
         {
             Wait.Initialize()
                 .Message("Cannot load page")
+                .IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException))
                 .Timeout(timeout ?? TimeConfig.LongTimeout)
                 .Until(this.IsLoaded, t => t.Passed, t => t.Message);
         }
