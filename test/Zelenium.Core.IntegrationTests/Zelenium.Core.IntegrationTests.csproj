@@ -16,7 +16,7 @@
     <PackageReference Include="NUnit" Version="4.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="124.0.6367.9100" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="125.0.6422.6000" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.34.0" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
