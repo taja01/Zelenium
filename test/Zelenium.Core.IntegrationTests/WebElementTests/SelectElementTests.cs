@@ -35,7 +35,7 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         }
 
         [Test]
-        public void SetByIndex()
+        public void SetByIndexTest()
         {
             var options = this.page.NativeSelect.GetAllOptions();
 
@@ -45,7 +45,7 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         }
 
         [Test]
-        public void SetByValue()
+        public void SetByValueGTest()
         {
             var options = this.page.NativeSelect.GetAllOptions();
 
