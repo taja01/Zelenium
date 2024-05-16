@@ -24,7 +24,7 @@ namespace Zelenium.Core.WebDriver.Types
         /// Set by Index
         /// </summary>
         /// <param name="index"></param>
-        public void SetByIndex(int index)
+        public virtual void SetByIndex(int index)
         {
             if (index >= 0 || index < this.Count)
             {
@@ -40,10 +40,10 @@ namespace Zelenium.Core.WebDriver.Types
         /// Set by translated value
         /// </summary>
         /// <param name="text"></param>
-        public void SetByText(string text)
+        public virtual void SetByText(string text)
         {
             Wait.Initialize()
-                .Message($"Text '{text}' not exist in options")
+                .Message($"Text '{text}' not exist in options. Path: {this.Path}")
                 .Until(() => this.selectElement.Options.FirstOrDefault(x => x.Text == text));
 
             this.selectElement.SelectByText(text);
@@ -59,10 +59,10 @@ namespace Zelenium.Core.WebDriver.Types
         /// Set by value attribute
         /// </summary>
         /// <param name="value"></param>
-        public void SetByValue(string value)
+        public virtual void SetByValue(string value)
         {
             Wait.Initialize()
-               .Message($"Value '{value}' not exist in options")
+               .Message($"Value '{value}' not exist in options. Path: {this.Path}")
                .Until(() => this.selectElement.Options.FirstOrDefault(x => x.GetAttribute("value") == value));
 
             this.selectElement.SelectByValue(value);
@@ -70,7 +70,7 @@ namespace Zelenium.Core.WebDriver.Types
             var currentValue = this.SelectedValue.Trim();
             if (!currentValue.Equals(value.Trim()))
             {
-                throw new Exception($"'{nameof(this.SetByValue)}' failed to set value to '{value}', it was: '{currentValue}'");
+                throw new Exception($"'{nameof(this.SetByValue)}' failed to set value to '{value}', it was: '{currentValue}' Path: {this.Path}");
             }
         }
 
