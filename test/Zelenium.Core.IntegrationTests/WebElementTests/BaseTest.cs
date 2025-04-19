@@ -16,7 +16,7 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         [SetUp]
         public void OneTimeBaseSetup()
         {
-            this.driver = WebDriverFactory.GetWebDriver(Browser.Chrome, runInHeadlessMode: false, useModHeader: false);
+            this.driver = WebDriverFactory.GetWebDriver(Browser.Chrome, runInHeadlessMode: true, useModHeader: false);
             this.driver.Manage().Window.Maximize();
         }
 
