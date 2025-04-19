@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics;
-using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using Serilog;
-using TestPage.Pages;
 using Zelenium.Core.Config;
 
 namespace Zelenium.Core.IntegrationTests.WebElementTests
@@ -11,23 +8,9 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
     [TestFixture]
     public class InputFieldTests : BaseTest
     {
-        private MainPage mainPage;
-        private ILogger<InputFieldTests> logger;
-
-        [OneTimeSetUp]
-        public void TestSetup()
-        {
-            this.loggerFactory = new LoggerFactory().AddSerilog();
-            this.logger = this.loggerFactory.CreateLogger<InputFieldTests>();
-        }
-
         [SetUp]
         public void SetUp()
         {
-            this.mainPage = new MainPage(this.logger, this.driver);
-            this.mainPage.Load();
-            Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
-
             this.mainPage.InputFieldsSection.Click();
         }
 

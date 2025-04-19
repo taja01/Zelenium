@@ -1,18 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Logging;
 using NUnit.Framework;
-using Serilog;
-using TestPage.Pages;
 using SelectElement = Zelenium.Core.WebDriver.Types.SelectElement;
 
 namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     public class ComboboxTests : BaseTest
     {
-        private MainPage mainPage;
-        private ILogger<ComboboxTests> logger;
-
         private SelectElement LangageSelector => this.mainPage.ComboboxSection.LanguageSelector;
 
         private static readonly Dictionary<string, string> ComboBoxOptions = new()
@@ -23,20 +17,9 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
             { "option3", "Hungarian" }
         };
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            this.logger = loggerFactory.CreateLogger<ComboboxTests>();
-        }
-
         [SetUp]
         public void SetUp()
         {
-            this.mainPage = new MainPage(this.logger, this.driver);
-            this.mainPage.Load();
-            Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
-
             this.mainPage.ComboboxSection.Click();
         }
 

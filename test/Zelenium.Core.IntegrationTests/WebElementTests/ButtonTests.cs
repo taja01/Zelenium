@@ -1,35 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using Serilog;
-using TestPage.Pages;
 
 namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class ButtonTests : BaseTest
     {
-        private MainPage mainPage;
-        private ILogger<ButtonTests> logger;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            this.logger = loggerFactory.CreateLogger<ButtonTests>();
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            this.mainPage = new MainPage(this.logger, this.driver);
-            this.mainPage.Load();
-            Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
-
-            // clear logs. wtf
-            this.driver.Manage().Logs.GetLog(LogType.Browser);
-        }
-
         [Test]
         public void AlertButtonTest()
         {
@@ -77,6 +54,8 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
             logs = this.driver.Manage().Logs.GetLog(LogType.Browser);
             Assert.That(logs, Has.Count.EqualTo(1));
             Assert.That(logs[0].Message, Does.Contain("Generated error: Are you happy?"));
+
+            this.logger.LogInformation("Console logs: {@logs}", logs);
         }
     }
 }

@@ -1,30 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using NUnit.Framework;
-using Serilog;
-using TestPage.Pages;
+﻿using NUnit.Framework;
 
 namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     [TestFixture]
     public class CheckboxTests : BaseTest
     {
-        private MainPage mainPage;
-        private ILogger<CheckboxTests> logger;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            this.logger = loggerFactory.CreateLogger<CheckboxTests>();
-        }
-
         [SetUp]
         public void SetUp()
         {
-            this.mainPage = new MainPage(this.logger, this.driver);
-            this.mainPage.Load();
-            Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
-
             this.mainPage.CheckBoxSection.Click();
         }
 

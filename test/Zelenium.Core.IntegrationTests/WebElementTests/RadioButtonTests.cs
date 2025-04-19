@@ -1,29 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
-using NUnit.Framework;
-using Serilog;
-using TestPage.Pages;
+﻿using NUnit.Framework;
 
 namespace Zelenium.Core.IntegrationTests.WebElementTests
 {
     public class RadioButtonTests : BaseTest
     {
-        private MainPage mainPage;
-        private ILogger<RadioButtonTests> logger;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            this.logger = loggerFactory.CreateLogger<RadioButtonTests>();
-        }
-
         [SetUp]
         public void SetUp()
         {
-            this.mainPage = new MainPage(this.logger, this.driver);
-            this.mainPage.Load();
-            Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
-
             this.mainPage.RadioButtonsSection.Click();
         }
 

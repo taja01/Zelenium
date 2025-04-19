@@ -9,24 +9,6 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
     [TestFixture]
     public class ClickTests : BaseTest
     {
-        private MainPage mainPage;
-        private ILogger<ClickTests> logger;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            this.logger = loggerFactory.CreateLogger<ClickTests>();
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            this.mainPage = new MainPage(this.logger, this.driver);
-            this.mainPage.Load();
-            Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
-        }
-
         [Test]
         public void ClickTest()
         {
