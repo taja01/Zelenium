@@ -14,7 +14,7 @@ namespace TestPage.Pages
         public CheckBoxSection CheckBoxSection => this.Find<CheckBoxSection>(locator: By.CssSelector("[data-testid='checkboxes']"));
         public InputFieldsSection InputFieldsSection => this.Find<InputFieldsSection>(locator: By.CssSelector("[data-testid='input-fields']"));
         public RadioButtonContainer RadioButtonsSection => this.Find<RadioButtonContainer>(locator: By.CssSelector("[data-testid='radio-buttons']"));
-
+        public ComboboxSection ComboboxSection => this.Find<ComboboxSection>(By.CssSelector("[data-testid='combobox-/-dropdown']"));
 
         public override ValidationResult IsLoaded()
         {

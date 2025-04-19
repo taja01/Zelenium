@@ -23,7 +23,7 @@ namespace TestPage.Pages.Components
                 (() => this.GenerateErrorButton.Displayed, "GenerateErrorButton not loaded"),
         ];
 
-            return base.CheckAllLoaded(checks);
+            return base.IsLoaded().Merge(base.CheckAllLoaded(checks));
         }
     }
 }
