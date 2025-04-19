@@ -25,6 +25,9 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
             this.mainPage = new MainPage(this.logger, this.driver);
             this.mainPage.Load();
             Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
+
+            // clear logs. wtf
+            this.driver.Manage().Logs.GetLog(LogType.Browser);
         }
 
         [Test]
@@ -60,6 +63,20 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
             this.mainPage.ButtonSection.RemoveListItemButton.Click();
 
             Assert.That(this.mainPage.ButtonSection.DynamicList, Has.Count.EqualTo(0));
+        }
+
+        [Test]
+        public void ButtonConsoleError_Test()
+        {
+            var logs = this.driver.Manage().Logs.GetLog(LogType.Browser);
+            Assert.That(logs, Has.Count.EqualTo(0));
+
+            this.mainPage.ButtonSection.GenerateErrorButton.Click();
+
+
+            logs = this.driver.Manage().Logs.GetLog(LogType.Browser);
+            Assert.That(logs, Has.Count.EqualTo(1));
+            Assert.That(logs[0].Message, Does.Contain("Generated error: Are you happy?"));
         }
     }
 }
