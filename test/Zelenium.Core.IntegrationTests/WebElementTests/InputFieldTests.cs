@@ -24,6 +24,18 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         }
 
         [Test]
+        public void DisabledFieldTest()
+        {
+            Assert.That(this.mainPage.InputFieldsSection.DisabledField.Enabled, Is.False);
+        }
+
+        [Test]
+        public void EnbledFieldTest()
+        {
+            Assert.That(this.GenericInputField.Enabled, Is.True);
+        }
+
+        [Test]
         public void WriteInputFieldTest()
         {
             var newText = "apple";
