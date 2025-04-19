@@ -8,6 +8,9 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
     [TestFixture]
     public class InputFieldTests : BaseTest
     {
+        private WebDriver.Types.InputField GenericInputField => this.mainPage.InputFieldsSection.GenericField;
+        private WebDriver.Types.InputField TextArea => this.mainPage.InputFieldsSection.TextArea;
+
         [SetUp]
         public void SetUp()
         {
@@ -24,16 +27,16 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         public void WriteInputFieldTest()
         {
             var newText = "apple";
-            this.mainPage.InputFieldsSection.GenericField.SendKeys(newText);
-            Assert.That(this.mainPage.InputFieldsSection.GenericField.Text, Is.EqualTo(newText));
+            this.GenericInputField.SendKeys(newText);
+            Assert.That(this.GenericInputField.Text, Is.EqualTo(newText));
         }
 
         [Test]
         public void WriteTextAreaTest()
         {
             var newText = "apple\nbananna";
-            this.mainPage.InputFieldsSection.TextArea.Clear();
-            this.mainPage.InputFieldsSection.TextArea.SendKeys(newText);
+            this.TextArea.Clear();
+            this.TextArea.SendKeys(newText);
         }
 
         [Test]
@@ -41,30 +44,31 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         {
             var newText = "apple";
 
-            this.mainPage.InputFieldsSection.GenericField.SendKeys(newText);
-            this.mainPage.InputFieldsSection.GenericField.Clear();
 
-            Assert.That(this.mainPage.InputFieldsSection.GenericField.Text, Is.EqualTo(string.Empty));
+            this.GenericInputField.SendKeys(newText);
+            this.GenericInputField.Clear();
+
+            Assert.That(this.GenericInputField.Text, Is.EqualTo(string.Empty));
         }
 
         [Test]
         public void WriteInputFieldExceptionTest()
         {
             var newText = "apple\napple";
-            Assert.Throws<WebDriverTimeoutException>(() => this.mainPage.InputFieldsSection.GenericField.SendKeys(newText));
+            Assert.Throws<WebDriverTimeoutException>(() => this.GenericInputField.SendKeys(newText));
         }
 
         [Test]
         public void HasAnyTextTest()
         {
-            Assert.That(this.mainPage.InputFieldsSection.TextArea.HasAnyText(), Is.True);
+            Assert.That(this.TextArea.HasAnyText(), Is.True);
         }
 
         [Test]
         public void HasAnyTextFalseTest()
         {
-            this.mainPage.InputFieldsSection.GenericField.Clear();
-            Assert.That(this.mainPage.InputFieldsSection.GenericField.HasAnyText(), Is.False);
+            this.GenericInputField.Clear();
+            Assert.That(this.GenericInputField.HasAnyText(), Is.False);
         }
 
         [Test]
@@ -72,7 +76,7 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            Assert.That(this.mainPage.InputFieldsSection.GenericField.HasAnyText(), Is.False);
+            Assert.That(this.GenericInputField.HasAnyText(), Is.False);
 
             sw.Stop();
 
@@ -84,7 +88,7 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         {
             var sw = new Stopwatch();
             sw.Start();
-            Assert.That(this.mainPage.InputFieldsSection.GenericField.HasAnyText(TimeConfig.DefaultTimeout), Is.False);
+            Assert.That(this.GenericInputField.HasAnyText(TimeConfig.DefaultTimeout), Is.False);
 
             sw.Stop();
 
