@@ -60,7 +60,7 @@ namespace Zelenium.Core.WebDriver.Types
                 {
                     this.Clear();
                     this.Finder.GetDisplayedWebElement().SendKeys(text);
-                    return String.Compare(this.Normalize(this.Text), this.Normalize(text), StringComparison.OrdinalIgnoreCase) == 0;
+                    return String.Compare(Normalize(this.Text), Normalize(text), StringComparison.OrdinalIgnoreCase) == 0;
 
                 });
         }
@@ -76,7 +76,7 @@ namespace Zelenium.Core.WebDriver.Types
             Do(() => this.Finder.GetWebElement().SendKeys(text));
         }
 
-        private string Normalize(string s)
+        private static string Normalize(string s)
         {
             return Regex.Replace(s, @"\s+", " ", RegexOptions.Multiline).Trim();
         }

@@ -1,9 +1,9 @@
-﻿using MaterialAngular.PageObjects;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using TestPage.Pages;
 using Zelenium.Core.Utils;
 using Zelenium.WebDriverManager;
 
@@ -12,9 +12,9 @@ namespace Zelenium.Core.IntegrationTests.WebdriverManagerTests
     [TestFixture]
     public class BrowserTests
     {
-        private ButtonPage buttonPage;
+        private MainPage mainPage;
         private IWebDriver driver;
-        private ILogger<ButtonPage> logger;
+        private ILogger<MainPage> logger;
 
         [OneTimeSetUp]
         public void Setup()
@@ -25,7 +25,7 @@ namespace Zelenium.Core.IntegrationTests.WebdriverManagerTests
                 .CreateLogger();
 
             var loggerFactory = new LoggerFactory().AddSerilog();
-            this.logger = loggerFactory.CreateLogger<ButtonPage>();
+            this.logger = loggerFactory.CreateLogger<MainPage>();
         }
 
         [OneTimeTearDown]
@@ -43,9 +43,9 @@ namespace Zelenium.Core.IntegrationTests.WebdriverManagerTests
 
             this.driver = WebDriverFactory.GetWebDriver(browser, runInHeadlessMode: false, useModHeader: false);
             this.driver.Manage().Window.Maximize();
-            this.buttonPage = new ButtonPage(this.logger, this.driver);
-            this.buttonPage.Load();
-            Assertion.IsTrue(this.buttonPage.IsLoaded(), "Load test page");
+            this.mainPage = new MainPage(this.logger, this.driver);
+            this.mainPage.Load();
+            Assertion.IsTrue(this.mainPage.IsLoaded(), "Load test page");
         }
 
         [TearDown]

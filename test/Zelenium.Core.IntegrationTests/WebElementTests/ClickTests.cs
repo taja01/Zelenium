@@ -1,8 +1,7 @@
-﻿using MaterialAngular.PageObjects;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
+using TestPage.Pages;
 using Zelenium.Core.WebDriver;
 
 namespace Zelenium.Core.IntegrationTests.WebElementTests
@@ -10,7 +9,7 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
     [TestFixture]
     public class ClickTests : BaseTest
     {
-        private ButtonPage buttonPage;
+        private MainPage mainPage;
         private ILogger<ClickTests> logger;
 
         [OneTimeSetUp]
@@ -23,43 +22,43 @@ namespace Zelenium.Core.IntegrationTests.WebElementTests
         [SetUp]
         public void SetUp()
         {
-            this.buttonPage = new ButtonPage(this.logger, this.driver);
-            this.buttonPage.Load();
-            Assert.That(this.buttonPage.IsLoaded().Passed, Is.True);
+            this.mainPage = new MainPage(this.logger, this.driver);
+            this.mainPage.Load();
+            Assert.That(this.mainPage.IsLoaded().Passed, Is.True);
         }
 
         [Test]
         public void ClickTest()
         {
-            this.buttonPage.Header.CdkButton.Click();
+            this.mainPage.NavBar.LoginButton.Click();
 
             Wait.Initialize()
-                .Message("Url does not contains 'cdk'")
-                .Until(() => this.driver.Url == "https://material.angular.io/cdk/categories");
+                .Message("Browser not redirected to Login page")
+                .Until(() => this.driver.Url == "https://taja01.github.io/testpage/login.html");
         }
 
         [Test]
         public void JsClickTest()
         {
-            this.buttonPage.Header.CdkButton.Click(Enums.ClickMethod.JavaScript);
+            this.mainPage.NavBar.LoginButton.Click(Enums.ClickMethod.JavaScript);
 
             Wait.Initialize()
-                .Message("Url does not contains 'cdk'")
-                .Until(() => this.driver.Url == "https://material.angular.io/cdk/categories");
+                .Message("Browser not redirected to Login page")
+                .Until(() => this.driver.Url == "https://taja01.github.io/testpage/login.html");
         }
 
         [Test]
         public void OpenNewTabTest()
         {
-            this.buttonPage.Header.CdkButton.Click(Enums.ClickMethod.NewTab);
+            this.mainPage.NavBar.LoginButton.Click(Enums.ClickMethod.NewTab);
 
             var windows = this.driver.WindowHandles;
             Assert.That(windows.Count, Is.EqualTo(2));
 
             this.driver.SwitchTo().Window(windows[1]);
             Wait.Initialize()
-                .Message("Url does not contains 'cdk'")
-                .Until(() => this.driver.Url == "https://material.angular.io/cdk/categories");
+                .Message("Browser not redirected to Login page")
+                .Until(() => this.driver.Url == "https://taja01.github.io/testpage/login.html");
         }
     }
 }
