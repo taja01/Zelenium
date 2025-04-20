@@ -15,6 +15,7 @@ namespace TestPage.Pages
         public InputFieldsSection InputFieldsSection => this.Find<InputFieldsSection>(locator: By.CssSelector("[data-testid='input-fields']"));
         public RadioButtonContainer RadioButtonsSection => this.Find<RadioButtonContainer>(locator: By.CssSelector("[data-testid='radio-buttons']"));
         public ComboboxSection ComboboxSection => this.Find<ComboboxSection>(By.CssSelector("[data-testid='combobox-/-dropdown']"));
+        public ContrastsSection ContrastsSection => this.Find<ContrastsSection>(By.CssSelector("[data-testid='text-with-different-background']"));
 
         public override ValidationResult IsLoaded()
         {
@@ -24,8 +25,8 @@ namespace TestPage.Pages
                 (() => this.Title.Displayed, $"{nameof(this.Title)} not loaded"),
                 (() => this.ButtonSection.Displayed , $"{nameof(this.ButtonSection)} not loaded"),
                 (() => this.CheckBoxSection.Displayed, $"{nameof(this.CheckBoxSection)} not loaded"),
-                (() => this.InputFieldsSection.Displayed, $"{nameof(this.InputFieldsSection)} not loaded")
-
+                (() => this.InputFieldsSection.Displayed, $"{nameof(this.InputFieldsSection)} not loaded"),
+                (() => this.ContrastsSection.Displayed, $"{nameof(this.ContrastsSection)} not loaded")
                 ];
 
             return base.CheckAllLoaded(checks);
