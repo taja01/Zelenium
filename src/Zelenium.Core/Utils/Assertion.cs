@@ -180,10 +180,9 @@ namespace Zelenium.Core.Utils
             if (!ColorUtil.IsReadable(color, backgroundColor, readabilityLevel))
             {
 
-                return Fail($"{message} | {Environment.NewLine}"
-                            + $"Contrast ratio ({ColorUtil.GetReadability(color, backgroundColor)}) of the given color pair is below the limit ({readabilityLevel}) | {Environment.NewLine}"
-                            + $"Color: {ColorUtil.ToRgbString(color)}, {ColorUtil.ToHexString(color)} | {Environment.NewLine}"
-                            + $"Background color: {ColorUtil.ToRgbString(backgroundColor)}, {ColorUtil.ToHexString(backgroundColor)}");
+                string errorMessage = $@"{message} Contrast ratio ({ColorUtil.GetReadability(color, backgroundColor)}) of the given color pair is below the limit ({readabilityLevel}) Color: {ColorUtil.ToRgbString(color)}, {ColorUtil.ToHexString(color)} Background color: {ColorUtil.ToRgbString(backgroundColor)}, {ColorUtil.ToHexString(backgroundColor)}";
+
+                return Fail(errorMessage);
             }
             return Pass();
         }

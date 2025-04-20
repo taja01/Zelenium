@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 
 namespace Zelenium.Core.Utils
 {
@@ -19,10 +20,14 @@ namespace Zelenium.Core.Utils
 
         public static double GetReadability(Color color1, Color color2)
         {
-            var b1 = GetLuminance(color1);
-            var b2 = GetLuminance(color2);
-            return Parse.Round((Math.Max(b1, b2) + 0.05) /
-                   (Math.Min(b1, b2) + 0.05));
+            double lum1 = GetLuminance(color1); double lum2 = GetLuminance(color2);
+
+            double lighter = Math.Max(lum1, lum2);
+            double darker = Math.Min(lum1, lum2);
+
+            double contrastRatio = (lighter + 0.05) / (darker + 0.05);
+
+            return Math.Round(contrastRatio, 2, MidpointRounding.AwayFromZero);
         }
 
         public static double GetLuminance(string color)
@@ -30,14 +35,28 @@ namespace Zelenium.Core.Utils
             return GetLuminance(ParseColor(color));
         }
 
-        public static double GetLuminance(Color color)
+        public static double GetLuminance(Color color, Color? background = null)
         {
-            double rs = (double)color.R / 255;
-            double gs = (double)color.G / 255;
-            double bs = (double)color.B / 255;
-            var r = (rs <= 0.03928) ? rs / 12.92 : Math.Pow((rs + 0.055) / 1.055, 2.4);
-            var g = (gs <= 0.03928) ? gs / 12.92 : Math.Pow((gs + 0.055) / 1.055, 2.4);
-            var b = (bs <= 0.03928) ? bs / 12.92 : Math.Pow((bs + 0.055) / 1.055, 2.4);
+            Color bgColor = background ?? Color.White;
+
+            if (color.A < 255)
+            {
+                double alpha = color.A / 255.0;
+
+                int compositeR = (int)Math.Round((alpha * color.R) + ((1 - alpha) * bgColor.R));
+                int compositeG = (int)Math.Round((alpha * color.G) + ((1 - alpha) * bgColor.G));
+                int compositeB = (int)Math.Round((alpha * color.B) + ((1 - alpha) * bgColor.B));
+
+                color = Color.FromArgb(255, compositeR, compositeG, compositeB);
+            }
+
+            double rs = color.R / 255.0;
+            double gs = color.G / 255.0;
+            double bs = color.B / 255.0;
+
+            double r = (rs <= 0.03928) ? rs / 12.92 : Math.Pow((rs + 0.055) / 1.055, 2.4);
+            double g = (gs <= 0.03928) ? gs / 12.92 : Math.Pow((gs + 0.055) / 1.055, 2.4);
+            double b = (bs <= 0.03928) ? bs / 12.92 : Math.Pow((bs + 0.055) / 1.055, 2.4);
 
             return 0.2126 * r + 0.7152 * g + 0.0722 * b;
         }
@@ -54,69 +73,87 @@ namespace Zelenium.Core.Utils
 
         public static Color ParseColor(string cssColor)
         {
+            if (string.IsNullOrWhiteSpace(cssColor))
+                throw new ArgumentNullException(nameof(cssColor));
+
             cssColor = cssColor.Trim();
 
             if (cssColor.StartsWith("#"))
             {
                 return ColorTranslator.FromHtml(cssColor);
             }
-
-            if (cssColor.StartsWith("rgb")) //rgb or rgba
+            else if (cssColor.StartsWith("rgb", StringComparison.OrdinalIgnoreCase))
             {
-                var left = cssColor.IndexOf('(');
-                var right = cssColor.IndexOf(')');
+                int left = cssColor.IndexOf('(');
+                int right = cssColor.IndexOf(')');
 
-                if (left < 0 || right < 0)
+                if (left < 0 || right < 0 || right <= left)
                 {
-                    throw new FormatException("rgba format error");
+                    throw new FormatException("Invalid rgb/rgba format: Missing or misordered parentheses.");
                 }
 
                 string noBrackets = cssColor.Substring(left + 1, right - left - 1);
 
-                string[] parts = noBrackets.Split(',');
+                var parts = noBrackets
+                                .Split([','], StringSplitOptions.RemoveEmptyEntries)
+                                .Select(p => p.Trim())
+                                .ToArray();
 
-                var r = int.Parse(parts[0], CultureInfo.InvariantCulture);
-                var g = int.Parse(parts[1], CultureInfo.InvariantCulture);
-                var b = int.Parse(parts[2], CultureInfo.InvariantCulture);
+                if (parts.Length < 3)
+                {
+                    throw new FormatException("Invalid rgb/rgba format: Not enough color components.");
+                }
+
+                if (!int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out int r) ||
+                    !int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out int g) ||
+                    !int.TryParse(parts[2], NumberStyles.Integer, CultureInfo.InvariantCulture, out int b))
+                {
+                    throw new FormatException("Invalid rgb values.");
+                }
 
                 if (parts.Length == 3)
                 {
                     return Color.FromArgb(r, g, b);
                 }
-                if (parts.Length == 4)
+                else if (parts.Length >= 4)
                 {
-                    var a = float.Parse(parts[3], CultureInfo.InvariantCulture);
+                    if (!float.TryParse(parts[3], NumberStyles.Float, CultureInfo.InvariantCulture, out float a))
+                    {
+                        throw new FormatException("Invalid alpha value.");
+                    }
                     return Color.FromArgb((int)(a * 255), r, g, b);
                 }
             }
-            throw new FormatException("Not rgb, rgba or hex color string");
+
+            throw new FormatException("Color string must be in hex, rgb, or rgba format.");
         }
 
         public static Color Blend(Color color1, Color color2)
         {
-            static decimal F(decimal channel1, decimal channel2, decimal alpha1, decimal alpha2, decimal unionAlpha)
+            decimal a1 = color1.A / 255m; decimal a2 = color2.A / 255m;
+            decimal aOut = a1 + a2 * (1 - a1);
+
+            if (aOut == 0)
             {
-                return decimal.Round(((channel1 * alpha1) + (channel2 * alpha2) * (1 - alpha1)) / unionAlpha, 0, MidpointRounding.AwayFromZero);
+                return Color.FromArgb(0, 0, 0, 0);
             }
 
-            var a1 = (decimal)color1.A / 255;
-            var a2 = (decimal)color2.A / 255;
-            var a = a1 + a2 * (1 - a1);
+            int r = (int)Math.Round(((color1.R * a1) + (color2.R * a2 * (1 - a1))) / aOut, MidpointRounding.AwayFromZero);
+            int g = (int)Math.Round(((color1.G * a1) + (color2.G * a2 * (1 - a1))) / aOut, MidpointRounding.AwayFromZero);
+            int b = (int)Math.Round(((color1.B * a1) + (color2.B * a2 * (1 - a1))) / aOut, MidpointRounding.AwayFromZero);
+            int aFinal = (int)Math.Round(aOut * 255, MidpointRounding.AwayFromZero);
 
-            var r = (int)F(color1.R, color2.R, a1, a2, a);
-            var g = (int)F(color1.G, color2.G, a1, a2, a);
-            var b = (int)F(color1.B, color2.B, a1, a2, a);
-            return Color.FromArgb((int)(a * 255), r, g, b);
+            return Color.FromArgb(aFinal, r, g, b);
         }
 
         public static string ToHexString(Color color)
         {
-            return "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
+            return $"#{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
         }
 
         public static string ToRgbString(Color color)
         {
-            return "RGB(" + color.R + "," + color.G + "," + color.B + ")";
+            return $"RGBA({color.R},{color.G},{color.B},{color.A})";
         }
     }
 }
