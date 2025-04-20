@@ -5,7 +5,7 @@ using Zelenium.Core.WebDriver.Types;
 
 namespace TestPage.Pages.Components
 {
-    public class RadioButtonContainer(ILogger logger, IWebDriver webDriver, By locator) : BaseSectionContainer(logger, webDriver, locator)
+    public class RadioButtonSection(ILogger logger, IWebDriver webDriver, By locator) : BaseSectionContainer(logger, webDriver, locator)
     {
         public InputField Radio1 => this.Find<InputField>(By.Id("radio1"));
         public InputField Radio2 => this.Find<InputField>(By.Id("radio2"));

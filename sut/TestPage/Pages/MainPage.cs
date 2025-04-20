@@ -13,7 +13,7 @@ namespace TestPage.Pages
         public ButtonSection ButtonSection => this.Find<ButtonSection>(By.CssSelector("[data-testid='buttons']"));
         public CheckBoxSection CheckBoxSection => this.Find<CheckBoxSection>(locator: By.CssSelector("[data-testid='checkboxes']"));
         public InputFieldsSection InputFieldsSection => this.Find<InputFieldsSection>(locator: By.CssSelector("[data-testid='input-fields']"));
-        public RadioButtonContainer RadioButtonsSection => this.Find<RadioButtonContainer>(locator: By.CssSelector("[data-testid='radio-buttons']"));
+        public RadioButtonSection RadioButtonsSection => this.Find<RadioButtonSection>(locator: By.CssSelector("[data-testid='radio-buttons']"));
         public ComboboxSection ComboboxSection => this.Find<ComboboxSection>(By.CssSelector("[data-testid='combobox-/-dropdown']"));
         public ContrastsSection ContrastsSection => this.Find<ContrastsSection>(By.CssSelector("[data-testid='text-with-different-background']"));
 
