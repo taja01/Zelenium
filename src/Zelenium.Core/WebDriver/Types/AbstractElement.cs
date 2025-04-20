@@ -169,7 +169,14 @@ namespace Zelenium.Core.WebDriver.Types
                         color = ColorUtil.Blend(color, currentColor);
                     }
 
-                    elementToCheck = elementToCheck.FindElement(By.XPath(".."));
+                    try
+                    {
+                        elementToCheck = elementToCheck.FindElement(By.XPath(".."));
+                    }
+                    catch (InvalidSelectorException)
+                    {
+                        break;
+                    }
 
                 } while (color.A != NOT_TRANSPARENT);
             });
