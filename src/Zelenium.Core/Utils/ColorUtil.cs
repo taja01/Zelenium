@@ -78,7 +78,7 @@ namespace Zelenium.Core.Utils
 
             cssColor = cssColor.Trim();
 
-            if (cssColor.StartsWith("#"))
+            if (cssColor.StartsWith('#'))
             {
                 return ColorTranslator.FromHtml(cssColor);
             }

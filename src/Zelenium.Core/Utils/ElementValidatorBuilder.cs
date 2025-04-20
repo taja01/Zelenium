@@ -5,16 +5,10 @@ using Zelenium.Core.Interfaces;
 
 namespace Zelenium.Core.Utils
 {
-    public class ElementValidatorBuilder
+    public class ElementValidatorBuilder(IElement element, string message)
     {
-        private readonly IElement element;
-        private readonly string message;
-
-        public ElementValidatorBuilder(IElement element, string message)
-        {
-            this.element = element;
-            this.message = message;
-        }
+        private readonly IElement element = element;
+        private readonly string message = message;
 
         public ElementValidatorBuilder IsDisplayed()
         {
